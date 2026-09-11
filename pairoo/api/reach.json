@@ -1,7 +1,7 @@
 {
- "generated_at": 1789166991,
+ "generated_at": 1789168701,
  "states": {
-  "live": "Working end to end",
+  "live": "Answering now",
   "testing": "Connected, in testing",
   "waiting": "Credentials in place, access pending",
   "built": "Adapter built, access pending",
@@ -11,9 +11,9 @@
   {
    "id": "telegram",
    "name": "Telegram",
-   "state": "built",
+   "state": "live",
    "url": "https://t.me/pairoobot",
-   "note": "Bot authenticated, adapter complete. Its worker is not running, so nobody is answered there yet."
+   "note": "Answering today through the OpenClaw gateway, which long-polls mentions for @pairoobot."
   },
   {
    "id": "x",
@@ -57,28 +57,28 @@
    "name": "Solana",
    "via": "pump.fun",
    "state": "testing",
-   "note": "Atomic launch simulation verified against NVDAX. Signing gate not enabled yet."
+   "note": "Executor built and the plan simulates byte-identical to the frozen report. No signature has been produced yet: the launch key is not on the host."
   },
   {
    "id": "solana-stonkfun",
    "name": "Solana",
    "via": "StonkFun",
    "state": "planned",
-   "note": "Legacy integration. The 80/20 split is not enforced in its prepare payload."
+   "note": "Verified 2026-09-11: the platform cannot bind an 80/20 split — no API field, fees accrue to one wallet, and we sign a payment rather than the launch."
   },
   {
    "id": "robinhood",
    "name": "Robinhood Chain",
    "via": "Pons",
-   "state": "planned",
-   "note": "Split contract exists locally. Not deployed and not audited on chain."
+   "state": "built",
+   "note": "Split contract compiled and reviewed locally. Not deployed, and the EVM wallet holds no funds."
   },
   {
    "id": "bsc",
    "name": "BNB Chain",
    "via": "four.meme",
-   "state": "planned",
-   "note": "Official launch API and contracts not integrated."
+   "state": "built",
+   "note": "Adapter written against the deployed contract; createToken confirmed on chain. The createArg encoding is published nowhere, so nothing is signed."
   }
  ],
  "roadmap": [
