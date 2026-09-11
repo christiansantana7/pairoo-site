@@ -4,53 +4,52 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#2B2B2E">
+<meta name="theme-color" content="#FFC91E">
 <title>Data deletion request — Pairoo</title>
 <link rel="icon" href="/assets/favicon-32.png" sizes="32x32">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Archivo+Black&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--wall:#2B2B2E;--wall-2:#232326;--black:#0E0E10;--chalk:#FFC91E;
- --chalk-60:rgba(255,201,30,.68);--chalk-30:rgba(255,201,30,.4);--hair:rgba(255,201,30,.2);
- --yellow:#FFC91E;--disp:'Big Shoulders Display',Impact,sans-serif;--tag:'Pixo Reto SP',sans-serif;
+:root{--yellow:#FFC91E;--ink:#101214;--ink-70:rgba(16,18,20,.72);--ink-40:rgba(16,18,20,.42);
+ --hair:rgba(16,18,20,.18);--cream:#FFF6DE;
+ --disp:'Archivo Black',Impact,sans-serif;--sans:Archivo,system-ui,sans-serif;
  --mono:'JetBrains Mono',ui-monospace,monospace}
-@font-face{font-family:'Pixo Reto SP';src:url('/assets/pixoretosp.woff2') format('woff2');
- font-weight:400;font-style:normal;font-display:swap}
 *{box-sizing:border-box}
-body{margin:0;background:var(--wall);color:var(--yellow);font:13.5px/1.85 var(--mono);-webkit-font-smoothing:antialiased}
-body:after{content:'';position:fixed;inset:0;z-index:99;pointer-events:none;opacity:.34;mix-blend-mode:overlay;
- background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E")}
-a{color:var(--yellow);text-decoration:none;border-bottom:1px solid rgba(255,201,30,.4)}
-a:hover{border-color:var(--yellow)}
-::selection{background:var(--yellow);color:var(--black)}
-:focus-visible{outline:2px solid var(--yellow);outline-offset:3px}
-header{border-bottom:3px solid var(--black)}
-.wrap{width:min(700px,calc(100% - 44px));margin:auto;position:relative;z-index:1}
-.head-in{display:flex;align-items:center;justify-content:space-between;height:58px;gap:16px}
-.brand{font-family:var(--tag);font-weight:400;font-size:38px;line-height:1;text-transform:uppercase;
- letter-spacing:.04em;color:var(--yellow);text-decoration:none;border:0}
+body{margin:0;background:var(--yellow);color:var(--ink);font:15px/1.72 var(--sans);-webkit-font-smoothing:antialiased}
+body:after{content:'';position:fixed;inset:0;z-index:99;pointer-events:none;opacity:.22;mix-blend-mode:multiply;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E")}
+a{color:var(--ink);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:2px}
+::selection{background:var(--ink);color:var(--yellow)}
+:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+header{border-bottom:3px solid var(--ink)}
+.wrap{width:min(720px,calc(100% - 44px));margin:auto;position:relative;z-index:1}
+.head-in{display:flex;align-items:center;justify-content:space-between;height:62px;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-size:23px;
+ text-transform:uppercase;letter-spacing:-.04em;text-decoration:none}
+.brand img{width:30px;height:30px;display:block}
 nav{display:flex;gap:18px}
-nav a{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--chalk-60);border:0}
-nav a:hover{color:var(--yellow)}
-main{padding:52px 0 72px}
-h1{font-family:var(--disp);font-weight:900;text-transform:uppercase;font-size:clamp(40px,6.8vw,70px);
- line-height:.9;letter-spacing:-.012em;margin:0 0 28px;color:var(--yellow)}
-h2{font-family:var(--disp);font-weight:800;text-transform:uppercase;font-size:28px;line-height:1;color:var(--yellow);
- margin:44px 0 14px;padding-bottom:10px;border-bottom:3px solid var(--black)}
-p{margin:0 0 18px;color:var(--chalk-60)}
-p strong{color:var(--chalk);font-weight:700}
-p.draft{font-size:11.5px;line-height:1.85;color:var(--chalk-60);background:var(--wall-2);
- border-left:4px solid var(--yellow);padding:14px 16px;margin-bottom:30px}
-ol{margin:0 0 18px;padding-left:22px;color:var(--chalk-60)}
+nav a{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+ color:var(--ink-70);text-decoration:none}
+nav a:hover{color:var(--ink)}
+main{padding:50px 0 70px}
+h1{font-family:var(--disp);text-transform:uppercase;font-size:clamp(34px,5.4vw,58px);line-height:.94;
+ letter-spacing:-.035em;margin:0 0 26px}
+h2{font-family:var(--disp);text-transform:uppercase;font-size:22px;line-height:1.1;letter-spacing:-.03em;
+ margin:40px 0 14px;padding-bottom:10px;border-bottom:3px solid var(--ink)}
+p{margin:0 0 18px;color:var(--ink-70)}
+p strong{color:var(--ink);font-weight:700}
+p.draft{font-family:var(--mono);font-size:11.5px;line-height:1.8;color:var(--ink-70);background:var(--cream);
+ border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:14px 16px;margin-bottom:32px}
+ol{margin:0 0 18px;padding-left:22px;color:var(--ink-70)}
 li{margin-bottom:12px}
-footer{border-top:3px solid var(--black);padding:20px 0 44px;font-size:10px;
- letter-spacing:.16em;text-transform:uppercase;color:var(--chalk-60)}
+footer{background:var(--ink);color:var(--yellow);padding:22px 0 42px;
+ font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
 </style>
 </head>
 <body>
 <header><div class="wrap head-in">
-<a class="brand" href="/"><img src="/assets/mark.webp" alt="" width="24" height="24">Pairoobot</a>
+<a class="brand" href="/"><img src="/assets/mark.webp" alt="" width="30" height="30">Pairoobot</a>
 <nav><a href="/pairoo/terms">Terms</a><a href="/pairoo/privacy">Privacy</a><a href="/pairoo/data-deletion">Data deletion</a></nav>
 </div></header>
 <main><div class="wrap">

@@ -3,185 +3,180 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#26262A">
+<meta name="theme-color" content="#FFC91E">
 <title>Pairoobot — launch a coin from a message</title>
 <meta name="description" content="Mention Pairoobot with a name, a ticker and a pair. It launches your coin on Solana, trading against a tokenized asset instead of SOL.">
 <meta property="og:title" content="Pairoobot">
 <meta property="og:description" content="Launch a coin from a message. Paired with a real asset, not SOL.">
-<meta property="og:image" content="https://www.pairoo.xyz/assets/og-tag.webp">
+<meta property="og:image" content="https://www.pairoo.xyz/assets/og-brand.webp">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/assets/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" href="/assets/pixoretosp.woff2" as="font" type="font/woff2" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Archivo+Black&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-/* Pixo Reto SP — Bruno Corrente, SIL OFL. Letra de pixação de SP.
-   Ver /assets/FONT-LICENSE.txt */
-@font-face{font-family:'Pixo Reto SP';src:url('/assets/pixoretosp.woff2') format('woff2');
-  font-weight:400;font-style:normal;font-display:swap}
-
 :root{
-  --wall:#2B2B2E; --wall-2:#232326; --wall-3:#33333799; --black:#0E0E10;
-  --yellow:#FFC91E; --chalk:#FFC91E;
-  --chalk-60:rgba(255,201,30,.68); --chalk-30:rgba(255,201,30,.4);
-  --hair:rgba(255,201,30,.2);
-  --disp:'Big Shoulders Display',Impact,sans-serif;
-  --tag:'Pixo Reto SP','Big Shoulders Display',sans-serif;
+  --yellow:#FFC91E; --yellow-2:#F5B800; --ink:#101214; --ink-2:#16181A;
+  --ink-70:rgba(16,18,20,.72); --ink-40:rgba(16,18,20,.42); --hair:rgba(16,18,20,.18);
+  --cream:#FFF6DE;
+  --disp:'Archivo Black',Impact,sans-serif; --sans:Archivo,system-ui,sans-serif;
   --mono:'JetBrains Mono',ui-monospace,monospace;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:60px}
-body{margin:0;background:var(--wall);color:var(--yellow);
-  font:14px/1.7 var(--mono);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-/* parede: grão grosso + manchas */
-body:before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
-  background:radial-gradient(120% 80% at 15% 0%,rgba(255,255,255,.05),transparent 60%),
-             radial-gradient(90% 70% at 90% 100%,rgba(0,0,0,.3),transparent 55%)}
-body:after{content:'';position:fixed;inset:0;z-index:99;pointer-events:none;opacity:.34;
-  mix-blend-mode:overlay;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E")}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--yellow);color:var(--ink);
+  font:15px/1.62 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+/* papel do banner: grão fino, sem virar ruído */
+body:after{content:'';position:fixed;inset:0;z-index:99;pointer-events:none;opacity:.22;
+  mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E")}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-::selection{background:var(--yellow);color:var(--black)}
-:focus-visible{outline:2px solid var(--yellow);outline-offset:3px}
-.wrap{width:min(1100px,calc(100% - 44px));margin:auto;position:relative;z-index:1}
-.skip{position:absolute;top:-60px;left:12px;background:var(--yellow);color:var(--black);padding:10px 14px;z-index:100}
+::selection{background:var(--ink);color:var(--yellow)}
+:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.wrap{width:min(1140px,calc(100% - 44px));margin:auto;position:relative;z-index:1}
+.skip{position:absolute;top:-60px;left:12px;background:var(--ink);color:var(--yellow);padding:10px 14px;z-index:100}
 .skip:focus{top:10px}
-h1,h2,h3{margin:0;font-family:var(--disp);font-weight:900;text-transform:uppercase;
-  letter-spacing:-.005em;line-height:.86}
-.lab{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--chalk-60)}
+h1,h2,h3{margin:0;font-family:var(--disp);font-weight:400;text-transform:uppercase;
+  letter-spacing:-.028em;line-height:.92}
+.lab{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-40)}
 
-header{position:sticky;top:0;z-index:60;background:rgba(43,43,46,.92);backdrop-filter:blur(8px);
-  border-bottom:3px solid var(--black)}
-.head-in{display:flex;align-items:center;justify-content:space-between;height:58px;gap:20px}
-.brand{display:flex;align-items:baseline;gap:11px;font-family:var(--tag);font-weight:400;
-  font-size:38px;line-height:1;text-transform:uppercase;letter-spacing:.04em;color:var(--yellow)}
-.brand i{font-family:var(--mono);font-size:9px;letter-spacing:.22em;font-style:normal;color:var(--chalk-30)}
-nav{display:flex;align-items:center;gap:24px}
-nav a.nav-link{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--chalk-60)}
-nav a.nav-link:hover{color:var(--yellow)}
-@media(max-width:860px){nav .nav-link{display:none}}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border:0;
-  font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
-  background:var(--yellow);color:var(--black);transition:background .12s,color .12s,opacity .12s}
-.btn:hover{opacity:.82}
-.btn.ghost{background:transparent;color:var(--chalk);box-shadow:inset 0 0 0 2px var(--chalk-30)}
-.btn.ghost:hover{background:var(--chalk);color:var(--black);box-shadow:none}
+header{position:sticky;top:0;z-index:60;background:rgba(255,201,30,.94);backdrop-filter:blur(8px);
+  border-bottom:3px solid var(--ink)}
+.head-in{display:flex;align-items:center;justify-content:space-between;height:62px;gap:20px}
+.brand{position:relative;display:flex;align-items:center;gap:10px;font-family:var(--disp);
+  font-size:23px;text-transform:uppercase;letter-spacing:-.04em}
+.brand img.mk{width:30px;height:30px;display:block}
+.brand .crown{position:absolute;left:20px;top:-13px;width:26px;opacity:.9;transform:rotate(-8deg)}
+nav{display:flex;align-items:center;gap:22px}
+nav a.nav-link{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+nav a.nav-link:hover{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px}
+@media(max-width:900px){nav .nav-link{display:none}}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border:3px solid var(--ink);
+  background:var(--ink);color:var(--yellow);font-family:var(--mono);font-size:11px;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--yellow);transform:none;box-shadow:none}
 
-.hero{display:grid;grid-template-columns:1.3fr .7fr;gap:24px;align-items:end;padding:66px 0 34px}
-@media(max-width:900px){.hero{grid-template-columns:1fr;padding:44px 0 24px}}
-/* o título ocupa a parede: linhas coladas, letras quase se tocando */
-h1{font-size:clamp(56px,10vw,138px);letter-spacing:-.012em}
-h1 mark{position:relative;background:var(--yellow);color:var(--black);padding:0 .06em;box-decoration-break:clone}
-h1 mark:after{content:'';position:absolute;left:0;right:0;top:100%;height:18px;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='18' preserveAspectRatio='none'%3E%3Cpath d='M8 0v11a3 3 0 006 0V0zM46 0v15a3 3 0 006 0V0zM92 0v7a2.5 2.5 0 005 0V0z' fill='%23FFC91E'/%3E%3C/svg%3E")}
-.hero p{font-size:13.5px;line-height:1.85;max-width:52ch;margin:30px 0 0;color:var(--chalk-60)}
-.hero-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
-.hero-art{position:relative;margin-bottom:-6px}
-.hero-art img{width:100%;max-width:290px;height:auto;display:block;margin-left:auto;opacity:.95}
-@media(max-width:900px){.hero-art{display:none}}
+.hero{display:grid;grid-template-columns:1.12fr .88fr;gap:26px;align-items:center;padding:58px 0 26px}
+@media(max-width:900px){.hero{grid-template-columns:1fr;padding:40px 0 20px}}
+h1{font-size:clamp(44px,7.2vw,94px)}
+.swash{display:block;width:min(430px,86%);margin:14px 0 20px;opacity:.92}
+.hero p{font-size:16px;max-width:46ch;margin:0;color:var(--ink-70);font-weight:500}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.hero-art{position:relative;display:grid;place-items:center}
+.hero-art img.bird{width:min(100%,390px);height:auto;display:block;
+  filter:drop-shadow(14px 18px 0 rgba(16,18,20,.14))}
+.hero-art img.lines{position:absolute;left:2%;top:6%;width:76px;opacity:.85}
+@media(max-width:900px){.hero-art{max-width:300px;margin:0 auto}.hero-art img.lines{display:none}}
 
-.meta{display:flex;flex-wrap:wrap;border-top:3px solid var(--black);border-bottom:1px solid var(--hair)}
-.meta div{flex:1 1 180px;padding:13px 0 13px 16px;border-left:1px solid var(--hair)}
+.meta{display:flex;flex-wrap:wrap;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink)}
+.meta div{flex:1 1 180px;padding:14px 0 14px 16px;border-left:2px solid var(--hair)}
 .meta div:first-child{padding-left:0;border-left:0}
-.meta b{display:block;font-family:var(--disp);font-weight:900;font-size:32px;line-height:1;margin-top:6px}
+.meta b{display:block;font-family:var(--disp);font-size:30px;line-height:1;margin-top:6px;letter-spacing:-.03em}
 
-.cmd{margin:42px 0 0;background:var(--wall-2);box-shadow:inset 0 0 0 1px var(--hair)}
-.cmd-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 14px;border-bottom:1px solid var(--hair)}
-.cmd-body{padding:20px 16px;font-size:14px;line-height:1.85;word-break:break-word}
-.cmd-body b{font-weight:700;color:var(--yellow)}
-.cmd-body mark{background:var(--yellow);color:var(--black);padding:1px 5px}
-.cur{display:inline-block;width:9px;height:1.05em;background:var(--yellow);vertical-align:-2px;animation:b 1.1s steps(1) infinite}
+.cmd{margin:38px 0 0;background:var(--cream);border:3px solid var(--ink);box-shadow:9px 9px 0 var(--ink)}
+.cmd-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;
+  background:var(--ink);color:var(--yellow)}
+.cmd-body{padding:20px 18px;font-family:var(--mono);font-size:14px;line-height:1.8;word-break:break-word}
+.cmd-body b{font-weight:700}
+.cmd-body mark{background:var(--yellow);color:var(--ink);padding:1px 6px;box-shadow:2px 2px 0 var(--ink)}
+.cur{display:inline-block;width:9px;height:1.05em;background:var(--ink);vertical-align:-2px;animation:b 1.1s steps(1) infinite}
 @keyframes b{50%{opacity:0}}
-.copy{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
-  background:var(--yellow);color:var(--black);padding:4px 10px}
-.copy:hover{opacity:.82}
-.cmd-foot{padding:10px 16px;border-top:1px solid var(--hair);font-size:11px;color:var(--chalk-60)}
+.copy{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  background:var(--yellow);color:var(--ink);padding:5px 11px}
+.copy:hover{background:var(--cream)}
+.cmd-foot{padding:11px 18px;border-top:2px dashed var(--hair);font-family:var(--mono);font-size:11.5px;color:var(--ink-70)}
 
-section{padding:74px 0 0}
+section{padding:68px 0 0}
 .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;
-  padding-bottom:12px;border-bottom:6px solid var(--black);margin-bottom:24px}
-.sec-head h2{font-size:clamp(38px,6vw,74px)}
-.idx{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--yellow)}
+  padding-bottom:14px;border-bottom:3px solid var(--ink);margin-bottom:26px}
+.sec-head h2{font-size:clamp(30px,4.4vw,54px)}
+.idx{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--ink-40)}
 
-.dark{background:var(--wall-2);margin-top:74px;padding:58px 0 64px;
-  border-top:3px solid var(--black);border-bottom:3px solid var(--black)}
-table{width:100%;border-collapse:collapse;font-size:12.5px}
-th{text-align:left;font-weight:700;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--chalk-30);padding:0 10px 10px 0;border-bottom:2px solid var(--chalk-30)}
-td{padding:14px 10px 14px 0;border-bottom:1px solid var(--hair);vertical-align:middle}
-td.tick{font-family:var(--disp);font-weight:900;font-size:26px;letter-spacing:-.01em}
+/* faixa grafite: a única parte escura, onde vivem os dados */
+.dark{background:var(--ink-2);color:var(--yellow);margin-top:68px;padding:56px 0 62px}
+.dark .sec-head{border-color:rgba(255,201,30,.5)}
+.dark .idx,.dark .lab{color:rgba(255,201,30,.55)}
+.plats{display:flex;flex-wrap:wrap;gap:8px;margin:-8px 0 24px}
+.plat{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  padding:6px 11px;border:2px solid rgba(255,201,30,.45);color:rgba(255,201,30,.8)}
+.plat:hover{background:var(--yellow);color:var(--ink);border-color:var(--yellow)}
+.plat[data-soon]{opacity:.4;pointer-events:none}
+table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12.5px}
+th{text-align:left;font-weight:700;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,201,30,.55);padding:0 10px 10px 0;border-bottom:2px solid rgba(255,201,30,.4)}
+td{padding:14px 10px 14px 0;border-bottom:1px solid rgba(255,201,30,.16);vertical-align:middle}
+td.tick{font-family:var(--disp);font-size:22px;letter-spacing:-.03em}
 td.num{text-align:right;font-variant-numeric:tabular-nums}
-tbody tr:hover{background:var(--wall-3)}
-.eye{display:inline-flex;align-items:center;gap:6px;color:var(--chalk-60)}
+tbody tr:hover{background:rgba(255,201,30,.06)}
+.eye{display:inline-flex;align-items:center;gap:6px;opacity:.75}
 .eye svg{width:13px;height:13px}
-.pill{background:var(--yellow);color:var(--black);padding:2px 8px;font-size:10.5px;font-weight:700;letter-spacing:.08em}
-.void{padding:48px 0 8px;text-align:center}
-.void b{display:block;font-family:var(--disp);font-weight:900;text-transform:uppercase;
-  font-size:clamp(30px,5vw,52px);line-height:.9;margin-bottom:14px}
-.void span{font-size:11.5px;color:var(--chalk-60);letter-spacing:.06em}
+.pill{background:var(--yellow);color:var(--ink);padding:2px 8px;font-size:10.5px;font-weight:700}
+td .go{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  margin-left:9px;border-bottom:1px solid rgba(255,201,30,.45)}
+td .go:hover{border-color:var(--yellow)}
+.void{padding:46px 0 8px;text-align:center}
+.void b{display:block;font-family:var(--disp);text-transform:uppercase;letter-spacing:-.03em;
+  font-size:clamp(28px,4.4vw,46px);line-height:.95;margin-bottom:12px}
+.void span{font-family:var(--mono);font-size:11.5px;opacity:.7}
 
-.steps{display:grid;grid-template-columns:repeat(3,1fr)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);border:3px solid var(--ink);background:var(--cream)}
 @media(max-width:860px){.steps{grid-template-columns:1fr}}
-.step{padding:0 24px 0 0}
-.step+.step{padding-left:24px;border-left:1px solid var(--hair)}
-@media(max-width:860px){.step+.step{padding:20px 0 0;border-left:0;border-top:1px solid var(--hair);margin-top:20px}}
-.step h3{font-size:34px;margin:12px 0 10px}
-.step p{margin:0;font-size:12.5px;line-height:1.8;color:var(--chalk-60)}
+.step{padding:22px 22px 24px;border-right:3px solid var(--ink)}
+.step:last-child{border-right:0}
+@media(max-width:860px){.step{border-right:0;border-bottom:3px solid var(--ink)}.step:last-child{border-bottom:0}}
+.step .lab{display:flex;align-items:center;gap:8px;color:var(--ink-40)}
+.step .lab img{width:15px;height:auto;opacity:.8}
+.step h3{font-size:26px;margin:12px 0 8px}
+.step p{margin:0;font-size:14px;color:var(--ink-70)}
 
-.pairs{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
-.pair{display:flex;align-items:baseline;justify-content:space-between;gap:10px;width:100%;text-align:left;
-  padding:12px 14px 12px 0;border-bottom:1px solid var(--hair);font-size:12.5px}
-.pair:hover{background:var(--wall-3)}
-.pair[aria-pressed="true"] b{background:var(--yellow);color:var(--black);padding:1px 6px}
-.pair b{font-weight:700;letter-spacing:.04em}
-.pair span{font-size:11px;color:var(--chalk-30);text-align:right}
-.filters{display:flex;gap:16px}
-.filter{font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--chalk-30);padding-bottom:3px;border-bottom:3px solid transparent}
-.filter[aria-pressed="true"]{color:var(--chalk);border-color:var(--yellow)}
-.note{font-size:11px;color:var(--chalk-60);margin-top:20px;max-width:74ch;line-height:1.9}
+.pairs{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:10px;margin-top:20px}
+.pair{display:flex;flex-direction:column;gap:3px;align-items:flex-start;width:100%;text-align:left;
+  background:var(--cream);border:3px solid var(--ink);padding:11px 13px;transition:transform .1s,box-shadow .1s}
+.pair:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
+.pair[aria-pressed="true"]{background:var(--ink);color:var(--yellow)}
+.pair b{font-family:var(--mono);font-size:13.5px;font-weight:700}
+.pair span{font-size:11.5px;opacity:.62;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.filters{display:flex;border:3px solid var(--ink)}
+.filter{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  padding:8px 15px;border-right:3px solid var(--ink)}
+.filter:last-child{border-right:0}
+.filter[aria-pressed="true"]{background:var(--ink);color:var(--yellow)}
+.note{font-family:var(--mono);font-size:11px;color:var(--ink-70);margin-top:18px;max-width:74ch;line-height:1.85}
 
-.fees{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
-@media(max-width:860px){.fees{grid-template-columns:1fr;gap:26px}}
-.fees p{margin:0;font-size:12.5px;line-height:1.85;color:var(--chalk-60);max-width:50ch}
-.ratio{display:flex;align-items:baseline;gap:12px;font-family:var(--disp);font-weight:900;
-  font-size:clamp(76px,13vw,150px);line-height:.8;letter-spacing:-.02em}
-.ratio i{font-family:var(--mono);font-size:10.5px;font-style:normal;font-weight:500;
-  letter-spacing:.2em;text-transform:uppercase;color:var(--chalk-30)}
-.guard{margin-top:28px;padding-top:20px;border-top:3px solid var(--black)}
-.guard h3{font-size:32px;margin-bottom:10px}
+.fees{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center}
+@media(max-width:860px){.fees{grid-template-columns:1fr;gap:24px}}
+.fees p{margin:0;font-size:15px;color:var(--ink-70);max-width:48ch}
+.fee-bar{display:flex;height:72px;border:3px solid var(--ink);font-family:var(--disp);font-size:15px;
+  text-transform:uppercase;letter-spacing:-.02em}
+.fee-bar i{display:flex;align-items:center;justify-content:center;font-style:normal}
+.fee-bar .a{width:80%;background:var(--ink);color:var(--yellow)}
+.fee-bar .b{width:20%;background:var(--cream)}
+.guard{margin-top:26px;border-left:8px solid var(--ink);padding:2px 0 2px 18px}
+.guard h3{font-size:22px;margin-bottom:8px}
+.guard p{margin:0;font-size:14px;color:var(--ink-70);max-width:56ch}
 
-details{border-bottom:1px solid var(--hair);padding:18px 0}
+details{border-bottom:2px solid var(--hair);padding:17px 0}
+details:first-of-type{border-top:2px solid var(--hair)}
 summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;
-  font-family:var(--disp);font-weight:800;text-transform:uppercase;font-size:30px;line-height:1}
+  font-family:var(--disp);text-transform:uppercase;font-size:22px;letter-spacing:-.03em;line-height:1.1}
 summary::-webkit-details-marker{display:none}
-summary:after{content:'+';font-family:var(--mono);font-size:14px;color:var(--yellow)}
-details[open] summary:after{content:'×'}
-details p{margin:12px 0 0;font-size:12.5px;line-height:1.85;color:var(--chalk-60);max-width:72ch}
+summary:after{content:'+';font-family:var(--mono);font-size:16px}
+details[open] summary:after{content:'–'}
+details p{margin:12px 0 0;font-size:14px;color:var(--ink-70);max-width:70ch}
 
-.end{padding:84px 0 90px;text-align:center}
-.end h2{font-size:clamp(48px,9vw,120px);margin-bottom:28px}
-footer{border-top:3px solid var(--black);padding:22px 0 44px}
+.end{padding:78px 0 84px;text-align:center}
+.end h2{font-size:clamp(38px,6.4vw,82px);margin-bottom:10px}
+.end .swash{margin:0 auto 24px}
+footer{background:var(--ink);color:var(--yellow);padding:26px 0 42px}
 .foot-in{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;
-  font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--chalk-60)}
+  font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
 .foot-links{display:flex;flex-wrap:wrap;gap:18px}
-.foot-links a:hover{color:var(--yellow)}
-
-/* plataformas onde a moeda vive */
-.plats{display:flex;flex-wrap:wrap;gap:8px;margin:-6px 0 26px}
-.plat{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  padding:5px 10px;box-shadow:inset 0 0 0 1px var(--chalk-30);color:var(--chalk-60)}
-.plat:hover{color:var(--black);background:var(--yellow);box-shadow:none}
-.plat[data-soon]{opacity:.45;pointer-events:none}
-td .go{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  margin-left:8px;border-bottom:1px solid var(--chalk-30)}
-td .go:hover{border-color:var(--yellow);color:var(--yellow)}
-.tg{display:inline-flex;align-items:center;gap:7px}
-.tg b{font-weight:700;letter-spacing:.04em}
+.foot-links a:hover{text-decoration:underline;text-underline-offset:3px}
 </style>
 </head>
 <body>
@@ -189,11 +184,14 @@ td .go:hover{border-color:var(--yellow);color:var(--yellow)}
 
 <header>
   <div class="wrap head-in">
-    <a class="brand" href="/">Pairoobot <i>Solana</i></a>
+    <a class="brand" href="/">
+      <img class="crown" src="/assets/mark-crown.webp" alt="">
+      <img class="mk" src="/assets/mark.webp" alt="" width="30" height="30">Pairoobot
+    </a>
     <nav>
       <a class="nav-link" href="https://t.me/pairoobot" target="_blank" rel="noopener noreferrer">@pairoobot</a>
       <a class="nav-link" href="#coins">Coins</a>
-      <a class="nav-link" href="#how">Method</a>
+      <a class="nav-link" href="#how">How</a>
       <a class="nav-link" href="#pairs">Pairs</a>
       <a class="nav-link" href="#fees">Fees</a>
       <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1070172925631676487&amp;scope=bot+applications.commands&amp;permissions=68608" target="_blank" rel="noopener noreferrer">Add to Discord</a>
@@ -203,29 +201,33 @@ td .go:hover{border-color:var(--yellow);color:var(--yellow)}
 
 <main id="main">
 <div class="wrap">
-  <section class="hero" style="padding-top:74px">
+  <section class="hero">
     <div>
-      <span class="lab">Memecoin launcher · agent</span>
-      <h1 style="margin-top:16px">Launch a coin<br>from a <mark>message</mark></h1>
+      <span class="lab">Memecoin agent launchpad</span>
+      <h1 style="margin-top:14px">Launch a coin<br>from a message</h1>
+      <img class="swash" src="/assets/mark-swash.webp" alt="">
       <p>Mention <b>@pairoobot</b> with a name, a ticker and a pair. It creates the token on Solana — trading against a real asset instead of SOL — and replies with the link.</p>
       <div class="hero-cta">
         <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1070172925631676487&amp;scope=bot+applications.commands&amp;permissions=68608" target="_blank" rel="noopener noreferrer">Add to Discord</a>
-        <a class="btn ghost tg" href="https://t.me/pairoobot" target="_blank" rel="noopener noreferrer">Telegram <b>@pairoobot</b></a>
+        <a class="btn ghost" href="https://t.me/pairoobot" target="_blank" rel="noopener noreferrer">Telegram @pairoobot</a>
         <a class="btn ghost" href="https://x.com/pairoobot" target="_blank" rel="noopener noreferrer">X</a>
       </div>
     </div>
-    <div class="hero-art"><img src="/assets/bird-pixo.webp" alt="Pairoobot" width="290" height="399"></div>
+    <div class="hero-art">
+      <img class="lines" src="/assets/mark-lines.webp" alt="">
+      <img class="bird" src="/assets/bird-clean.webp" alt="Pairoobot" width="390" height="537">
+    </div>
   </section>
 
   <div class="meta">
     <div><span class="lab">Coins launched</span><b id="m-coins">—</b></div>
     <div><span class="lab">Pairs listed</span><b id="m-pairs">—</b></div>
     <div><span class="lab">Creator share</span><b>80%</b></div>
-    <div><span class="lab">Channels</span><b>Discord · TG · X</b></div>
+    <div><span class="lab">Channels</span><b>DC · TG · X</b></div>
   </div>
 
   <div class="cmd">
-    <div class="cmd-top"><span class="lab">Your launch message</span><button class="copy" id="copy" type="button">Copy</button></div>
+    <div class="cmd-top"><span class="lab" style="color:inherit">Your launch message</span><button class="copy" id="copy" type="button">Copy</button></div>
     <div class="cmd-body"><span id="cmd"><b>@pairoobot</b> launch a token called Orbit with ticker ORB paired with <mark id="sel">NVDAX</mark></span><span class="cur"></span></div>
     <div class="cmd-foot" id="status">Swap the name and ticker for yours.</div>
   </div>
@@ -234,7 +236,7 @@ td .go:hover{border-color:var(--yellow);color:var(--yellow)}
 <div class="dark" id="coins">
   <div class="wrap">
     <div class="sec-head">
-      <div><span class="idx">01</span><h2 style="margin-top:10px">Launched coins</h2></div>
+      <div><span class="idx">01</span><h2 style="margin-top:8px">Launched coins</h2></div>
       <span class="lab" id="coins-note">loading</span>
     </div>
     <div class="plats" id="plats"></div>
@@ -245,19 +247,19 @@ td .go:hover{border-color:var(--yellow);color:var(--yellow)}
 <div class="wrap">
   <section id="how">
     <div class="sec-head">
-      <div><span class="idx">02</span><h2 style="margin-top:10px">The method</h2></div>
+      <div><span class="idx">02</span><h2 style="margin-top:8px">From chat to token</h2></div>
       <span class="lab">Three steps</span>
     </div>
     <div class="steps">
-      <div class="step"><span class="lab">i · Mention</span><h3>Say it</h3><p>Add the bot to your Discord server, or message it on Telegram or X — name, ticker, pair.</p></div>
-      <div class="step"><span class="lab">ii · Pair</span><h3>Pick the other side</h3><p>Your coin trades against a tokenized stock, gold or a pre-IPO name instead of SOL.</p></div>
-      <div class="step"><span class="lab">iii · Launch</span><h3>It ships</h3><p>The token is created on Solana. Mint address and link come back in the same thread.</p></div>
+      <div class="step"><span class="lab"><img src="/assets/mark-face.webp" alt="">01 · Mention</span><h3>Say it</h3><p>Add the bot to your Discord server, or message it on Telegram or X — name, ticker, pair.</p></div>
+      <div class="step"><span class="lab"><img src="/assets/mark-face.webp" alt="">02 · Pair</span><h3>Pick the other side</h3><p>Your coin trades against a tokenized stock, gold or a pre-IPO name instead of SOL.</p></div>
+      <div class="step"><span class="lab"><img src="/assets/mark-face.webp" alt="">03 · Launch</span><h3>It ships</h3><p>The token is created on Solana. Mint address and link come back in the same thread.</p></div>
     </div>
   </section>
 
   <section id="pairs">
     <div class="sec-head">
-      <div><span class="idx">03</span><h2 style="margin-top:10px">Pick your market</h2></div>
+      <div><span class="idx">03</span><h2 style="margin-top:8px">Pick your market</h2></div>
       <div class="filters">
         <button class="filter" type="button" data-cat="stock" aria-pressed="true">Tokenized</button>
         <button class="filter" type="button" data-cat="prestock" aria-pressed="false">Pre-IPO</button>
@@ -269,24 +271,24 @@ td .go:hover{border-color:var(--yellow);color:var(--yellow)}
 
   <section id="fees">
     <div class="sec-head">
-      <div><span class="idx">04</span><h2 style="margin-top:10px">Fees</h2></div>
+      <div><span class="idx">04</span><h2 style="margin-top:8px">You keep 80%</h2></div>
       <span class="lab">No surprises</span>
     </div>
     <div class="fees">
       <div>
-        <div class="ratio">80<i>creator</i>/<span style="font-size:.5em">20</span><i>pairoo</i></div>
-        <p style="margin-top:20px">Creator fees split automatically at launch. The creator's share goes to the wallet behind the account that asked for it. Pairoo keeps 20% to run the bird.</p>
+        <p>Creator fees split automatically at launch. The creator's share goes to the wallet behind the account that asked for it. Pairoo keeps 20% to run the bird.</p>
+        <div class="guard">
+          <h3>Launch-only. By design.</h3>
+          <p>Pairoobot creates tokens and answers questions. It cannot buy, sell, swap or transfer — those functions do not exist in its code. A capability limit, not a promise.</p>
+        </div>
       </div>
-      <div class="guard">
-        <h3>Launch-only. By design.</h3>
-        <p>Pairoobot creates tokens and answers questions. It cannot buy, sell, swap or transfer — those functions do not exist in its code. A capability limit, not a promise.</p>
-      </div>
+      <div class="fee-bar"><i class="a">80% creator</i><i class="b">20%</i></div>
     </div>
   </section>
 
   <section id="faq">
     <div class="sec-head">
-      <div><span class="idx">05</span><h2 style="margin-top:10px">Questions</h2></div>
+      <div><span class="idx">05</span><h2 style="margin-top:8px">Questions</h2></div>
       <span class="lab">You can just ask it</span>
     </div>
     <details open><summary>How does it work?</summary><p>Mention @pairoobot with a token name, ticker and pair. It creates the token on Solana, trading against the tokenized asset you chose instead of SOL, and replies with the link.</p></details>
@@ -297,6 +299,7 @@ td .go:hover{border-color:var(--yellow);color:var(--yellow)}
 
   <section class="end">
     <h2>Same bird<br>bigger ideas</h2>
+    <img class="swash" src="/assets/mark-swash.webp" alt="">
     <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1070172925631676487&amp;scope=bot+applications.commands&amp;permissions=68608" target="_blank" rel="noopener noreferrer">Add to Discord</a>
   </section>
 </div>
@@ -308,10 +311,10 @@ td .go:hover{border-color:var(--yellow);color:var(--yellow)}
     <a href="/pairoo/terms">Terms</a>
     <a href="/pairoo/privacy">Privacy</a>
     <a href="/pairoo/data-deletion">Data deletion</a>
-    <a href="https://x.com/pairoobot" target="_blank" rel="noopener noreferrer">X</a>
     <a href="https://t.me/pairoobot" target="_blank" rel="noopener noreferrer">Telegram @pairoobot</a>
-    <span style="opacity:.45">Reddit soon</span>
+    <a href="https://x.com/pairoobot" target="_blank" rel="noopener noreferrer">X</a>
     <a href="https://discord.com/oauth2/authorize?client_id=1070172925631676487&amp;scope=bot+applications.commands&amp;permissions=68608" target="_blank" rel="noopener noreferrer">Discord</a>
+    <span style="opacity:.5">Reddit soon</span>
   </div>
 </div></footer>
 

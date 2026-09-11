@@ -1,7 +1,0 @@
-Pixo Reto SP — Bruno Corrente (@b.corrente)
-Licensed under the SIL Open Font License (OFL).
-https://scripts.sil.org/cms/scripts/page.php?item_id=OFL_web
-
-The typeface is based on pixação, the street lettering of São Paulo.
-It is redistributed here under the OFL, unmodified, as a web font
-(pixoretosp.woff2, converted from the original OTF).
