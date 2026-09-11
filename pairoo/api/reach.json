@@ -1,5 +1,5 @@
 {
- "generated_at": 1789168701,
+ "generated_at": 1789168841,
  "states": {
   "live": "Answering now",
   "testing": "Connected, in testing",
@@ -71,14 +71,14 @@
    "name": "Robinhood Chain",
    "via": "Pons",
    "state": "built",
-   "note": "Split contract compiled and reviewed locally. Not deployed, and the EVM wallet holds no funds."
+   "note": "Deploy dry-run measured on chain: 0.00018 ETH to deploy, 0.00137 with the first launch. Creator-fee cap read at 10%. The wallet holds nothing."
   },
   {
    "id": "bsc",
    "name": "BNB Chain",
    "via": "four.meme",
    "state": "built",
-   "note": "Adapter written against the deployed contract; createToken confirmed on chain. The createArg encoding is published nowhere, so nothing is signed."
+   "note": "Adapter built against the deployed implementation; 8 of 12 published pairs are tokenized stocks. The createArg encoding is undocumented, so nothing is signed."
   }
  ],
  "roadmap": [
@@ -87,10 +87,10 @@
    "title": "Sign the first launch",
    "state": "now",
    "items": [
-    "The launch plan already simulates: 1,115-byte transaction, fits the packet, 332k compute units",
-    "Build the signer — the adapter carrying the verified 80/20 native split never loads a key, by design",
-    "Put the launch keypair on the host and fund it",
-    "Flip one route from unavailable to available, with the evidence attached"
+    "Solana: executor built, plan simulates byte-identical to the frozen report — needs the launch key and about 0.05 SOL",
+    "Robinhood Chain: deploy measured at 0.00018 ETH, 0.00137 with the first launch — needs funds and two recipient addresses",
+    "Flip a route from unavailable to available, with the evidence attached",
+    "Confirm the fee split settles to both sides on a real trade — never yet proven end to end"
    ]
   },
   {
