@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#FFC91E">
+<title>Pairoobot — Memecoin Agent Launchpad</title>
+<meta name="description" content="Mention Pairoobot with a name, ticker and pair. It launches your memecoin on Solana — paired with tokenized stocks, gold or pre-IPO names. Creator keeps 80% of creator fees.">
+<meta property="og:title" content="Pairoobot — Memecoin Agent Launchpad">
+<meta property="og:description" content="Small bird. Big launches. Mention @pairoobot and launch a token from a reply.">
+<meta property="og:image" content="/assets/banner.webp">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --yellow:#FFC91E; --yellow-deep:#F5A800; --ink:#141006; --ink-soft:#3a3118;
+  --cream:#FFF7E2; --line:rgba(20,16,6,.14); --mono:'Inter',sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:var(--yellow);color:var(--ink);font:16px/1.65 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer}
+::selection{background:var(--ink);color:var(--yellow)}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.wrap{width:min(1200px,calc(100% - 48px));margin:auto}
+.skip{position:absolute;top:-60px;left:12px;background:var(--ink);color:var(--yellow);padding:10px 14px;z-index:50;border-radius:8px}
+.skip:focus{top:12px}
+
+/* ---------- header ---------- */
+header{position:sticky;top:0;z-index:40;background:rgba(255,201,30,.92);backdrop-filter:blur(12px);border-bottom:2px solid var(--ink)}
+.head-in{display:flex;align-items:center;justify-content:space-between;height:72px}
+.brand{display:flex;align-items:center;gap:11px;font-family:Archivo,sans-serif;font-weight:900;font-size:24px;letter-spacing:-1.4px;text-transform:uppercase}
+.brand img{width:38px;height:38px;border-radius:50%;display:block}
+nav{display:flex;align-items:center;gap:26px;font-size:14px;font-weight:600}
+nav a:hover{opacity:.62}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:12px 20px;border-radius:999px;font-weight:700;font-size:14px;border:2px solid var(--ink);background:var(--ink);color:var(--yellow);transition:transform .18s,box-shadow .18s}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--yellow)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;padding:54px 0 44px;min-height:min(82vh,700px)}
+.scribble{font-family:Caveat,cursive;font-weight:700;font-size:26px;line-height:1.12;position:absolute;pointer-events:none;user-select:none;transform:rotate(var(--r,-6deg))}
+.s1{top:6px;left:-6px;--r:-7deg}
+.s2{top:44px;right:6%;--r:5deg;text-align:right}
+.s3{bottom:78px;left:-10px;--r:-4deg}
+h1{font-family:Archivo,sans-serif;font-weight:900;font-size:clamp(52px,7.4vw,104px);line-height:.92;letter-spacing:-4px;text-transform:uppercase;margin:18px 0 22px}
+h1 em{font-style:normal;position:relative;white-space:nowrap}
+h1 em:after{content:'';position:absolute;left:-2px;right:-2px;bottom:6px;height:14px;background:var(--ink);opacity:.14;z-index:-1;transform:rotate(-1deg)}
+.lede{font-size:18px;max-width:430px;font-weight:500;margin:0 0 26px}
+.lede b{font-weight:800}
+.hero-cta{display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+.hero-art{position:relative;display:grid;place-items:center;min-width:0}
+.hero-art img{width:min(100%,480px);height:auto;display:block;filter:drop-shadow(0 24px 40px rgba(20,16,6,.22))}
+
+/* ---------- ticker strip ---------- */
+.strip{background:var(--ink);color:var(--yellow);border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);overflow:hidden;padding:13px 0}
+.strip-in{display:flex;gap:40px;white-space:nowrap;font-family:Archivo,sans-serif;font-weight:800;font-size:14px;letter-spacing:2.5px;text-transform:uppercase;animation:slide 34s linear infinite}
+.strip span{display:inline-flex;gap:40px}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.strip-in{animation:none;justify-content:center;flex-wrap:wrap;white-space:normal}}
+
+/* ---------- sections ---------- */
+section{padding:84px 0}
+.eyebrow{font-family:Caveat,cursive;font-size:26px;font-weight:700;transform:rotate(-2deg);display:inline-block;margin-bottom:4px}
+h2{font-family:Archivo,sans-serif;font-weight:900;font-size:clamp(34px,4.6vw,58px);line-height:1;letter-spacing:-2.4px;text-transform:uppercase;margin:6px 0 16px}
+.sec-lede{max-width:560px;font-size:16px;font-weight:500;margin:0 0 34px}
+
+/* command card */
+.cmd-card{background:var(--cream);border:2px solid var(--ink);border-radius:22px;padding:30px 32px;box-shadow:8px 8px 0 var(--ink)}
+.cmd-label{font-family:Caveat,cursive;font-size:22px;font-weight:700;margin-bottom:10px}
+code{font-family:ui-monospace,'SF Mono',Menlo,monospace}
+.cmd{display:block;font-size:clamp(15px,1.7vw,20px);line-height:1.7;overflow-wrap:anywhere;font-weight:500}
+.cmd .at{background:var(--yellow);padding:2px 7px;border-radius:6px;font-weight:700;border:1.5px solid var(--ink)}
+.cmd mark{background:var(--yellow);border-bottom:2.5px solid var(--ink);padding:1px 4px;border-radius:4px;font-weight:700}
+.cmd-foot{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:22px;padding-top:20px;border-top:2px dashed var(--line)}
+.status{font-size:13px;font-weight:600;opacity:.72}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
+.step{background:var(--cream);border:2px solid var(--ink);border-radius:18px;padding:24px}
+.step b{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--ink);color:var(--yellow);font-family:Archivo,sans-serif;font-size:17px;margin-bottom:14px}
+.step h3{font-family:Archivo,sans-serif;font-size:19px;letter-spacing:-.6px;margin:0 0 7px;text-transform:uppercase}
+.step p{margin:0;font-size:14px;font-weight:500}
+
+/* pairs */
+.pairs-panel{background:var(--ink);color:var(--cream);border-radius:24px;padding:34px;border:2px solid var(--ink)}
+.pairs-panel .eyebrow,.pairs-panel h2{color:var(--yellow)}
+.filters{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
+.filter{padding:9px 16px;border-radius:999px;border:2px solid rgba(255,247,226,.3);background:transparent;color:var(--cream);font-size:13px;font-weight:700}
+.filter[aria-pressed=true]{background:var(--yellow);color:var(--ink);border-color:var(--yellow)}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.chip{text-align:left;padding:16px;border-radius:14px;border:2px solid rgba(255,247,226,.18);background:rgba(255,247,226,.05);color:var(--cream);transition:background .16s,border-color .16s}
+.chip:hover{background:rgba(255,247,226,.12);border-color:rgba(255,247,226,.4)}
+.chip[aria-pressed=true]{background:var(--yellow);color:var(--ink);border-color:var(--yellow)}
+.chip b{display:block;font-family:Archivo,sans-serif;font-size:15px;letter-spacing:-.4px}
+.chip span{display:block;font-size:11px;opacity:.7;margin-top:5px;font-weight:600}
+.pairs-foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px;align-items:center;margin-top:20px;font-size:13px;font-weight:600;opacity:.85}
+.link-btn{border:0;background:none;color:var(--yellow);font-weight:700;font-size:13px;padding:0;text-decoration:underline;text-underline-offset:4px}
+
+/* split / fees */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.fee-vis{background:var(--cream);border:2px solid var(--ink);border-radius:22px;padding:28px;box-shadow:8px 8px 0 var(--ink)}
+.bar{display:flex;height:60px;border:2px solid var(--ink);border-radius:12px;overflow:hidden;margin-bottom:14px}
+.bar i{display:grid;place-items:center;font-style:normal;font-family:Archivo,sans-serif;font-size:17px;font-weight:900}
+.bar .a{flex:80;background:var(--yellow);color:var(--ink)}
+.bar .b{flex:20;background:var(--ink);color:var(--yellow);border-left:2px solid var(--ink)}
+.legend{display:flex;justify-content:space-between;font-size:13px;font-weight:700}
+
+/* faq */
+.faq{background:var(--cream);border:2px solid var(--ink);border-radius:22px;padding:6px 26px}
+details{border-bottom:2px dashed var(--line)}
+details:last-child{border-bottom:0}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;padding:20px 0;font-weight:700;font-size:15px}
+summary::-webkit-details-marker{display:none}
+summary:after{content:'+';font-family:Archivo,sans-serif;font-size:22px;line-height:1}
+details[open] summary:after{content:'–'}
+details p{margin:0 0 20px;font-size:14px;font-weight:500}
+
+/* guard */
+.guard{display:flex;gap:20px;align-items:flex-start;background:var(--ink);color:var(--cream);border-radius:20px;padding:26px 30px}
+.guard svg{width:30px;height:30px;flex-shrink:0;color:var(--yellow)}
+.guard h3{font-family:Archivo,sans-serif;font-size:17px;text-transform:uppercase;letter-spacing:-.4px;margin:0 0 6px;color:var(--yellow)}
+.guard p{margin:0;font-size:14px;font-weight:500;opacity:.9}
+
+/* cta */
+.final{text-align:center;padding:96px 0}
+.final h2{font-size:clamp(38px,6vw,76px)}
+.final p{font-size:17px;font-weight:600;margin:0 0 28px}
+
+footer{border-top:2px solid var(--ink);padding:30px 0 40px}
+.foot-in{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center;font-size:13px;font-weight:600}
+.foot-links{display:flex;flex-wrap:wrap;gap:20px}
+.foot-links a:hover{opacity:.6}
+[hidden]{display:none!important}
+
+@media(max-width:960px){
+  .hero{grid-template-columns:1fr;padding:34px 0;gap:26px;text-align:left}
+  .hero-art{order:-1}
+  .hero-art img{width:min(78%,330px)}
+  .scribble{display:none}
+  .steps{grid-template-columns:1fr}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .split{grid-template-columns:1fr;gap:30px}
+  section{padding:58px 0}
+  .wrap{width:calc(100% - 34px)}
+  nav .nav-link{display:none}
+  .cmd-card{padding:22px;box-shadow:5px 5px 0 var(--ink)}
+  .pairs-panel{padding:22px}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header>
+  <div class="wrap head-in">
+    <a class="brand" href="/"><img src="/assets/mark.webp" alt="" width="38" height="38">Pairoobot</a>
+    <nav>
+      <a class="nav-link" href="#how">How it works</a>
+      <a class="nav-link" href="#pairs">Pairs</a>
+      <a class="nav-link" href="#fees">Fees</a>
+      <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1070172925631676487&scope=bot+applications.commands&permissions=68608" target="_blank" rel="noopener noreferrer">Add to Discord</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<div class="wrap">
+  <section class="hero">
+    <span class="scribble s1">memecoins<br>launch further ↘</span>
+    <span class="scribble s2">ideas → memes<br>→ agents → 🚀</span>
+    <span class="scribble s3">small bird,<br>big launches</span>
+    <div>
+      <h1>Small bird.<br><em>Big launches.</em></h1>
+      <p class="lede">Mention <b>@pairoobot</b> with a name, a ticker and a pair. It launches your memecoin on Solana — paired with <b>tokenized stocks, gold or pre-IPO names</b>. Not SOL.</p>
+      <div class="hero-cta">
+        <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1070172925631676487&scope=bot+applications.commands&permissions=68608" target="_blank" rel="noopener noreferrer">Add to Discord →</a>
+        <a class="btn ghost" href="https://t.me/pairoobot" target="_blank" rel="noopener noreferrer">Telegram</a>
+        <a class="btn ghost" href="https://x.com/pairoobot" target="_blank" rel="noopener noreferrer">X</a>
+      </div>
+    </div>
+    <div class="hero-art"><img src="/assets/bird.webp" alt="Pairoobot, a yellow cyborg chick mascot" width="480" height="380"></div>
+  </section>
+</div>
+
+<div class="strip"><div class="strip-in">
+  <span>Ideas → Memes → Agents → A brighter (chaotic) tomorrow · Built for a more chaotic tomorrow · Same bird, bigger ideas ·</span>
+  <span aria-hidden="true">Ideas → Memes → Agents → A brighter (chaotic) tomorrow · Built for a more chaotic tomorrow · Same bird, bigger ideas ·</span>
+</div></div>
+
+<div class="wrap">
+  <section id="how">
+    <span class="eyebrow">one message is all it takes</span>
+    <h2>From chat to token.</h2>
+    <p class="sec-lede">No dashboard, no wallet connect flow, no forms. Talk to the bird where you already are.</p>
+
+    <div class="cmd-card">
+      <div class="cmd-label">your launch message ↓</div>
+      <code class="cmd" id="cmd"><span class="at">@pairoobot</span> launch a token called Orbit with ticker ORB paired with <mark id="sel">NVDAX</mark></code>
+      <div class="cmd-foot">
+        <button class="btn" id="copy" type="button">Copy message ⧉</button>
+        <span class="status" id="status">Swap the name and ticker for yours.</span>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step"><b>1</b><h3>Mention</h3><p>Tag Pairoobot on Discord, Telegram, X, Instagram or TikTok with your idea.</p></div>
+      <div class="step"><b>2</b><h3>Pick a pair</h3><p>Choose what your coin trades against — a tokenized stock, gold, or a pre-IPO name.</p></div>
+      <div class="step"><b>3</b><h3>Launch</h3><p>The bird handles the launch on Solana and replies with the link. You keep 80% of creator fees.</p></div>
+    </div>
+  </section>
+
+  <section id="pairs">
+    <div class="pairs-panel">
+      <span class="eyebrow">the other side of your meme</span>
+      <h2>Pick your market.</h2>
+      <div class="filters">
+        <button class="filter" type="button" data-cat="stocks" aria-pressed="true">Tokenized assets</button>
+        <button class="filter" type="button" data-cat="ipo" aria-pressed="false">Pre-IPO</button>
+      </div>
+      <div class="grid" id="grid"></div>
+      <div class="pairs-foot">
+        <span id="selstatus" role="status">NVDAX selected</span>
+        <button class="link-btn" id="more" type="button" aria-expanded="false">View all assets ↓</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="fees">
+    <div class="split">
+      <div>
+        <span class="eyebrow">no surprises</span>
+        <h2>You keep 80%.</h2>
+        <p class="sec-lede">Creator fees split automatically at launch. The creator's share goes to the wallet behind the account that asked for the launch. Pairoo keeps 20% to run the bird.</p>
+        <div class="guard">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m12 2 9 4v8c0 6-9 11-9 11S3 20 3 14V6l9-4Z" stroke="currentColor" stroke-width="1.6"/><path d="m8 13 3 3 5-6" stroke="currentColor" stroke-width="1.6"/></svg>
+          <div>
+            <h3>Launch-only. By design.</h3>
+            <p>Pairoobot launches tokens and answers questions. It cannot buy, sell, swap or transfer. Those functions do not exist in its code — a capability limit, not a promise.</p>
+          </div>
+        </div>
+      </div>
+      <div class="fee-vis">
+        <div class="bar"><i class="a">80% creator</i><i class="b">20%</i></div>
+        <div class="legend"><span>You, the creator</span><span>Pairoo</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <span class="eyebrow">you can just ask it</span>
+    <h2>Questions.</h2>
+    <div class="faq">
+      <details open><summary>How does it work?</summary><p>Mention @pairoobot with a token name, ticker and pair. It launches your token on Solana, trading against the tokenized asset you chose instead of SOL, and replies with the link.</p></details>
+      <details><summary>What can I pair with?</summary><p>Tokenized stocks like NVIDIA, Tesla and Apple, commodities like gold, index pairs, and pre-IPO names such as OpenAI, Anthropic and SpaceX. Ask the bot for the full list.</p></details>
+      <details><summary>Where does it work?</summary><p>Discord, Telegram and X today. Instagram and TikTok mentions are being rolled out.</p></details>
+      <details><summary>Do I need a wallet first?</summary><p>No. Start from the chat — the bot walks you through what it needs. Pairoobot never asks for your private key and cannot move your funds.</p></details>
+      <details><summary>What does it cost?</summary><p>Creator fees are split 80% to you, 20% to Pairoo. Solana network fees apply to any on-chain action.</p></details>
+    </div>
+  </section>
+
+  <section class="final">
+    <h2>Same bird.<br>Bigger ideas.</h2>
+    <p>Add Pairoobot to your server and launch from a message.</p>
+    <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1070172925631676487&scope=bot+applications.commands&permissions=68608" target="_blank" rel="noopener noreferrer">Add to Discord →</a>
+  </section>
+</div>
+</main>
+
+<footer><div class="wrap foot-in">
+  <a class="brand" href="/"><img src="/assets/mark.webp" alt="" width="30" height="30" style="width:30px;height:30px">Pairoobot</a>
+  <div class="foot-links">
+    <a href="/pairoo/terms">Terms</a>
+    <a href="/pairoo/privacy">Privacy</a>
+    <a href="/pairoo/data-deletion">Data deletion</a>
+    <a href="https://x.com/pairoobot" target="_blank" rel="noopener noreferrer">X ↗</a>
+    <a href="https://t.me/pairoobot" target="_blank" rel="noopener noreferrer">Telegram ↗</a>
+  </div>
+  <span>© 2026 Pairoobot</span>
+</div></footer>
+
+<script>
+(()=>{'use strict';
+const stocks=[['NVDAX','NVIDIA'],['TSLAX','Tesla'],['AAPLX','Apple'],['GOOGLX','Alphabet'],['MSFTX','Microsoft'],['AMZNX','Amazon'],['METAX','Meta'],['GLDX','Gold'],['SPYX','S&P 500'],['QQQX','Nasdaq'],['COINX','Coinbase'],['HOODX','Robinhood'],['MSTRX','MicroStrategy'],['GMEX','GameStop'],['PLTRX','Palantir'],['BRKX','Berkshire']];
+const ipo=[['OPENAI','OpenAI'],['ANTHROPIC','Anthropic'],['SPACEX','SpaceX'],['NEURALINK','Neuralink'],['ANDURIL','Anduril'],['POLYMARKET','Polymarket'],['KALSHI','Kalshi']];
+const $=id=>document.getElementById(id);
+let sel='NVDAX',cat='stocks',open=false;
+function choose(t,n){sel=t;$('sel').textContent=t;$('selstatus').textContent=t+' selected';$('status').textContent='Message now uses '+t+'.';render()}
+function render(){
+  const rows=cat==='ipo'?ipo:(open?stocks:stocks.slice(0,8));
+  const g=$('grid');g.replaceChildren();
+  rows.forEach(([t,n])=>{
+    const b=document.createElement('button');b.type='button';b.className='chip';
+    b.setAttribute('aria-pressed',String(t===sel));b.setAttribute('aria-label','Use '+t+' — '+n);
+    const x=document.createElement('b');x.textContent=n;const y=document.createElement('span');y.textContent=t;
+    b.append(x,y);b.addEventListener('click',()=>choose(t,n));g.append(b);
+  });
+  $('more').hidden=cat==='ipo';
+  $('more').textContent=open?'Show fewer ↑':'View all assets ↓';
+  $('more').setAttribute('aria-expanded',String(open));
+}
+document.querySelectorAll('.filter').forEach(b=>b.addEventListener('click',()=>{
+  cat=b.dataset.cat;document.querySelectorAll('.filter').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));open=false;render();
+}));
+$('more').addEventListener('click',()=>{open=!open;render()});
+$('copy').addEventListener('click',async()=>{
+  const text='@pairoobot launch a token called Orbit with ticker ORB paired with '+sel;
+  try{
+    if(navigator.clipboard&&navigator.clipboard.writeText){await navigator.clipboard.writeText(text)}
+    else{const t=document.createElement('textarea');t.value=text;t.style.cssText='position:fixed;opacity:0';document.body.append(t);t.select();document.execCommand('copy');t.remove()}
+    $('status').textContent='Copied. Paste it in a chat.';
+  }catch(_){
+    $('status').textContent='Select the message above to copy it.';
+  }
+});
+render();
+})();
+</script>
+</body>
+</html>
