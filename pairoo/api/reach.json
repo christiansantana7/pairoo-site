@@ -1,5 +1,5 @@
 {
- "generated_at": 1789165301,
+ "generated_at": 1789166991,
  "states": {
   "live": "Working end to end",
   "testing": "Connected, in testing",
@@ -11,9 +11,9 @@
   {
    "id": "telegram",
    "name": "Telegram",
-   "state": "testing",
+   "state": "built",
    "url": "https://t.me/pairoobot",
-   "note": "Bot authenticated and polling. A full user request has not been verified end to end yet."
+   "note": "Bot authenticated, adapter complete. Its worker is not running, so nobody is answered there yet."
   },
   {
    "id": "x",
@@ -27,7 +27,7 @@
    "name": "Discord",
    "state": "testing",
    "url": "https://discord.com/oauth2/authorize?client_id=1070172925631676487&scope=bot+applications.commands&permissions=68608",
-   "note": "Bot is in a live server. Reading mentions and replying both verified against the API; no worker running yet."
+   "note": "Worker running. Reads mentions and replies; verified in a live server."
   },
   {
    "id": "reddit",
@@ -84,12 +84,13 @@
  "roadmap": [
   {
    "phase": "01",
-   "title": "First real launch",
+   "title": "Sign the first launch",
    "state": "now",
    "items": [
-    "Enable the signing gate on the verified Solana route",
-    "Launch, confirm on chain, publish the mint",
-    "Watch the 80/20 creator-fee split settle natively"
+    "The launch plan already simulates: 1,115-byte transaction, fits the packet, 332k compute units",
+    "Build the signer — the adapter carrying the verified 80/20 native split never loads a key, by design",
+    "Put the launch keypair on the host and fund it",
+    "Flip one route from unavailable to available, with the evidence attached"
    ]
   },
   {
@@ -97,10 +98,10 @@
    "title": "Every channel answering",
    "state": "next",
    "items": [
-    "Discord and Reddit applications and credentials",
-    "Reissue the X app after the account reset",
-    "Verify the Instagram webhook with the live token",
-    "TikTok write access"
+    "Discord answers mentions today — the only worker running",
+    "Start the Telegram worker",
+    "X needs a paid API plan: the mentions endpoint answers 402",
+    "Instagram and TikTok access, and a decision on Reddit"
    ]
   },
   {
@@ -110,7 +111,7 @@
    "items": [
     "Robinhood Chain through Pons, after the split contract is deployed and reviewed",
     "BNB Chain through four.meme",
-    "Route engine picks the cheapest compatible chain for the request"
+    "Route engine picks the cheapest compatible chain per request"
    ]
   },
   {
