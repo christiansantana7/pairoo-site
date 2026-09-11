@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0A0A0B">
+<meta name="theme-color" content="#FFC91E">
 <title>Pairoobot — launch a coin from a message</title>
 <meta name="description" content="Mention Pairoobot with a name, a ticker and a pair. It launches your coin on Solana, trading against a tokenized asset instead of SOL.">
 <meta property="og:title" content="Pairoobot">
@@ -15,124 +15,154 @@
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0A0A0B; --panel:#131315; --panel-2:#1A1A1D;
-  --line:rgba(255,255,255,.09); --line-2:rgba(255,255,255,.16);
-  --text:#EDEDEF; --dim:#8B8B93; --dim-2:#5E5E66;
-  --accent:#FFC91E; --ok:#3FCF8E;
-  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --yellow:#FFC91E; --yellow-dark:#F0B400; --ink:#0F0C05; --ink-2:#1C1710;
+  --cream:#FFF8E6; --line:rgba(15,12,5,.16);
+  --disp:Archivo,system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:72px}
-body{margin:0;background:var(--bg);color:var(--text);
-  font:15px/1.6 Inter,system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;background:var(--yellow);color:var(--ink);
+  font:16px/1.6 Inter,system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-::selection{background:var(--accent);color:#000}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
-.wrap{width:min(1060px,calc(100% - 40px));margin:auto}
-.skip{position:absolute;top:-60px;left:12px;background:var(--accent);color:#000;padding:10px 14px;z-index:50;border-radius:6px}
-.skip:focus{top:12px}
-h1,h2,h3{font-weight:600;letter-spacing:-.02em;margin:0}
+::selection{background:var(--ink);color:var(--yellow)}
+:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.wrap{width:min(1120px,calc(100% - 40px));margin:auto}
+.skip{position:absolute;top:-60px;left:12px;background:var(--ink);color:var(--yellow);padding:10px 14px;z-index:60}
+.skip:focus{top:10px}
+h1,h2,h3{margin:0;font-family:var(--disp);font-weight:900;text-transform:uppercase;letter-spacing:-.03em;line-height:.92}
 .mono{font-family:var(--mono)}
 
-/* header */
-header{position:sticky;top:0;z-index:40;background:rgba(10,10,11,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.head-in{display:flex;align-items:center;justify-content:space-between;height:60px;gap:20px}
-.brand{display:flex;align-items:center;gap:9px;font-weight:600;letter-spacing:-.02em}
-.brand img{width:24px;height:24px;border-radius:6px;display:block}
-nav{display:flex;align-items:center;gap:22px;font-size:14px;color:var(--dim)}
-nav a:hover{color:var(--text)}
-.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:8px;
-  font-size:14px;font-weight:500;background:var(--accent);color:#000;border:1px solid var(--accent);
-  transition:opacity .15s}
-.btn:hover{opacity:.88}
-.btn.ghost{background:transparent;color:var(--text);border-color:var(--line-2)}
-.btn.ghost:hover{border-color:var(--dim);opacity:1}
-@media(max-width:760px){nav .nav-link{display:none}}
+/* ---------- header ---------- */
+header{position:sticky;top:0;z-index:50;background:var(--yellow);border-bottom:3px solid var(--ink)}
+.head-in{display:flex;align-items:center;justify-content:space-between;height:66px;gap:18px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:900;
+  font-size:21px;text-transform:uppercase;letter-spacing:-.05em}
+.brand img{width:32px;height:32px;display:block}
+nav{display:flex;align-items:center;gap:24px;font-size:14px;font-weight:600}
+nav a.nav-link:hover{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px}
+@media(max-width:820px){nav .nav-link{display:none}}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;
+  font-family:var(--disp);font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:.01em;
+  background:var(--ink);color:var(--yellow);border:2px solid var(--ink);
+  box-shadow:4px 4px 0 rgba(15,12,5,.25);transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translate(2px,2px);box-shadow:0 0 0 rgba(15,12,5,.25)}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:none}
+.btn.ghost:hover{background:var(--ink);color:var(--yellow);transform:none}
+.btn.invert{background:var(--yellow);color:var(--ink);border-color:var(--yellow);box-shadow:4px 4px 0 rgba(0,0,0,.45)}
 
-/* hero */
-.hero{padding:76px 0 52px;max-width:660px}
-h1{font-size:clamp(32px,5vw,50px);line-height:1.06}
-h1 span{color:var(--dim-2)}
-.lede{color:var(--dim);font-size:17px;margin:18px 0 26px;max-width:520px}
-.hero-cta{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+/* ---------- hero ---------- */
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:36px;align-items:center;padding:64px 0 56px}
+@media(max-width:860px){.hero{grid-template-columns:1fr;padding:44px 0 40px}}
+h1{font-size:clamp(46px,7.6vw,96px)}
+.rule{height:8px;background:var(--ink);width:min(340px,60%);margin:22px 0 20px}
+.lede{font-size:18px;font-weight:500;max-width:440px;margin:0 0 28px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.hero-art{position:relative;display:grid;place-items:center}
+.hero-art img{width:min(100%,420px);height:auto;display:block;
+  filter:drop-shadow(10px 14px 0 rgba(15,12,5,.16))}
+@media(max-width:860px){.hero-art{max-width:320px;margin:0 auto}}
 
-/* command */
-.cmd{margin:40px 0 0;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
-.cmd-top{display:flex;align-items:center;justify-content:space-between;gap:12px;
-  padding:10px 14px;border-bottom:1px solid var(--line);font-size:12px;color:var(--dim-2);letter-spacing:.04em;text-transform:uppercase}
-.cmd-body{padding:18px 16px;font-family:var(--mono);font-size:14px;line-height:1.7;word-break:break-word}
-.cmd-body .at{color:var(--accent)}
-.cmd-body mark{background:rgba(255,201,30,.14);color:var(--accent);padding:1px 5px;border-radius:4px}
-.copy{font-size:13px;color:var(--dim);border:1px solid var(--line-2);padding:5px 11px;border-radius:7px}
-.copy:hover{color:var(--text);border-color:var(--dim)}
-.status{font-size:12px;color:var(--dim-2)}
+/* ---------- command block ---------- */
+.cmd{background:var(--cream);border:3px solid var(--ink);box-shadow:9px 9px 0 var(--ink);margin:0 0 8px}
+.cmd-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;
+  border-bottom:3px solid var(--ink);background:var(--ink);color:var(--yellow);
+  font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.cmd-body{padding:20px 18px;font-family:var(--mono);font-size:15px;line-height:1.75;word-break:break-word}
+.cmd-body b{font-weight:700}
+.cmd-body mark{background:var(--yellow);color:var(--ink);padding:1px 6px;box-shadow:2px 2px 0 var(--ink)}
+.copy{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.12em;
+  color:var(--yellow);border:2px solid var(--yellow);padding:4px 10px;text-transform:uppercase}
+.copy:hover{background:var(--yellow);color:var(--ink)}
+.cmd-foot{padding:11px 18px;border-top:2px dashed var(--line);font-size:13px;font-weight:500}
 
-/* sections */
-section{padding:56px 0;border-top:1px solid var(--line)}
-.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:22px;flex-wrap:wrap}
-.sec-head h2{font-size:21px}
-.sec-note{font-size:13px;color:var(--dim-2)}
+/* ---------- section frame ---------- */
+section{padding:64px 0;border-top:3px solid var(--ink)}
+.dark{background:var(--ink);color:var(--yellow);border-top:0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:28px}
+.sec-head h2{font-size:clamp(28px,4vw,44px)}
+.tag{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  border:2px solid currentColor;padding:5px 10px}
 
-/* coins */
-.coins{display:grid;grid-template-columns:repeat(auto-fill,minmax(248px,1fr));gap:12px}
-.coin{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px}
-.coin-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.coin-tick{font-family:var(--mono);font-size:15px}
-.coin-name{font-size:13px;color:var(--dim);margin-top:2px}
-.eye{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--dim);
-  font-family:var(--mono);background:var(--panel-2);border:1px solid var(--line);padding:3px 8px;border-radius:999px}
+/* ---------- coins ---------- */
+.coins{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.coin{background:var(--ink-2);border:2px solid var(--yellow);padding:16px}
+.coin-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.coin-tick{font-family:var(--disp);font-weight:900;font-size:22px;text-transform:uppercase;letter-spacing:-.03em}
+.coin-name{font-size:13px;opacity:.7;margin-top:2px}
+.eye{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:12px;font-weight:700;
+  border:2px solid currentColor;padding:3px 8px}
 .eye svg{width:13px;height:13px;display:block}
-.coin-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--dim);margin-top:14px;font-family:var(--mono)}
-.bar{height:3px;background:var(--panel-2);border-radius:2px;margin-top:8px;overflow:hidden}
-.bar i{display:block;height:100%;background:var(--accent);width:0}
-.pair-tag{font-family:var(--mono);font-size:11px;color:var(--accent);background:rgba(255,201,30,.1);
-  padding:2px 7px;border-radius:5px;border:1px solid rgba(255,201,30,.18)}
-.empty{background:var(--panel);border:1px dashed var(--line-2);border-radius:12px;padding:28px;text-align:center;color:var(--dim)}
-.empty b{display:block;color:var(--text);font-weight:500;margin-bottom:5px}
+.coin-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:16px;
+  font-family:var(--mono);font-size:12px;font-weight:500}
+.pair-tag{background:var(--yellow);color:var(--ink);font-weight:700;padding:3px 8px}
+.bar{height:6px;background:rgba(255,201,30,.2);margin-top:10px}
+.bar i{display:block;height:100%;background:var(--yellow);width:0}
+.coin-mint{display:block;margin-top:12px;font-family:var(--mono);font-size:11px;opacity:.65}
+.coin-mint:hover{opacity:1;text-decoration:underline}
+.empty{border:3px dashed currentColor;padding:34px 26px;text-align:center}
+.empty b{display:block;font-family:var(--disp);font-weight:900;font-size:22px;text-transform:uppercase;
+  letter-spacing:-.03em;margin-bottom:8px}
+.empty span{opacity:.72;font-size:14px}
 
-/* pairs */
-.filters{display:flex;gap:8px}
-.filter{font-size:13px;color:var(--dim);border:1px solid var(--line-2);padding:6px 13px;border-radius:7px}
-.filter[aria-pressed="true"]{background:var(--panel-2);color:var(--text);border-color:var(--dim-2)}
-.chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
-.chip{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;
-  background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:11px 13px;text-align:left}
-.chip:hover{border-color:var(--line-2)}
-.chip[aria-pressed="true"]{border-color:var(--accent)}
-.chip b{font-family:var(--mono);font-size:13px;font-weight:500}
-.chip span{font-size:12px;color:var(--dim-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* ---------- how ---------- */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:3px solid var(--ink);background:var(--cream)}
+@media(max-width:820px){.steps{grid-template-columns:1fr}}
+.step{padding:24px 22px;border-right:3px solid var(--ink)}
+.step:last-child{border-right:0}
+@media(max-width:820px){.step{border-right:0;border-bottom:3px solid var(--ink)}.step:last-child{border-bottom:0}}
+.step b{font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.16em;display:block;margin-bottom:14px}
+.step h3{font-size:19px;margin-bottom:8px}
+.step p{margin:0;font-size:14px}
 
-/* how / fees */
-.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-@media(max-width:760px){.cols{grid-template-columns:1fr}}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}
-.card b{display:block;font-family:var(--mono);font-size:12px;color:var(--dim-2);margin-bottom:10px}
-.card h3{font-size:15px;margin-bottom:6px}
-.card p{margin:0;font-size:14px;color:var(--dim)}
-.split{display:grid;grid-template-columns:1.15fr .85fr;gap:24px;align-items:start}
-@media(max-width:760px){.split{grid-template-columns:1fr}}
-.fee-bar{display:flex;height:38px;border-radius:9px;overflow:hidden;border:1px solid var(--line);font-size:12px;font-family:var(--mono)}
+/* ---------- pairs ---------- */
+.filters{display:flex;gap:0;border:3px solid var(--ink);width:max-content;max-width:100%}
+.filter{font-family:var(--disp);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.02em;
+  padding:9px 16px;border-right:3px solid var(--ink)}
+.filter:last-child{border-right:0}
+.filter[aria-pressed="true"]{background:var(--ink);color:var(--yellow)}
+.chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:10px;margin-top:22px}
+.chip{display:flex;flex-direction:column;gap:3px;align-items:flex-start;width:100%;text-align:left;
+  background:var(--cream);border:2px solid var(--ink);padding:12px 13px;transition:transform .1s}
+.chip:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--yellow)}
+.chip b{font-family:var(--mono);font-size:14px;font-weight:700}
+.chip span{font-size:12px;opacity:.7;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.pairs-note{font-size:13px;font-weight:500;margin-top:18px;max-width:62ch}
+
+/* ---------- fees ---------- */
+.split{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center}
+@media(max-width:820px){.split{grid-template-columns:1fr}}
+.fee-bar{display:flex;height:64px;border:3px solid var(--ink);font-family:var(--disp);font-weight:900;
+  font-size:15px;text-transform:uppercase}
 .fee-bar i{display:flex;align-items:center;justify-content:center;font-style:normal}
-.fee-bar .a{width:80%;background:var(--accent);color:#000}
-.fee-bar .b{width:20%;background:var(--panel-2);color:var(--dim)}
-.note{font-size:13px;color:var(--dim);margin-top:14px}
+.fee-bar .a{width:80%;background:var(--ink);color:var(--yellow)}
+.fee-bar .b{width:20%;background:var(--cream)}
+.guard{margin-top:26px;border-left:8px solid var(--ink);padding:4px 0 4px 18px}
+.guard h3{font-size:17px;margin-bottom:6px}
+.guard p{margin:0;font-size:14px;max-width:60ch}
 
-/* faq */
-details{border-bottom:1px solid var(--line);padding:14px 0}
-summary{cursor:pointer;font-size:15px;list-style:none;display:flex;justify-content:space-between;gap:12px}
+/* ---------- faq ---------- */
+details{border-bottom:2px solid var(--line);padding:16px 0}
+details:first-of-type{border-top:2px solid var(--line)}
+summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:14px;
+  font-family:var(--disp);font-weight:800;font-size:17px;text-transform:uppercase;letter-spacing:-.02em}
 summary::-webkit-details-marker{display:none}
-summary:after{content:'+';color:var(--dim-2)}
-details[open] summary:after{content:'−'}
-details p{margin:10px 0 0;color:var(--dim);font-size:14px;max-width:70ch}
+summary:after{content:'+';font-family:var(--mono)}
+details[open] summary:after{content:'–'}
+details p{margin:12px 0 0;font-size:15px;max-width:68ch}
 
-footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--dim-2);font-size:13px}
-.foot-in{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
-.foot-links{display:flex;flex-wrap:wrap;gap:16px}
-.foot-links a:hover{color:var(--text)}
+/* ---------- final + footer ---------- */
+.final{text-align:center}
+.final h2{font-size:clamp(32px,5.4vw,60px);margin-bottom:16px}
+.final p{margin:0 0 26px;opacity:.8}
+footer{background:var(--ink);color:var(--yellow);padding:28px 0 40px;font-size:13px}
+.foot-in{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+.foot-links{display:flex;flex-wrap:wrap;gap:18px;font-weight:500}
+.foot-links a:hover{text-decoration:underline;text-underline-offset:3px}
 </style>
 </head>
 <body>
@@ -140,7 +170,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--dim-2);f
 
 <header>
   <div class="wrap head-in">
-    <a class="brand" href="/"><img src="/assets/mark.webp" alt="" width="24" height="24">Pairoobot</a>
+    <a class="brand" href="/"><img src="/assets/mark.webp" alt="" width="32" height="32">Pairoobot</a>
     <nav>
       <a class="nav-link" href="#coins">Coins</a>
       <a class="nav-link" href="#how">How it works</a>
@@ -153,75 +183,99 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--dim-2);f
 
 <main id="main">
 <div class="wrap">
-
-  <section class="hero" style="border:0">
-    <h1>Launch a coin from a message.<br><span>Paired with a real asset, not SOL.</span></h1>
-    <p class="lede">Mention <b>@pairoobot</b> with a name, a ticker and a pair. It creates the token on Solana and replies with the link.</p>
-    <div class="hero-cta">
-      <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1070172925631676487&amp;scope=bot+applications.commands&amp;permissions=68608" target="_blank" rel="noopener noreferrer">Add to Discord</a>
-      <a class="btn ghost" href="https://t.me/pairoobot" target="_blank" rel="noopener noreferrer">Telegram</a>
-      <a class="btn ghost" href="https://x.com/pairoobot" target="_blank" rel="noopener noreferrer">X</a>
-    </div>
-
-    <div class="cmd">
-      <div class="cmd-top"><span>your message</span><button class="copy" id="copy" type="button">Copy</button></div>
-      <div class="cmd-body" id="cmd"><span class="at">@pairoobot</span> launch a token called Orbit with ticker ORB paired with <mark id="sel">NVDAX</mark></div>
-      <div class="cmd-top" style="border-bottom:0;border-top:1px solid var(--line);text-transform:none;letter-spacing:0">
-        <span class="status" id="status">Swap the name and ticker for yours.</span>
+  <section class="hero" style="border-top:0">
+    <div>
+      <h1>Launch a coin<br>from a message.</h1>
+      <div class="rule"></div>
+      <p class="lede">Mention <b>@pairoobot</b> with a name, a ticker and a pair. It creates the token on Solana — trading against a real asset, not SOL — and replies with the link.</p>
+      <div class="hero-cta">
+        <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1070172925631676487&amp;scope=bot+applications.commands&amp;permissions=68608" target="_blank" rel="noopener noreferrer">Add to Discord</a>
+        <a class="btn ghost" href="https://t.me/pairoobot" target="_blank" rel="noopener noreferrer">Telegram</a>
+        <a class="btn ghost" href="https://x.com/pairoobot" target="_blank" rel="noopener noreferrer">X</a>
       </div>
     </div>
+    <div class="hero-art"><img src="/assets/bird-clean.webp" alt="Pairoobot mascot" width="420" height="578"></div>
   </section>
+</div>
 
-  <section id="coins">
+<div class="wrap" style="padding-bottom:56px">
+  <div class="cmd">
+    <div class="cmd-top"><span>your launch message</span><button class="copy" id="copy" type="button">Copy</button></div>
+    <div class="cmd-body" id="cmd"><b>@pairoobot</b> launch a token called Orbit with ticker ORB paired with <mark id="sel">NVDAX</mark></div>
+    <div class="cmd-foot" id="status">Swap the name and ticker for yours.</div>
+  </div>
+</div>
+
+<section class="dark" id="coins">
+  <div class="wrap">
     <div class="sec-head">
       <h2>Launched coins</h2>
-      <span class="sec-note" id="coins-note">Loading…</span>
+      <span class="tag" id="coins-note">loading</span>
     </div>
     <div class="coins" id="coins-grid"></div>
-  </section>
+  </div>
+</section>
 
-  <section id="how">
-    <div class="sec-head"><h2>How it works</h2></div>
-    <div class="cols">
-      <div class="card"><b>01</b><h3>Mention</h3><p>Add the bot to your Discord server, or message it on Telegram or X — name, ticker, pair.</p></div>
-      <div class="card"><b>02</b><h3>Pick a pair</h3><p>Your coin trades against a tokenized stock, gold or a pre-IPO name instead of SOL.</p></div>
-      <div class="card"><b>03</b><h3>Launch</h3><p>The token is created on Solana. You get the mint address and the link back in the same thread.</p></div>
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head"><h2>From chat to token</h2><span class="tag">three steps</span></div>
+    <div class="steps">
+      <div class="step"><b>01 / MENTION</b><h3>Say it</h3><p>Add the bot to your Discord server, or message it on Telegram or X — name, ticker, pair.</p></div>
+      <div class="step"><b>02 / PAIR</b><h3>Pick the other side</h3><p>Your coin trades against a tokenized stock, gold or a pre-IPO name instead of SOL.</p></div>
+      <div class="step"><b>03 / LAUNCH</b><h3>It ships</h3><p>The token is created on Solana. Mint address and link come back in the same thread.</p></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="pairs">
+<section id="pairs">
+  <div class="wrap">
     <div class="sec-head">
-      <h2>Pairs</h2>
+      <h2>Pick your market</h2>
       <div class="filters">
-        <button class="filter" type="button" data-cat="stock" aria-pressed="true">Tokenized assets</button>
+        <button class="filter" type="button" data-cat="stock" aria-pressed="true">Tokenized</button>
         <button class="filter" type="button" data-cat="prestock" aria-pressed="false">Pre-IPO</button>
       </div>
     </div>
     <div class="chips" id="pairs-grid"></div>
-    <p class="sec-note" id="pairs-note" style="margin-top:14px"></p>
-  </section>
+    <p class="pairs-note" id="pairs-note"></p>
+  </div>
+</section>
 
-  <section id="fees">
+<section id="fees">
+  <div class="wrap">
+    <div class="sec-head"><h2>You keep 80%</h2><span class="tag">no surprises</span></div>
     <div class="split">
       <div>
-        <h2 style="font-size:21px;margin-bottom:14px">Fees</h2>
-        <p style="color:var(--dim);margin:0">Creator fees are split at launch. The creator's share goes to the wallet behind the account that asked for it. Pairoo keeps 20% to run the service.</p>
-        <p class="note"><b style="color:var(--text);font-weight:500">Launch-only by design.</b> Pairoobot creates tokens and answers questions. It cannot buy, sell, swap or transfer — those functions do not exist in its code. A capability limit, not a promise.</p>
+        <p style="margin:0;font-size:16px;max-width:52ch">Creator fees split automatically at launch. The creator's share goes to the wallet behind the account that asked for it. Pairoo keeps 20% to run the bird.</p>
+        <div class="guard">
+          <h3>Launch-only. By design.</h3>
+          <p>Pairoobot creates tokens and answers questions. It cannot buy, sell, swap or transfer — those functions do not exist in its code. A capability limit, not a promise.</p>
+        </div>
       </div>
       <div>
         <div class="fee-bar"><i class="a">80% creator</i><i class="b">20%</i></div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="faq">
-    <div class="sec-head"><h2>Questions</h2></div>
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head"><h2>Questions</h2><span class="tag">you can just ask it</span></div>
     <details open><summary>How does it work?</summary><p>Mention @pairoobot with a token name, ticker and pair. It creates the token on Solana, trading against the tokenized asset you chose instead of SOL, and replies with the link.</p></details>
-    <details><summary>What can I pair with?</summary><p>The curated catalog above: tokenized stocks, gold and index pairs, plus pre-IPO names. Only assets from a verified issuer with real liquidity are listed — an unlisted ticker is refused rather than guessed.</p></details>
+    <details><summary>What can I pair with?</summary><p>The curated catalog above: tokenized stocks, gold and index pairs, plus pre-IPO names. Only assets from a verified issuer with real liquidity are listed — an unlisted ticker is refused, never guessed.</p></details>
     <details><summary>Where does it work?</summary><p>Discord, Telegram and X. Instagram and TikTok are being rolled out and are not announced here until they answer.</p></details>
     <details><summary>Do I need a wallet first?</summary><p>No. Start from the chat. Pairoobot never asks for a private key and cannot move your funds.</p></details>
-  </section>
-</div>
+  </div>
+</section>
+
+<section class="dark final">
+  <div class="wrap">
+    <h2>Same bird.<br>Bigger ideas.</h2>
+    <p>Add Pairoobot where you already talk, and launch from a message.</p>
+    <a class="btn invert" href="https://discord.com/oauth2/authorize?client_id=1070172925631676487&amp;scope=bot+applications.commands&amp;permissions=68608" target="_blank" rel="noopener noreferrer">Add to Discord</a>
+  </div>
+</section>
 </main>
 
 <footer><div class="wrap foot-in">
@@ -232,32 +286,29 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--dim-2);f
     <a href="/pairoo/data-deletion">Data deletion</a>
     <a href="https://x.com/pairoobot" target="_blank" rel="noopener noreferrer">X</a>
     <a href="https://t.me/pairoobot" target="_blank" rel="noopener noreferrer">Telegram</a>
-    <a class="" href="https://discord.com/oauth2/authorize?client_id=1070172925631676487&amp;scope=bot+applications.commands&amp;permissions=68608" target="_blank" rel="noopener noreferrer">Discord</a>
+    <a href="https://discord.com/oauth2/authorize?client_id=1070172925631676487&amp;scope=bot+applications.commands&amp;permissions=68608" target="_blank" rel="noopener noreferrer">Discord</a>
   </div>
 </div></footer>
 
 <script>
 (()=>{'use strict';
 const $=id=>document.getElementById(id);
-const EYE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z"/><circle cx="12" cy="12" r="2.6"/></svg>';
+const EYE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z"/><circle cx="12" cy="12" r="2.6"/></svg>';
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const money=v=>v==null?'—':'$'+Intl.NumberFormat('en',{notation:'compact',maximumFractionDigits:1}).format(v);
 
-/* ---------- command box ---------- */
 let sel='NVDAX';
 function choose(sym){sel=sym;$('sel').textContent=sym;$('status').textContent='Message now uses '+sym+'.';paintPairs()}
 $('copy').addEventListener('click',async()=>{
-  const t=$('cmd').innerText.trim();
-  try{await navigator.clipboard.writeText(t);$('status').textContent='Copied.'}
+  try{await navigator.clipboard.writeText($('cmd').innerText.trim());$('status').textContent='Copied.'}
   catch{$('status').textContent='Copy failed — select the text above.'}
 });
 
-/* ---------- pairs (API) ---------- */
 let PAIRS=[],cat='stock';
 function paintPairs(){
   const g=$('pairs-grid');g.replaceChildren();
   const rows=PAIRS.filter(p=>p.kind===cat);
-  if(!rows.length){g.innerHTML='<div class="empty">No assets listed in this category.</div>';return}
+  if(!rows.length){g.innerHTML='<div class="empty"><b>Nothing listed</b><span>No asset in this category passes the catalog rules.</span></div>';return}
   rows.forEach(p=>{
     const b=document.createElement('button');
     b.type='button';b.className='chip';b.setAttribute('aria-pressed',String(p.symbol===sel));
@@ -272,31 +323,28 @@ document.querySelectorAll('.filter').forEach(f=>f.addEventListener('click',()=>{
   paintPairs();
 }));
 
-/* ---------- coins (API) ---------- */
 function paintCoins(d){
-  const g=$('coins-grid'),note=$('coins-note');
-  const coins=(d&&d.coins)||[];
+  const g=$('coins-grid'),coins=(d&&d.coins)||[];
   if(!coins.length){
-    note.textContent='0 launched';
-    g.innerHTML='<div class="empty"><b>No coins launched yet.</b>The first confirmed launch shows up here with its mint address and pair. Nothing is listed before it exists on chain.</div>';
+    $('coins-note').textContent='0 on chain';
+    g.innerHTML='<div class="empty" style="grid-column:1/-1"><b>No coins launched yet</b><span>The first confirmed launch shows up here with its mint address and pair. Nothing is listed before it exists on chain.</span></div>';
     return;
   }
-  note.textContent=coins.length+(coins.length===1?' launched':' launched');
+  $('coins-note').textContent=coins.length+' on chain';
   g.replaceChildren();
   coins.forEach(c=>{
     const el=document.createElement('article');el.className='coin';
-    const pct=c.bonding_progress==null?null:Math.max(0,Math.min(100,c.bonding_progress*100));
+    const pct=c.bonding_progress==null?0:Math.max(0,Math.min(100,c.bonding_progress*100));
     el.innerHTML=
       '<div class="coin-top"><div><div class="coin-tick">$'+esc(c.ticker)+'</div>'+
       '<div class="coin-name">'+esc(c.name)+'</div></div>'+
       '<span class="eye" title="Viewers">'+EYE+(c.watchers==null?'—':esc(c.watchers))+'</span></div>'+
       '<div class="coin-meta"><span class="pair-tag">'+esc(c.pair||'—')+'</span><span>'+money(c.market_cap_usd)+'</span></div>'+
-      '<div class="bar"><i style="width:'+(pct==null?0:pct)+'%"></i></div>';
+      '<div class="bar"><i style="width:'+pct+'%"></i></div>';
     if(c.mint){
       const a=document.createElement('a');
       a.href='https://solscan.io/token/'+encodeURIComponent(c.mint);
-      a.target='_blank';a.rel='noopener noreferrer';
-      a.className='coin-name';a.style.cssText='display:block;margin-top:10px;font-family:var(--mono);font-size:11px';
+      a.target='_blank';a.rel='noopener noreferrer';a.className='coin-mint';
       a.textContent=c.mint.slice(0,6)+'…'+c.mint.slice(-4);
       el.appendChild(a);
     }
@@ -306,22 +354,19 @@ function paintCoins(d){
 
 /* Falha de rede não vira dado falso: o estado de erro é explícito. */
 async function load(url,ok,fail){
-  try{
-    const r=await fetch(url,{cache:'no-store'});
-    if(!r.ok) throw new Error(r.status);
-    ok(await r.json());
-  }catch(e){fail(e)}
+  try{const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw new Error(r.status);ok(await r.json())}
+  catch(e){fail(e)}
 }
 load('/pairoo/api/coins.json',paintCoins,()=>{
   $('coins-note').textContent='unavailable';
-  $('coins-grid').innerHTML='<div class="empty"><b>Coin list unavailable.</b>The feed could not be read right now.</div>';
+  $('coins-grid').innerHTML='<div class="empty" style="grid-column:1/-1"><b>Coin list unavailable</b><span>The feed could not be read right now.</span></div>';
 });
 load('/pairoo/api/pairs.json',d=>{
   PAIRS=d.pairs||[];
-  $('pairs-note').textContent=PAIRS.length+' assets listed — curated catalog, minimum $100k liquidity. Unlisted tickers are refused, never guessed.';
+  $('pairs-note').textContent=PAIRS.length+' assets listed. Curated catalog, minimum $100k liquidity — an unlisted ticker is refused, never guessed.';
   paintPairs();
 },()=>{
-  $('pairs-grid').innerHTML='<div class="empty"><b>Pair list unavailable.</b>The catalog feed could not be read right now.</div>';
+  $('pairs-grid').innerHTML='<div class="empty"><b>Pair list unavailable</b><span>The catalog feed could not be read right now.</span></div>';
 });
 })();
 </script>
