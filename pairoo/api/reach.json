@@ -1,5 +1,5 @@
 {
- "generated_at": 1789162318,
+ "generated_at": 1789165301,
  "states": {
   "live": "Working end to end",
   "testing": "Connected, in testing",
@@ -25,9 +25,9 @@
   {
    "id": "discord",
    "name": "Discord",
-   "state": "built",
+   "state": "testing",
    "url": "https://discord.com/oauth2/authorize?client_id=1070172925631676487&scope=bot+applications.commands&permissions=68608",
-   "note": "Application and invite exist, adapter fixture-covered. Bot token not wired yet."
+   "note": "Bot is in a live server. Reading mentions and replying both verified against the API; no worker running yet."
   },
   {
    "id": "reddit",
