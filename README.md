@@ -17,9 +17,10 @@ and render as `—` rather than a made-up number.
 The legal pages are **drafts**, in English like every public text. The
 administrator is identified only as "Pairoo Dev"; no natural person is
 named and the legal identification of the operator is still pending.
-Contact: legal@pairoo.xyz (privacy and deletion: privacy@pairoo.xyz).
-Those mailboxes still have to be created — the domain has no MX record
-yet. Retention periods are not approved or implemented — do not present
+Contact runs through Telegram @pairoobot. No e-mail address is published:
+the domain has no MX record and no mailbox, and a dead address on a legal
+page is worse than none. A published e-mail is listed as pending in the
+drafts and will be needed for platform review. Retention periods are not approved or implemented — do not present
 them as active policy.
 
 ## Deploy
