@@ -177,6 +177,7 @@ details p{margin:14px 0 0;font-size:14.5px;color:var(--ink-70);max-width:68ch}
 .row .dot{width:7px;height:7px;border-radius:50%;flex:none;background:var(--hair-2)}
 .row[data-state="live"] .dot{background:#2E9E5B}
 .row[data-state="testing"] .dot{background:var(--yellow);box-shadow:0 0 0 3px rgba(255,201,30,.25)}
+.row[data-state="waiting"] .dot{background:#C98A00}
 .row[data-state="built"] .dot{background:var(--ink-45)}
 .row .nm{font-family:var(--disp);font-size:15px;letter-spacing:-.03em;flex:none}
 .row .via{font-family:var(--mono);font-size:10.5px;color:var(--ink-45)}
@@ -189,20 +190,27 @@ details p{margin:14px 0 0;font-size:14.5px;color:var(--ink-70);max-width:68ch}
   font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-45)}
 .legend i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:7px;vertical-align:1px}
 
-/* roadmap */
-.road{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--hair-2)}
-@media(max-width:900px){.road{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.road{grid-template-columns:1fr}}
-.phase{padding:26px 22px 30px 0;border-right:1px solid var(--hair)}
-.phase:last-child{border-right:0}
-@media(max-width:900px){.phase:nth-child(2n){border-right:0;padding-right:0}
-  .phase{padding-left:0}}
-.phase .ph{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--ink-45)}
-.phase[data-state="now"] .ph{color:var(--ink);background:var(--yellow);padding:2px 7px;border-radius:2px}
-.phase h3{font-size:18px;margin:14px 0 12px;letter-spacing:-.03em}
+/* roadmap: uma trilha com estações, não quatro colunas de bullet */
+.road{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding-top:46px}
+.road:before{content:'';position:absolute;left:6px;right:6px;top:52px;height:1px;background:var(--hair-2)}
+@media(max-width:820px){
+  .road{grid-template-columns:1fr;padding-top:0;padding-left:26px}
+  .road:before{left:5px;right:auto;top:14px;bottom:20px;width:1px;height:auto}
+}
+.phase{position:relative;padding:0 26px 30px 0}
+.phase:last-child{padding-right:0}
+@media(max-width:820px){.phase{padding:0 0 30px 0}}
+/* a estação */
+.phase:before{content:'';position:absolute;left:0;top:-46px;width:13px;height:13px;border-radius:50%;
+  background:var(--paper);box-shadow:inset 0 0 0 1px var(--hair-2)}
+@media(max-width:820px){.phase:before{left:-26px;top:4px}}
+.phase[data-state="now"]:before{background:var(--yellow);box-shadow:0 0 0 5px rgba(255,201,30,.22)}
+.phase .ph{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-45)}
+.phase[data-state="now"] .ph{color:var(--ink)}
+.phase h3{font-size:18px;margin:10px 0 14px;letter-spacing:-.03em}
 .phase ul{margin:0;padding:0;list-style:none}
-.phase li{font-size:13.5px;color:var(--ink-70);padding:7px 0 7px 15px;position:relative;line-height:1.55}
-.phase li:before{content:'';position:absolute;left:0;top:15px;width:5px;height:1px;background:var(--hair-2)}
+.phase li{font-size:13px;color:var(--ink-70);padding:6px 0 6px 14px;position:relative;line-height:1.6}
+.phase li:before{content:'';position:absolute;left:0;top:14px;width:5px;height:1px;background:var(--hair-2)}
 
 .end{padding:104px 0 108px;text-align:center}
 .end h2{font-size:clamp(30px,4.6vw,54px);margin-bottom:14px}
@@ -487,7 +495,7 @@ function paintReach(d){
   const leg=$('legend');
   Object.entries(est).forEach(([k,v])=>{
     const s=document.createElement('span'); s.dataset.state=k;
-    s.innerHTML='<i style="background:'+({live:'#2E9E5B',testing:'#FFC91E',built:'rgba(20,22,26,.45)',planned:'rgba(20,22,26,.26)'}[k]||'#ccc')+'"></i>'+esc(v);
+    s.innerHTML='<i style="background:'+({live:'#2E9E5B',testing:'#FFC91E',waiting:'#C98A00',built:'rgba(20,22,26,.45)',planned:'rgba(20,22,26,.26)'}[k]||'#ccc')+'"></i>'+esc(v);
     leg.appendChild(s);
   });
 

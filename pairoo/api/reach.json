@@ -1,8 +1,9 @@
 {
- "generated_at": 1789162068,
+ "generated_at": 1789162318,
  "states": {
   "live": "Working end to end",
   "testing": "Connected, in testing",
+  "waiting": "Credentials in place, access pending",
   "built": "Adapter built, access pending",
   "planned": "Planned"
  },
@@ -17,23 +18,23 @@
   {
    "id": "x",
    "name": "X",
-   "state": "built",
+   "state": "waiting",
    "url": "https://x.com/pairoobot",
-   "note": "Official mentions API. Credentials are being reissued from scratch."
+   "note": "Authenticated as @pairoobot. The mentions endpoint needs a paid API plan — it answers 402 today."
   },
   {
    "id": "discord",
    "name": "Discord",
    "state": "built",
    "url": "https://discord.com/oauth2/authorize?client_id=1070172925631676487&scope=bot+applications.commands&permissions=68608",
-   "note": "Adapter written and fixture-covered. Application pending."
+   "note": "Application and invite exist, adapter fixture-covered. Bot token not wired yet."
   },
   {
    "id": "reddit",
    "name": "Reddit",
-   "state": "built",
+   "state": "planned",
    "url": null,
-   "note": "Public mention triggers the bot, same as X. Application pending."
+   "note": "Adapter written. Whether we run it there is still an open decision."
   },
   {
    "id": "instagram",
