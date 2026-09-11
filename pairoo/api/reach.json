@@ -1,5 +1,5 @@
 {
- "generated_at": 1789169536,
+ "generated_at": 1789169601,
  "states": {
   "live": "Answering now",
   "testing": "Connected, in testing",
@@ -100,9 +100,9 @@
    "state": "next",
    "items": [
     "Telegram answers today through the gateway; Discord answers through its worker",
-    "X needs a paid API plan: the mentions endpoint answers 402",
-    "Instagram needs its webhook verified with the live token; TikTok needs write access",
-    "Reddit is closed to new API apps — the adapter is written and parked"
+    "X: the credentials authenticate, the mentions endpoint needs a paid plan",
+    "Instagram: verify the webhook with the live token. TikTok: get write access",
+    "Reddit: the adapter is written and tested — it needs negotiated API access, or a credential issued before November 2025"
    ]
   },
   {
