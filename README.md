@@ -14,11 +14,13 @@ and render as `—` rather than a made-up number.
 
 ## Status
 
-The legal pages are **drafts**. The operator is identified as the Pairoo
-project team; the legal identification of the operator is still pending.
-Contact: legal@holzbach.co (privacy and deletion: privacy@holzbach.co).
-Retention periods are not approved or implemented — do not present them as
-active policy.
+The legal pages are **drafts**, in English like every public text. The
+administrator is identified only as "Pairoo Dev"; no natural person is
+named and the legal identification of the operator is still pending.
+Contact: legal@pairoo.xyz (privacy and deletion: privacy@pairoo.xyz).
+Those mailboxes still have to be created — the domain has no MX record
+yet. Retention periods are not approved or implemented — do not present
+them as active policy.
 
 ## Deploy
 

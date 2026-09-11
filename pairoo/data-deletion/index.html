@@ -1,58 +1,64 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#0A0A0B">
-<title>Solicitar exclusão de dados — Pairoo</title>
+<meta name="theme-color" content="#F2EDE2">
+<title>Data deletion request — Pairoo</title>
 <link rel="icon" href="/assets/favicon-32.png" sizes="32x32">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0A0A0B;--panel:#131315;--line:rgba(255,255,255,.09);--line-2:rgba(255,255,255,.16);
- --text:#EDEDEF;--dim:#8B8B93;--dim-2:#5E5E66;--accent:#FFC91E}
+:root{--paper:#F2EDE2;--paper-2:#EAE3D4;--ink:#141210;--ink-60:rgba(20,18,16,.62);
+ --ink-30:rgba(20,18,16,.3);--hair:rgba(20,18,16,.18);--yellow:#FFC91E;
+ --serif:'Instrument Serif',Georgia,serif;--sans:'Instrument Sans',system-ui,sans-serif;
+ --mono:'JetBrains Mono',ui-monospace,monospace}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);
- font:15px/1.7 Inter,system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
-a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-header{border-bottom:1px solid var(--line)}
-.wrap{width:min(720px,calc(100% - 40px));margin:auto}
-.head-in{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
-.brand{display:flex;align-items:center;gap:9px;font-weight:600;color:var(--text);letter-spacing:-.02em}
-.brand:hover{text-decoration:none}
-.brand img{width:24px;height:24px;border-radius:6px;display:block}
-nav{display:flex;gap:16px;font-size:13px}
-nav a{color:var(--dim)}
-nav a:hover{color:var(--text);text-decoration:none}
-main{padding:44px 0 60px}
-h1{font-size:26px;font-weight:600;letter-spacing:-.02em;margin:0 0 8px}
-h2{font-size:16px;font-weight:600;margin:32px 0 10px;letter-spacing:-.01em}
-p{margin:0 0 16px;color:var(--dim)}
-p.draft{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:12px;line-height:1.6;color:var(--dim-2);
- background:var(--panel);border:1px solid var(--line);border-left:2px solid var(--accent);
- border-radius:8px;padding:12px 14px;margin-bottom:26px}
-ol{margin:0 0 16px;padding-left:20px;color:var(--dim)}
-li{margin-bottom:10px}
-footer{border-top:1px solid var(--line);padding:22px 0 40px;color:var(--dim-2);font-size:13px}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.68 var(--sans);-webkit-font-smoothing:antialiased}
+body:after{content:'';position:fixed;inset:0;z-index:99;pointer-events:none;opacity:.3;mix-blend-mode:multiply;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E")}
+a{color:var(--ink);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--ink-30)}
+a:hover{text-decoration-color:var(--ink)}
+::selection{background:var(--yellow)}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+header{border-bottom:1px solid var(--hair)}
+.wrap{width:min(700px,calc(100% - 44px));margin:auto}
+.head-in{display:flex;align-items:baseline;justify-content:space-between;height:58px;gap:16px}
+.brand{font-family:var(--serif);font-size:23px;text-decoration:none}
+nav{display:flex;gap:20px}
+nav a{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+ color:var(--ink-60);text-decoration:none}
+nav a:hover{color:var(--ink)}
+main{padding:56px 0 72px}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(32px,5vw,46px);line-height:1.05;
+ letter-spacing:-.012em;margin:0 0 26px}
+h2{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;
+ color:var(--ink-60);margin:42px 0 14px;padding-bottom:10px;border-bottom:1px solid var(--hair)}
+p{margin:0 0 18px;color:var(--ink-60)}
+p strong{color:var(--ink);font-weight:600}
+p.draft{font-family:var(--mono);font-size:11.5px;line-height:1.75;color:var(--ink-60);
+ background:var(--paper-2);border-left:2px solid var(--yellow);padding:14px 16px;margin-bottom:30px}
+ol{margin:0 0 18px;padding-left:22px;color:var(--ink-60)}
+li{margin-bottom:12px}
+footer{border-top:1px solid var(--ink);padding:20px 0 44px;
+ font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-60)}
 </style>
 </head>
 <body>
 <header><div class="wrap head-in">
 <a class="brand" href="/"><img src="/assets/mark.webp" alt="" width="24" height="24">Pairoobot</a>
-<nav><a href="/pairoo/terms">Termos</a><a href="/pairoo/privacy">Privacidade</a><a href="/pairoo/data-deletion">Exclusão de dados</a></nav>
+<nav><a href="/pairoo/terms">Terms</a><a href="/pairoo/privacy">Privacy</a><a href="/pairoo/data-deletion">Data deletion</a></nav>
 </div></header>
 <main><div class="wrap">
-<h1>Solicitar exclusão de dados — Pairoo</h1>
-<p class="draft">MINUTA PARA REVISÃO — contato atualizado em 11/09/2026; identificação legal do responsável, prazos operacionais e retenção ainda dependem de definição.</p>
-<p>Responsável: <strong>Pairoo Dev</strong>, administrador do serviço. Contato de privacidade e exclusão: <a href="mailto:privacy@holzbach.co">privacy@holzbach.co</a>.</p>
-<ol><li>Envie uma solicitação a <a href="mailto:privacy@holzbach.co">privacy@holzbach.co</a>, com assunto “Pairoo — exclusão de dados”.</li><li>Informe a rede social, nome de usuário/ID e, se necessário, links de interações para localizar os registros. Não envie senha, access token, documento completo nem chave privada.</li><li>Verificaremos o controle da conta por um meio apropriado. Não forneça informações de outra pessoa sem autorização.</li><li>O atendimento manual deverá informar recebimento, escopo, conclusão e eventuais limitações. Não há prazo automático implementado; o prazo operacional precisa ser definido pelo responsável.</li></ol>
-<p>O pedido abrange os registros sob controle do Pairoo: eventos, drafts, contexto e respostas armazenados. Devem ser tratados também caches, histórico de IA e backups conforme o inventário confirmado. Poderão existir registros cuja conservação seja legalmente necessária; qualquer exceção deve ser fundamentada e comunicada, não presumida.</p>
-<p>Revogue também o acesso nas configurações de aplicativos conectados da rede social. A revogação não substitui a solicitação de exclusão. Publicações nas plataformas e transações blockchain têm controles próprios; não podemos apagar dados imutáveis de uma blockchain.</p>
+<h1>Data deletion request — Pairoo</h1>
+<p class="draft">DRAFT FOR REVIEW — contact updated on 11 September 2026. The legal identification of the controller, operational deadlines and retention still depend on definition.</p>
+<p>Controller: <strong>Pairoo Dev</strong>, the administrator of the service. Privacy and deletion contact: <a href="mailto:privacy@pairoo.xyz">privacy@pairoo.xyz</a>.</p>
+<ol><li>Send a request to <a href="mailto:privacy@pairoo.xyz">privacy@pairoo.xyz</a> with the subject "Pairoo — data deletion".</li><li>State the social network, the username or ID and, if needed, links to the interactions, so the records can be located. Do not send a password, an access token, a full identity document or a private key.</li><li>We will verify control of the account by an appropriate means. Do not provide another person's information without their authorisation.</li><li>Manual handling must confirm receipt, scope, completion and any limitations. No automatic deadline is implemented; the operational deadline has to be defined by the controller.</li></ol>
+<p>The request covers the records under Pairoo's control: events, drafts, context and stored replies. Caches, AI history and backups must be handled as well, according to the confirmed inventory. Some records may need to be retained for legal reasons; any exception must be justified and communicated, never assumed.</p>
+<p>Also revoke access in the connected-apps settings of the social network. Revocation does not replace a deletion request. Platform posts and blockchain transactions have their own controls; we cannot erase immutable blockchain data.</p>
 </div></main>
-<footer><div class="wrap">Atualizado em 11 de setembro de 2026 · Minuta para revisão.</div></footer>
+<footer><div class="wrap">Updated 11 September 2026 · Draft for review.</div></footer>
 </body>
 </html>
