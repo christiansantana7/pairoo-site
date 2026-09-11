@@ -1,0 +1,126 @@
+{
+ "generated_at": 1789162068,
+ "states": {
+  "live": "Working end to end",
+  "testing": "Connected, in testing",
+  "built": "Adapter built, access pending",
+  "planned": "Planned"
+ },
+ "channels": [
+  {
+   "id": "telegram",
+   "name": "Telegram",
+   "state": "testing",
+   "url": "https://t.me/pairoobot",
+   "note": "Bot authenticated and polling. A full user request has not been verified end to end yet."
+  },
+  {
+   "id": "x",
+   "name": "X",
+   "state": "built",
+   "url": "https://x.com/pairoobot",
+   "note": "Official mentions API. Credentials are being reissued from scratch."
+  },
+  {
+   "id": "discord",
+   "name": "Discord",
+   "state": "built",
+   "url": "https://discord.com/oauth2/authorize?client_id=1070172925631676487&scope=bot+applications.commands&permissions=68608",
+   "note": "Adapter written and fixture-covered. Application pending."
+  },
+  {
+   "id": "reddit",
+   "name": "Reddit",
+   "state": "built",
+   "url": null,
+   "note": "Public mention triggers the bot, same as X. Application pending."
+  },
+  {
+   "id": "instagram",
+   "name": "Instagram",
+   "state": "built",
+   "url": null,
+   "note": "Webhook ingress plus Ayrshare egress. Live-token verification pending."
+  },
+  {
+   "id": "tiktok",
+   "name": "TikTok",
+   "state": "built",
+   "url": null,
+   "note": "Receiving real mentions is proven. Posting needs access not yet granted."
+  }
+ ],
+ "chains": [
+  {
+   "id": "solana",
+   "name": "Solana",
+   "via": "pump.fun",
+   "state": "testing",
+   "note": "Atomic launch simulation verified against NVDAX. Signing gate not enabled yet."
+  },
+  {
+   "id": "solana-stonkfun",
+   "name": "Solana",
+   "via": "StonkFun",
+   "state": "planned",
+   "note": "Legacy integration. The 80/20 split is not enforced in its prepare payload."
+  },
+  {
+   "id": "robinhood",
+   "name": "Robinhood Chain",
+   "via": "Pons",
+   "state": "planned",
+   "note": "Split contract exists locally. Not deployed and not audited on chain."
+  },
+  {
+   "id": "bsc",
+   "name": "BNB Chain",
+   "via": "four.meme",
+   "state": "planned",
+   "note": "Official launch API and contracts not integrated."
+  }
+ ],
+ "roadmap": [
+  {
+   "phase": "01",
+   "title": "First real launch",
+   "state": "now",
+   "items": [
+    "Enable the signing gate on the verified Solana route",
+    "Launch, confirm on chain, publish the mint",
+    "Watch the 80/20 creator-fee split settle natively"
+   ]
+  },
+  {
+   "phase": "02",
+   "title": "Every channel answering",
+   "state": "next",
+   "items": [
+    "Discord and Reddit applications and credentials",
+    "Reissue the X app after the account reset",
+    "Verify the Instagram webhook with the live token",
+    "TikTok write access"
+   ]
+  },
+  {
+   "phase": "03",
+   "title": "More chains",
+   "state": "later",
+   "items": [
+    "Robinhood Chain through Pons, after the split contract is deployed and reviewed",
+    "BNB Chain through four.meme",
+    "Route engine picks the cheapest compatible chain for the request"
+   ]
+  },
+  {
+   "phase": "04",
+   "title": "Creator payouts",
+   "state": "later",
+   "items": [
+    "Wallet binding per author, one address per channel identity",
+    "Claim flow for the creator share",
+    "Public directory of every coin launched through the bot"
+   ]
+  }
+ ]
+}

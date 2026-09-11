@@ -163,6 +163,47 @@ summary:after{content:'+';font-family:var(--mono);font-size:14px;color:var(--ink
 details[open] summary:after{content:'–'}
 details p{margin:14px 0 0;font-size:14.5px;color:var(--ink-70);max-width:68ch}
 
+
+/* launch anywhere */
+.anywhere{display:grid;grid-template-columns:1fr auto 1fr;gap:30px;align-items:start}
+@media(max-width:860px){.anywhere{grid-template-columns:1fr;gap:22px}}
+.anywhere .arrow{font-family:var(--mono);font-size:12px;color:var(--ink-45);
+  align-self:center;letter-spacing:.2em;padding-top:26px}
+@media(max-width:860px){.anywhere .arrow{padding-top:0;transform:rotate(90deg)}}
+.col h3{font-family:var(--mono);font-weight:500;font-size:10px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink-45);margin-bottom:4px}
+.row{display:flex;align-items:center;gap:12px;padding:15px 0;border-bottom:1px solid var(--hair)}
+.row:first-of-type{border-top:1px solid var(--hair)}
+.row .dot{width:7px;height:7px;border-radius:50%;flex:none;background:var(--hair-2)}
+.row[data-state="live"] .dot{background:#2E9E5B}
+.row[data-state="testing"] .dot{background:var(--yellow);box-shadow:0 0 0 3px rgba(255,201,30,.25)}
+.row[data-state="built"] .dot{background:var(--ink-45)}
+.row .nm{font-family:var(--disp);font-size:15px;letter-spacing:-.03em;flex:none}
+.row .via{font-family:var(--mono);font-size:10.5px;color:var(--ink-45)}
+.row .st{margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-45);text-align:right;flex:none}
+.row .nt{display:block;font-family:var(--sans);font-size:12.5px;color:var(--ink-45);
+  letter-spacing:0;text-transform:none;margin-top:3px;max-width:34ch}
+@media(max-width:560px){.row{flex-wrap:wrap}.row .st{margin-left:0;text-align:left;width:100%}}
+.legend{display:flex;flex-wrap:wrap;gap:18px;margin-top:22px;font-family:var(--mono);
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-45)}
+.legend i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:7px;vertical-align:1px}
+
+/* roadmap */
+.road{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--hair-2)}
+@media(max-width:900px){.road{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.road{grid-template-columns:1fr}}
+.phase{padding:26px 22px 30px 0;border-right:1px solid var(--hair)}
+.phase:last-child{border-right:0}
+@media(max-width:900px){.phase:nth-child(2n){border-right:0;padding-right:0}
+  .phase{padding-left:0}}
+.phase .ph{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--ink-45)}
+.phase[data-state="now"] .ph{color:var(--ink);background:var(--yellow);padding:2px 7px;border-radius:2px}
+.phase h3{font-size:18px;margin:14px 0 12px;letter-spacing:-.03em}
+.phase ul{margin:0;padding:0;list-style:none}
+.phase li{font-size:13.5px;color:var(--ink-70);padding:7px 0 7px 15px;position:relative;line-height:1.55}
+.phase li:before{content:'';position:absolute;left:0;top:15px;width:5px;height:1px;background:var(--hair-2)}
+
 .end{padding:104px 0 108px;text-align:center}
 .end h2{font-size:clamp(30px,4.6vw,54px);margin-bottom:14px}
 .end .swash{margin:0 auto 30px;width:min(240px,52%)}
@@ -185,8 +226,10 @@ footer{border-top:1px solid var(--hair);padding:28px 0 46px}
     <nav>
       <a class="nav-link" href="https://t.me/pairoobot" target="_blank" rel="noopener noreferrer">@pairoobot</a>
       <a class="nav-link" href="#coins">Coins</a>
+      <a class="nav-link" href="#anywhere">Anywhere</a>
       <a class="nav-link" href="#how">How</a>
       <a class="nav-link" href="#pairs">Pairs</a>
+      <a class="nav-link" href="#roadmap">Roadmap</a>
       <a class="nav-link" href="#fees">Fees</a>
       <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1070172925631676487&amp;scope=bot+applications.commands&amp;permissions=68608" target="_blank" rel="noopener noreferrer">Add to Discord</a>
     </nav>
@@ -197,10 +240,10 @@ footer{border-top:1px solid var(--hair);padding:28px 0 46px}
 <div class="wrap">
   <section class="hero">
     <div>
-      <span class="lab">Memecoin agent launchpad</span>
+      <span class="lab">Launch anywhere · memecoin agent</span>
       <h1 style="margin-top:16px">Launch a coin<br>from a <em>message</em></h1>
       <img class="swash" src="/assets/mark-swash.webp" alt="">
-      <p>Mention <b>@pairoobot</b> with a name, a ticker and a pair. It creates the token on Solana — trading against a real asset instead of SOL — and replies with the link.</p>
+      <p>Mention <b>@pairoobot</b> with a name, a ticker and a pair. It creates the token on chain — trading against a real asset instead of SOL — and replies with the link. Any feed in, any chain out.</p>
       <div class="hero-cta">
         <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1070172925631676487&amp;scope=bot+applications.commands&amp;permissions=68608" target="_blank" rel="noopener noreferrer">Add to Discord</a>
         <a class="btn ghost" href="https://t.me/pairoobot" target="_blank" rel="noopener noreferrer">Telegram @pairoobot</a>
@@ -238,9 +281,24 @@ footer{border-top:1px solid var(--hair);padding:28px 0 46px}
 </div>
 
 <div class="wrap">
+
+  <section id="anywhere">
+    <div class="sec-head">
+      <div><span class="idx">02</span><h2 style="margin-top:8px">Launch anywhere</h2></div>
+      <span class="lab">Ask from any feed · land on any chain</span>
+    </div>
+    <p style="max-width:52ch;margin:-12px 0 30px;color:var(--ink-70)">One mention is the whole interface. Ask from the network you already post on, and the bot picks the cheapest chain that can honour what you asked for.</p>
+    <div class="anywhere">
+      <div class="col"><h3>Ask from</h3><div id="ch-list"></div></div>
+      <div class="arrow">→</div>
+      <div class="col"><h3>Launch on</h3><div id="cn-list"></div></div>
+    </div>
+    <div class="legend" id="legend"></div>
+  </section>
+
   <section id="how">
     <div class="sec-head">
-      <div><span class="idx">02</span><h2 style="margin-top:8px">From chat to token</h2></div>
+      <div><span class="idx">03</span><h2 style="margin-top:8px">From chat to token</h2></div>
       <span class="lab">Three steps</span>
     </div>
     <div class="steps">
@@ -252,7 +310,7 @@ footer{border-top:1px solid var(--hair);padding:28px 0 46px}
 
   <section id="pairs">
     <div class="sec-head">
-      <div><span class="idx">03</span><h2 style="margin-top:8px">Pick your market</h2></div>
+      <div><span class="idx">04</span><h2 style="margin-top:8px">Pick your market</h2></div>
       <div class="filters">
         <button class="filter" type="button" data-cat="stock" aria-pressed="true">Tokenized</button>
         <button class="filter" type="button" data-cat="prestock" aria-pressed="false">Pre-IPO</button>
@@ -264,7 +322,7 @@ footer{border-top:1px solid var(--hair);padding:28px 0 46px}
 
   <section id="fees">
     <div class="sec-head">
-      <div><span class="idx">04</span><h2 style="margin-top:8px">You keep 80%</h2></div>
+      <div><span class="idx">05</span><h2 style="margin-top:8px">You keep 80%</h2></div>
       <span class="lab">No surprises</span>
     </div>
     <div class="fees">
@@ -279,9 +337,18 @@ footer{border-top:1px solid var(--hair);padding:28px 0 46px}
     </div>
   </section>
 
+
+  <section id="roadmap">
+    <div class="sec-head">
+      <div><span class="idx">06</span><h2 style="margin-top:8px">Roadmap</h2></div>
+      <span class="lab">What is shipped, and what is not</span>
+    </div>
+    <div class="road" id="road"></div>
+  </section>
+
   <section id="faq">
     <div class="sec-head">
-      <div><span class="idx">05</span><h2 style="margin-top:8px">Questions</h2></div>
+      <div><span class="idx">07</span><h2 style="margin-top:8px">Questions</h2></div>
       <span class="lab">You can just ask it</span>
     </div>
     <details open><summary>How does it work?</summary><p>Mention @pairoobot with a token name, ticker and pair. It creates the token on Solana, trading against the tokenized asset you chose instead of SOL, and replies with the link.</p></details>
@@ -400,6 +467,42 @@ load('/pairoo/api/coins.json',paintCoins,()=>{
   $('coins-note').textContent='unavailable';
   $('coins-body').innerHTML='<div class="void"><b>Coin list unavailable.</b><span>The feed could not be read right now.</span></div>';
 });
+
+/* Alcance: canais, chains e roadmap vêm do feed. Estado é o que os docs do
+   repo afirmam — nada aqui vira "live" sem evidência ponta a ponta. */
+function paintReach(d){
+  const est=(d&&d.states)||{}, ch=$('ch-list'), cn=$('cn-list');
+  const linha=(nome,via,estado,nota,url)=>{
+    const el=document.createElement(url?'a':'div');
+    el.className='row'; el.dataset.state=estado;
+    if(url){el.href=url;el.target='_blank';el.rel='noopener noreferrer'}
+    el.innerHTML='<span class="dot"></span><span class="nm">'+esc(nome)+'</span>'+
+      (via?'<span class="via">'+esc(via)+'</span>':'')+
+      '<span class="st">'+esc(est[estado]||estado)+'<span class="nt">'+esc(nota)+'</span></span>';
+    return el;
+  };
+  (d.channels||[]).forEach(c=>ch.appendChild(linha(c.name,null,c.state,c.note,c.url)));
+  (d.chains||[]).forEach(c=>cn.appendChild(linha(c.name,'via '+c.via,c.state,c.note,null)));
+
+  const leg=$('legend');
+  Object.entries(est).forEach(([k,v])=>{
+    const s=document.createElement('span'); s.dataset.state=k;
+    s.innerHTML='<i style="background:'+({live:'#2E9E5B',testing:'#FFC91E',built:'rgba(20,22,26,.45)',planned:'rgba(20,22,26,.26)'}[k]||'#ccc')+'"></i>'+esc(v);
+    leg.appendChild(s);
+  });
+
+  const road=$('road');
+  (d.roadmap||[]).forEach(r=>{
+    const el=document.createElement('div'); el.className='phase'; el.dataset.state=r.state;
+    el.innerHTML='<span class="ph">'+esc(r.phase)+' · '+esc(r.state)+'</span>'+
+      '<h3>'+esc(r.title)+'</h3><ul>'+(r.items||[]).map(i=>'<li>'+esc(i)+'</li>').join('')+'</ul>';
+    road.appendChild(el);
+  });
+}
+load('/pairoo/api/reach.json',paintReach,()=>{
+  ['anywhere','roadmap'].forEach(id=>{const el=document.getElementById(id);if(el)el.remove()});
+});
+
 load('/pairoo/api/platforms.json',paintPlats,()=>{const g=$('plats');if(g)g.remove()});
 load('/pairoo/api/pairs.json',d=>{
   PAIRS=d.pairs||[];
