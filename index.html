@@ -8,24 +8,32 @@
 <meta name="description" content="Mention Pairoobot with a name, a ticker and a pair. It launches your coin on Solana, trading against a tokenized asset instead of SOL.">
 <meta property="og:title" content="Pairoobot">
 <meta property="og:description" content="Launch a coin from a message. Paired with a real asset, not SOL.">
-<meta property="og:image" content="https://www.pairoo.xyz/assets/og-wall.webp">
+<meta property="og:image" content="https://www.pairoo.xyz/assets/og-pixo.webp">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/assets/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="preload" href="/assets/pixoretosp.woff2" as="font" type="font/woff2" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
+/* Pixo Reto SP — Bruno Corrente, SIL OFL. Letra de pixação de SP.
+   Ver /assets/FONT-LICENSE.txt */
+@font-face{font-family:'Pixo Reto SP';src:url('/assets/pixoretosp.woff2') format('woff2');
+  font-weight:400;font-style:normal;font-display:swap}
+
 :root{
   --wall:#2B2B2E; --wall-2:#232326; --wall-3:#33333799; --black:#0E0E10;
-  --chalk:#E8E4DA; --chalk-60:rgba(232,228,218,.6); --chalk-30:rgba(232,228,218,.3);
-  --hair:rgba(232,228,218,.15); --yellow:#FFC91E;
-  --disp:'Big Shoulders Display',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+  --yellow:#FFC91E; --chalk:#FFC91E;
+  --chalk-60:rgba(255,201,30,.68); --chalk-30:rgba(255,201,30,.4);
+  --hair:rgba(255,201,30,.2);
+  --disp:'Pixo Reto SP','Big Shoulders Display',Impact,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:60px}
-body{margin:0;background:var(--wall);color:var(--chalk);
+body{margin:0;background:var(--wall);color:var(--yellow);
   font:14px/1.7 var(--mono);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 /* parede: grão grosso + manchas */
 body:before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
@@ -39,17 +47,17 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 ::selection{background:var(--yellow);color:var(--black)}
 :focus-visible{outline:2px solid var(--yellow);outline-offset:3px}
 .wrap{width:min(1100px,calc(100% - 44px));margin:auto;position:relative;z-index:1}
-.skip{position:absolute;top:-60px;left:12px;background:var(--chalk);color:var(--black);padding:10px 14px;z-index:100}
+.skip{position:absolute;top:-60px;left:12px;background:var(--yellow);color:var(--black);padding:10px 14px;z-index:100}
 .skip:focus{top:10px}
-h1,h2,h3{margin:0;font-family:var(--disp);font-weight:900;text-transform:uppercase;
-  letter-spacing:-.005em;line-height:.84}
+h1,h2,h3{margin:0;font-family:var(--disp);font-weight:400;text-transform:uppercase;
+  letter-spacing:.01em;line-height:.92}
 .lab{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--chalk-60)}
 
 header{position:sticky;top:0;z-index:60;background:rgba(43,43,46,.92);backdrop-filter:blur(8px);
   border-bottom:3px solid var(--black)}
 .head-in{display:flex;align-items:center;justify-content:space-between;height:58px;gap:20px}
-.brand{display:flex;align-items:baseline;gap:9px;font-family:var(--disp);font-weight:900;
-  font-size:30px;text-transform:uppercase;letter-spacing:-.01em}
+.brand{display:flex;align-items:baseline;gap:10px;font-family:var(--disp);font-weight:400;
+  font-size:32px;text-transform:uppercase;letter-spacing:.03em;color:var(--yellow)}
 .brand i{font-family:var(--mono);font-size:9px;letter-spacing:.22em;font-style:normal;color:var(--chalk-30)}
 nav{display:flex;align-items:center;gap:24px}
 nav a.nav-link{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--chalk-60)}
@@ -57,15 +65,15 @@ nav a.nav-link:hover{color:var(--yellow)}
 @media(max-width:860px){nav .nav-link{display:none}}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border:0;
   font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
-  background:var(--chalk);color:var(--black);transition:background .12s,color .12s}
-.btn:hover{background:var(--yellow)}
+  background:var(--yellow);color:var(--black);transition:background .12s,color .12s,opacity .12s}
+.btn:hover{opacity:.82}
 .btn.ghost{background:transparent;color:var(--chalk);box-shadow:inset 0 0 0 2px var(--chalk-30)}
 .btn.ghost:hover{background:var(--chalk);color:var(--black);box-shadow:none}
 
 .hero{display:grid;grid-template-columns:1.3fr .7fr;gap:24px;align-items:end;padding:66px 0 34px}
 @media(max-width:900px){.hero{grid-template-columns:1fr;padding:44px 0 24px}}
 /* o título ocupa a parede: linhas coladas, letras quase se tocando */
-h1{font-size:clamp(58px,10.4vw,142px);letter-spacing:-.012em}
+h1{font-size:clamp(54px,9.6vw,132px);letter-spacing:.012em}
 h1 mark{position:relative;background:var(--yellow);color:var(--black);padding:0 .06em;box-decoration-break:clone}
 h1 mark:after{content:'';position:absolute;left:0;right:0;top:100%;height:18px;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='18' preserveAspectRatio='none'%3E%3Cpath d='M8 0v11a3 3 0 006 0V0zM46 0v15a3 3 0 006 0V0zM92 0v7a2.5 2.5 0 005 0V0z' fill='%23FFC91E'/%3E%3C/svg%3E")}
@@ -78,18 +86,18 @@ h1 mark:after{content:'';position:absolute;left:0;right:0;top:100%;height:18px;
 .meta{display:flex;flex-wrap:wrap;border-top:3px solid var(--black);border-bottom:1px solid var(--hair)}
 .meta div{flex:1 1 180px;padding:13px 0 13px 16px;border-left:1px solid var(--hair)}
 .meta div:first-child{padding-left:0;border-left:0}
-.meta b{display:block;font-family:var(--disp);font-weight:900;font-size:30px;line-height:1;margin-top:6px}
+.meta b{display:block;font-family:var(--disp);font-weight:400;font-size:34px;line-height:1;margin-top:6px}
 
 .cmd{margin:42px 0 0;background:var(--wall-2);box-shadow:inset 0 0 0 1px var(--hair)}
 .cmd-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 14px;border-bottom:1px solid var(--hair)}
 .cmd-body{padding:20px 16px;font-size:14px;line-height:1.85;word-break:break-word}
 .cmd-body b{font-weight:700;color:var(--yellow)}
 .cmd-body mark{background:var(--yellow);color:var(--black);padding:1px 5px}
-.cur{display:inline-block;width:9px;height:1.05em;background:var(--chalk);vertical-align:-2px;animation:b 1.1s steps(1) infinite}
+.cur{display:inline-block;width:9px;height:1.05em;background:var(--yellow);vertical-align:-2px;animation:b 1.1s steps(1) infinite}
 @keyframes b{50%{opacity:0}}
 .copy{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
-  background:var(--chalk);color:var(--black);padding:4px 10px}
-.copy:hover{background:var(--yellow)}
+  background:var(--yellow);color:var(--black);padding:4px 10px}
+.copy:hover{opacity:.82}
 .cmd-foot{padding:10px 16px;border-top:1px solid var(--hair);font-size:11px;color:var(--chalk-60)}
 
 section{padding:74px 0 0}
@@ -104,14 +112,14 @@ table{width:100%;border-collapse:collapse;font-size:12.5px}
 th{text-align:left;font-weight:700;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
   color:var(--chalk-30);padding:0 10px 10px 0;border-bottom:2px solid var(--chalk-30)}
 td{padding:14px 10px 14px 0;border-bottom:1px solid var(--hair);vertical-align:middle}
-td.tick{font-family:var(--disp);font-weight:900;font-size:26px;letter-spacing:-.01em}
+td.tick{font-family:var(--disp);font-weight:400;font-size:28px;letter-spacing:.02em}
 td.num{text-align:right;font-variant-numeric:tabular-nums}
 tbody tr:hover{background:var(--wall-3)}
 .eye{display:inline-flex;align-items:center;gap:6px;color:var(--chalk-60)}
 .eye svg{width:13px;height:13px}
 .pill{background:var(--yellow);color:var(--black);padding:2px 8px;font-size:10.5px;font-weight:700;letter-spacing:.08em}
 .void{padding:48px 0 8px;text-align:center}
-.void b{display:block;font-family:var(--disp);font-weight:900;text-transform:uppercase;
+.void b{display:block;font-family:var(--disp);font-weight:400;text-transform:uppercase;
   font-size:clamp(30px,5vw,52px);line-height:.9;margin-bottom:14px}
 .void span{font-size:11.5px;color:var(--chalk-60);letter-spacing:.06em}
 
@@ -139,7 +147,7 @@ tbody tr:hover{background:var(--wall-3)}
 .fees{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
 @media(max-width:860px){.fees{grid-template-columns:1fr;gap:26px}}
 .fees p{margin:0;font-size:12.5px;line-height:1.85;color:var(--chalk-60);max-width:50ch}
-.ratio{display:flex;align-items:baseline;gap:12px;font-family:var(--disp);font-weight:900;
+.ratio{display:flex;align-items:baseline;gap:14px;font-family:var(--disp);font-weight:400;
   font-size:clamp(76px,13vw,150px);line-height:.8;letter-spacing:-.02em}
 .ratio i{font-family:var(--mono);font-size:10.5px;font-style:normal;font-weight:500;
   letter-spacing:.2em;text-transform:uppercase;color:var(--chalk-30)}
@@ -148,7 +156,7 @@ tbody tr:hover{background:var(--wall-3)}
 
 details{border-bottom:1px solid var(--hair);padding:18px 0}
 summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;
-  font-family:var(--disp);font-weight:800;text-transform:uppercase;font-size:30px;line-height:1}
+  font-family:var(--disp);font-weight:400;text-transform:uppercase;font-size:32px;line-height:1}
 summary::-webkit-details-marker{display:none}
 summary:after{content:'+';font-family:var(--mono);font-size:14px;color:var(--yellow)}
 details[open] summary:after{content:'×'}
@@ -161,6 +169,18 @@ footer{border-top:3px solid var(--black);padding:22px 0 44px}
   font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--chalk-60)}
 .foot-links{display:flex;flex-wrap:wrap;gap:18px}
 .foot-links a:hover{color:var(--yellow)}
+
+/* plataformas onde a moeda vive */
+.plats{display:flex;flex-wrap:wrap;gap:8px;margin:-6px 0 26px}
+.plat{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  padding:5px 10px;box-shadow:inset 0 0 0 1px var(--chalk-30);color:var(--chalk-60)}
+.plat:hover{color:var(--black);background:var(--yellow);box-shadow:none}
+.plat[data-soon]{opacity:.45;pointer-events:none}
+td .go{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  margin-left:8px;border-bottom:1px solid var(--chalk-30)}
+td .go:hover{border-color:var(--yellow);color:var(--yellow)}
+.tg{display:inline-flex;align-items:center;gap:7px}
+.tg b{font-weight:700;letter-spacing:.04em}
 </style>
 </head>
 <body>
@@ -170,6 +190,7 @@ footer{border-top:3px solid var(--black);padding:22px 0 44px}
   <div class="wrap head-in">
     <a class="brand" href="/">Pairoobot <i>Solana</i></a>
     <nav>
+      <a class="nav-link" href="https://t.me/pairoobot" target="_blank" rel="noopener noreferrer">@pairoobot</a>
       <a class="nav-link" href="#coins">Coins</a>
       <a class="nav-link" href="#how">Method</a>
       <a class="nav-link" href="#pairs">Pairs</a>
@@ -188,11 +209,11 @@ footer{border-top:3px solid var(--black);padding:22px 0 44px}
       <p>Mention <b>@pairoobot</b> with a name, a ticker and a pair. It creates the token on Solana — trading against a real asset instead of SOL — and replies with the link.</p>
       <div class="hero-cta">
         <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1070172925631676487&amp;scope=bot+applications.commands&amp;permissions=68608" target="_blank" rel="noopener noreferrer">Add to Discord</a>
-        <a class="btn ghost" href="https://t.me/pairoobot" target="_blank" rel="noopener noreferrer">Telegram</a>
+        <a class="btn ghost tg" href="https://t.me/pairoobot" target="_blank" rel="noopener noreferrer">Telegram <b>@pairoobot</b></a>
         <a class="btn ghost" href="https://x.com/pairoobot" target="_blank" rel="noopener noreferrer">X</a>
       </div>
     </div>
-    <div class="hero-art"><img src="/assets/bird-stencil.webp" alt="Pairoobot" width="290" height="399"></div>
+    <div class="hero-art"><img src="/assets/bird-pixo.webp" alt="Pairoobot" width="290" height="399"></div>
   </section>
 
   <div class="meta">
@@ -215,6 +236,7 @@ footer{border-top:3px solid var(--black);padding:22px 0 44px}
       <div><span class="idx">01</span><h2 style="margin-top:10px">Launched coins</h2></div>
       <span class="lab" id="coins-note">loading</span>
     </div>
+    <div class="plats" id="plats"></div>
     <div id="coins-body"></div>
   </div>
 </div>
@@ -286,7 +308,8 @@ footer{border-top:3px solid var(--black);padding:22px 0 44px}
     <a href="/pairoo/privacy">Privacy</a>
     <a href="/pairoo/data-deletion">Data deletion</a>
     <a href="https://x.com/pairoobot" target="_blank" rel="noopener noreferrer">X</a>
-    <a href="https://t.me/pairoobot" target="_blank" rel="noopener noreferrer">Telegram</a>
+    <a href="https://t.me/pairoobot" target="_blank" rel="noopener noreferrer">Telegram @pairoobot</a>
+    <span style="opacity:.45">Reddit soon</span>
     <a href="https://discord.com/oauth2/authorize?client_id=1070172925631676487&amp;scope=bot+applications.commands&amp;permissions=68608" target="_blank" rel="noopener noreferrer">Discord</a>
   </div>
 </div></footer>
@@ -324,6 +347,30 @@ document.querySelectorAll('.filter').forEach(f=>f.addEventListener('click',()=>{
   paintPairs();
 }));
 
+/* Links por moeda: só os que vieram do feed. O gerador não emite padrão
+   de URL não confirmado, então aqui nunca aparece link chutado. */
+function links(c){
+  const l=(c.links||[]);
+  if(!l.length) return '—';
+  return l.map(x=>'<a class="go" href="'+esc(x.url)+'" target="_blank" rel="noopener noreferrer">'+esc(x.name)+'</a>').join('');
+}
+
+function paintPlats(d){
+  const g=$('plats'),ps=(d&&d.platforms)||[];
+  if(!ps.length){g.remove();return}
+  g.replaceChildren();
+  ps.forEach(p=>{
+    const el=document.createElement(p.site?'a':'span');
+    el.className='plat';
+    el.textContent=p.name+(p.per_coin?'':' ·');
+    if(p.site){el.href=p.site;el.target='_blank';el.rel='noopener noreferrer'}
+    if(!p.site)el.dataset.soon='1';
+    el.title=p.per_coin?'Every launched coin links straight to '+p.name
+                       :p.name+' — per-coin link not wired yet';
+    g.appendChild(el);
+  });
+}
+
 function paintCoins(d){
   const body=$('coins-body'),coins=(d&&d.coins)||[];
   $('m-coins').textContent=coins.length;
@@ -341,9 +388,10 @@ function paintCoins(d){
       '<td class="num">'+money(c.market_cap_usd)+'</td>'+
       '<td class="num">'+(pct==null?'—':pct+'%')+'</td>'+
       '<td class="num"><span class="eye">'+EYE+(c.watchers==null?'—':esc(c.watchers))+'</span></td>'+
-      '<td class="num">'+mint+'</td></tr>';
+      '<td class="num">'+mint+'</td>'+
+      '<td class="num">'+links(c)+'</td></tr>';
   }).join('');
-  body.innerHTML='<table><thead><tr><th>Ticker</th><th>Name</th><th>Pair</th><th class="num">Market cap</th><th class="num">Curve</th><th class="num">Viewers</th><th class="num">Mint</th></tr></thead><tbody>'+rows+'</tbody></table>';
+  body.innerHTML='<table><thead><tr><th>Ticker</th><th>Name</th><th>Pair</th><th class="num">Market cap</th><th class="num">Curve</th><th class="num">Viewers</th><th class="num">Mint</th><th class="num">Trade</th></tr></thead><tbody>'+rows+'</tbody></table>';
 }
 
 /* Falha de rede não vira dado falso: o estado de erro é explícito. */
@@ -355,6 +403,7 @@ load('/pairoo/api/coins.json',paintCoins,()=>{
   $('coins-note').textContent='unavailable';
   $('coins-body').innerHTML='<div class="void"><b>Coin list unavailable.</b><span>The feed could not be read right now.</span></div>';
 });
+load('/pairoo/api/platforms.json',paintPlats,()=>{const g=$('plats');if(g)g.remove()});
 load('/pairoo/api/pairs.json',d=>{
   PAIRS=d.pairs||[];
   $('m-pairs').textContent=PAIRS.length;

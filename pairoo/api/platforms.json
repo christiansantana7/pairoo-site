@@ -1,0 +1,40 @@
+{
+ "generated_at": 1789160643,
+ "platforms": [
+  {
+   "id": "pumpfun",
+   "name": "Pump.fun",
+   "chain": "solana",
+   "site": "https://pump.fun",
+   "per_coin": true
+  },
+  {
+   "id": "fomo",
+   "name": "FOMO",
+   "chain": "solana",
+   "site": "https://fomo.family",
+   "per_coin": true
+  },
+  {
+   "id": "solscan",
+   "name": "Solscan",
+   "chain": "solana",
+   "site": "https://solscan.io",
+   "per_coin": true
+  },
+  {
+   "id": "stonkfun",
+   "name": "StonkFun",
+   "chain": "solana",
+   "site": "https://stonkfun.xyz",
+   "per_coin": false
+  },
+  {
+   "id": "pons",
+   "name": "Pons",
+   "chain": "robinhood",
+   "site": null,
+   "per_coin": false
+  }
+ ]
+}
