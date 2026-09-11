@@ -1,11 +1,12 @@
 {
- "generated_at": 1789168841,
+ "generated_at": 1789169536,
  "states": {
   "live": "Answering now",
   "testing": "Connected, in testing",
   "waiting": "Credentials in place, access pending",
   "built": "Adapter built, access pending",
-  "planned": "Planned"
+  "planned": "Planned",
+  "closed": "Closed by the platform"
  },
  "channels": [
   {
@@ -32,9 +33,9 @@
   {
    "id": "reddit",
    "name": "Reddit",
-   "state": "planned",
+   "state": "closed",
    "url": null,
-   "note": "Adapter written. Whether we run it there is still an open decision."
+   "note": "Reddit stopped registering new API apps in November 2025 and its .json endpoints returned 403 from May 2026. There is no free path in; commercial access is negotiated."
   },
   {
    "id": "instagram",
@@ -98,10 +99,10 @@
    "title": "Every channel answering",
    "state": "next",
    "items": [
-    "Discord answers mentions today — the only worker running",
-    "Start the Telegram worker",
+    "Telegram answers today through the gateway; Discord answers through its worker",
     "X needs a paid API plan: the mentions endpoint answers 402",
-    "Instagram and TikTok access, and a decision on Reddit"
+    "Instagram needs its webhook verified with the live token; TikTok needs write access",
+    "Reddit is closed to new API apps — the adapter is written and parked"
    ]
   },
   {
