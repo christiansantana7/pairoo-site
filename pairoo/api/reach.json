@@ -1,5 +1,5 @@
 {
- "generated_at": 1789184875,
+ "generated_at": 1789186048,
  "states": {
   "ready": "Ready",
   "final": "Final testing"
@@ -89,7 +89,8 @@
     "Live on Solana mainnet — coins created, confirmed on chain, tradeable",
     "Your token trades against a tokenized stock, not against SOL",
     "80/20 creator split written into the launch transaction, not promised for later",
-    "Around a dollar per launch, measured — not estimated"
+    "Around a dollar per launch, measured on real launches, not estimated",
+    "One mention can only ever make one token, even if it arrives twice"
    ]
   },
   {
@@ -98,9 +99,10 @@
    "state": "now",
    "items": [
     "The model reads the request, the code approves it — Portuguese, English, typos and all",
-    "Got the ticker wrong? It shows you what it thinks you meant and waits for a yes",
-    "842 tokenized assets tracked, the deep ones offered as pairs, the thin ones explained",
-    "Live on Discord, Telegram and X — one mention, wherever you already are"
+    "Got the ticker wrong? It shows what it thinks you meant and waits for a yes",
+    "Every tokenized stock is known: the thin ones come back named, with their number",
+    "Live on Discord, Telegram and X — one mention, wherever you already are",
+    "Reddit, Instagram and TikTok in final testing"
    ]
   },
   {
@@ -111,17 +113,41 @@
     "Solana through pump.fun and StonkFun, Robinhood Chain through Pons, BNB through four.meme",
     "Name the chain in the mention and the route follows — no dashboard, no second step",
     "Say nothing and it picks the route that can actually deliver right now",
-    "A route that cannot complete is refused out loud, before any spend"
+    "A route that cannot complete is refused out loud, before any spend",
+    "Same 80/20 split on every chain, enforced by the contract, not by us"
    ]
   },
   {
    "phase": "04",
-   "title": "Get paid for it",
-   "state": "later",
+   "title": "Holders get paid, provably",
+   "state": "then",
+   "items": [
+    "Creator fees buy the paired asset and settle to holders on a schedule anyone can check",
+    "A basket, not one name: up to five assets, weights fixed at launch and never editable",
+    "Every payout posted as a transaction, linked from the coin's own page",
+    "A reward the buyer can price before buying, because the rules cannot change after"
+   ]
+  },
+  {
+   "phase": "05",
+   "title": "Creators get paid",
+   "state": "then",
    "items": [
     "Bind a wallet to your handle once — every coin you launch pays into it",
-    "Claim your creator share straight from the mention that made the coin",
-    "Fees settling to both sides of the pair, proven end to end on mainnet"
+    "Claim your share straight from the mention that made the coin",
+    "A page per creator: what you launched, what it earned, what is claimable",
+    "Launch limits per handle, so one account cannot flood a feed"
+   ]
+  },
+  {
+   "phase": "06",
+   "title": "Anyone can run it",
+   "state": "later",
+   "items": [
+    "A public API: the same launch path the bot uses, opened up",
+    "Drop the launcher into your own community under your own name",
+    "Pick the launchpad by what it costs and what it can do, not by what we wired first",
+    "More pairs as more real-world assets get tokenized — the catalog finds them itself"
    ]
   }
  ],
@@ -129,6 +155,7 @@
   "done": "Shipped",
   "now": "Live now",
   "next": "Next",
+  "then": "After that",
   "later": "Planned"
  }
 }

@@ -1,9 +1,9 @@
 {
- "generated_at": 1789184874,
- "source": "data/ativos.json (catálogo curado, piso US$500,000)",
- "count": 10,
+ "generated_at": 1789186047,
+ "source": "data/ativos.json (catálogo curado, piso US$200,000)",
+ "count": 22,
  "tracked": 842,
- "floor_usd": 500000,
+ "floor_usd": 200000,
  "pairs": [
   {
    "symbol": "SPYX",
@@ -74,6 +74,90 @@
    "kind": "stock",
    "mint": "XsP7xzNPvEHS1m6qfanPUGjNmdnmsLKEoNAnHjdxxyZ",
    "liquidity_usd": 761517.35
+  },
+  {
+   "symbol": "HOODX",
+   "name": "Robinhood",
+   "kind": "stock",
+   "mint": "XsvNBAYkrDRNhA7wPHQfX3ZUXZyZLdnCQDfHZ56bzpg",
+   "liquidity_usd": 480396.36
+  },
+  {
+   "symbol": "ANDURIL",
+   "name": "Anduril",
+   "kind": "prestock",
+   "mint": "PresTj4Yc2bAR197Er7wz4UUKSfqt6FryBEdAriBoQB",
+   "liquidity_usd": 469270.59
+  },
+  {
+   "symbol": "STRCX",
+   "name": "Strategy",
+   "kind": "stock",
+   "mint": "Xs78JED6PFZxWc2wCEPspZW9kL3Se5J7L5TChKgsidH",
+   "liquidity_usd": 443391.62
+  },
+  {
+   "symbol": "MSFTX",
+   "name": "Microsoft",
+   "kind": "stock",
+   "mint": "XspzcW1PRtgf6Wj92HCiZdjzKCyFekVD8P5Ueh3dRMX",
+   "liquidity_usd": 414623.41
+  },
+  {
+   "symbol": "COINX",
+   "name": "Coinbase",
+   "kind": "stock",
+   "mint": "Xs7ZdzSHLU9ftNJsii5fCeJhoRWSC32SQGzGQtePxNu",
+   "liquidity_usd": 378268.69
+  },
+  {
+   "symbol": "GLDX",
+   "name": "Gold",
+   "kind": "stock",
+   "mint": "Xsv9hRk1z5ystj9MhnA7Lq4vjSsLwzL2nxrwmwtD3re",
+   "liquidity_usd": 372902.66
+  },
+  {
+   "symbol": "GOOGLX",
+   "name": "Alphabet",
+   "kind": "stock",
+   "mint": "XsCPL9dNWBMvFtTmwcCA5v3xWPSMEBCszbQdiLLq6aN",
+   "liquidity_usd": 290132.87
+  },
+  {
+   "symbol": "POLYMARKET",
+   "name": "Polymarket",
+   "kind": "prestock",
+   "mint": "Pre8AREmFPtoJFT8mQSXQLh56cwJmM7CFDRuoGBZiUP",
+   "liquidity_usd": 274964.04
+  },
+  {
+   "symbol": "GMEX",
+   "name": "GameStop",
+   "kind": "stock",
+   "mint": "Xsf9mBktVB9BSU5kf4nHxPq5hCBJ2j2ui3ecFGxPRGc",
+   "liquidity_usd": 265705.1
+  },
+  {
+   "symbol": "MCDX",
+   "name": "McDonald’s",
+   "kind": "stock",
+   "mint": "XsqE9cRRpzxcGKDXj1BJ7Xmg4GRhZoyY1KpmGSxAWT2",
+   "liquidity_usd": 261931.51
+  },
+  {
+   "symbol": "NEURALINK",
+   "name": "Neuralink",
+   "kind": "prestock",
+   "mint": "PrekqLJvJ3qVdXmBGDiexvwUTF4rLFDa6HWS4HJbw9S",
+   "liquidity_usd": 242950.74
+  },
+  {
+   "symbol": "AMZNX",
+   "name": "Amazon",
+   "kind": "stock",
+   "mint": "Xs3eBt7uRfJX8QUs4suhyU8p2M6DoUDrJyWBa8LLZsg",
+   "liquidity_usd": 213394.96
   }
  ]
 }
