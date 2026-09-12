@@ -1,9 +1,8 @@
 {
- "generated_at": 1789191519,
- "source": "data/ativos.json (catálogo curado, piso US$200,000)",
- "count": 22,
+ "generated_at": 1789192371,
+ "source": "reports/quote-mints.json (o que a pump.fun aceita como par)",
+ "count": 35,
  "tracked": 842,
- "floor_usd": 200000,
  "pairs": [
   {
    "symbol": "SPYX",
@@ -41,32 +40,11 @@
    "liquidity_usd": 1249638.46
   },
   {
-   "symbol": "SPCXX",
-   "name": "SpaceX",
-   "kind": "stock",
-   "mint": "Xs3oZwbHvqis4NYcf4YKWmEia2eC84wSiVrcYcTqpH8",
-   "liquidity_usd": 998564.71
-  },
-  {
-   "symbol": "OPENAI",
-   "name": "OpenAI",
-   "kind": "prestock",
-   "mint": "PreweJYECqtQwBtpxHL171nL2K6umo692gTm7Q3rpgF",
-   "liquidity_usd": 928721.93
-  },
-  {
    "symbol": "APPLX",
    "name": "Apple",
    "kind": "stock",
    "mint": "XsbEhLAtcf6HdfpFZ5xEMdqW8nfAvcsP5bdudRLJzJp",
    "liquidity_usd": 914045.16
-  },
-  {
-   "symbol": "ANTHROPIC",
-   "name": "Anthropic",
-   "kind": "prestock",
-   "mint": "Pren1FvFX6J3E4kXhJuCiAD5aDmGEb7qJRncwA8Lkhw",
-   "liquidity_usd": 793383.9
   },
   {
    "symbol": "MSTRX",
@@ -81,20 +59,6 @@
    "kind": "stock",
    "mint": "XsvNBAYkrDRNhA7wPHQfX3ZUXZyZLdnCQDfHZ56bzpg",
    "liquidity_usd": 480396.36
-  },
-  {
-   "symbol": "ANDURIL",
-   "name": "Anduril",
-   "kind": "prestock",
-   "mint": "PresTj4Yc2bAR197Er7wz4UUKSfqt6FryBEdAriBoQB",
-   "liquidity_usd": 469270.59
-  },
-  {
-   "symbol": "STRCX",
-   "name": "Strategy",
-   "kind": "stock",
-   "mint": "Xs78JED6PFZxWc2wCEPspZW9kL3Se5J7L5TChKgsidH",
-   "liquidity_usd": 443391.62
   },
   {
    "symbol": "MSFTX",
@@ -125,13 +89,6 @@
    "liquidity_usd": 290132.87
   },
   {
-   "symbol": "POLYMARKET",
-   "name": "Polymarket",
-   "kind": "prestock",
-   "mint": "Pre8AREmFPtoJFT8mQSXQLh56cwJmM7CFDRuoGBZiUP",
-   "liquidity_usd": 274964.04
-  },
-  {
    "symbol": "GMEX",
    "name": "GameStop",
    "kind": "stock",
@@ -146,18 +103,151 @@
    "liquidity_usd": 261931.51
   },
   {
-   "symbol": "NEURALINK",
-   "name": "Neuralink",
-   "kind": "prestock",
-   "mint": "PrekqLJvJ3qVdXmBGDiexvwUTF4rLFDa6HWS4HJbw9S",
-   "liquidity_usd": 242950.74
-  },
-  {
    "symbol": "AMZNX",
    "name": "Amazon",
    "kind": "stock",
    "mint": "Xs3eBt7uRfJX8QUs4suhyU8p2M6DoUDrJyWBa8LLZsg",
    "liquidity_usd": 213394.96
+  },
+  {
+   "symbol": "METAX",
+   "name": "Meta",
+   "kind": "stock",
+   "mint": "Xsa62P5mvPszXL1krVUnU5ar38bBSVcWAB6fmPCo5Zu",
+   "liquidity_usd": 174962.53
+  },
+  {
+   "symbol": "PLTRX",
+   "name": "Palantir",
+   "kind": "stock",
+   "mint": "XsoBhf2ufR8fTyNSjqfU71DYGaE6Z3SUGAidpzriAA4",
+   "liquidity_usd": 173428.27
+  },
+  {
+   "symbol": "BRKX",
+   "name": "Berkshire Hathaway",
+   "kind": "stock",
+   "mint": "Xs6B6zawENwAbWVi7w92rjazLuAr5Az59qgWKcNb45x",
+   "liquidity_usd": 126813.07
+  },
+  {
+   "symbol": "KOX",
+   "name": "Coca-Cola",
+   "kind": "stock",
+   "mint": "XsaBXg8dU5cPM6ehmVctMkVqoiRG2ZjMo1cyBJ3AykQ",
+   "liquidity_usd": 124588.76
+  },
+  {
+   "symbol": "AVGOX",
+   "name": "Broadcom",
+   "kind": "stock",
+   "mint": "XsgSaSvNSqLTtFuyWPBhK9196Xb9Bbdyjj4fH3cPJGo",
+   "liquidity_usd": 52130.9
+  },
+  {
+   "symbol": "VIDAX",
+   "name": "Vida Global",
+   "kind": "stock",
+   "mint": "XsfCC9VL4DamVGNgdJpfLXB3sBVa158Gbx8sh7NzmTk",
+   "liquidity_usd": 40898.98
+  },
+  {
+   "symbol": "XOMX",
+   "name": "Exxon Mobil",
+   "kind": "stock",
+   "mint": "XsaHND8sHyfMfsWPj6kSdd5VwvCayZvjYgKmmcNL5qh",
+   "liquidity_usd": 30132.11
+  },
+  {
+   "symbol": "WMTX",
+   "name": "Walmart",
+   "kind": "stock",
+   "mint": "Xs151QeqTCiuKtinzfRATnUESM2xTU6V9Wy8Vy538ci",
+   "liquidity_usd": 29277.55
+  },
+  {
+   "symbol": "NFLXX",
+   "name": "Netflix",
+   "kind": "stock",
+   "mint": "XsEH7wWfJJu2ZT3UCFeVfALnVA6CP5ur7Ee11KmzVpL",
+   "liquidity_usd": 12940.44
+  },
+  {
+   "symbol": "UNHX",
+   "name": "UnitedHealth",
+   "kind": "stock",
+   "mint": "XszvaiXGPwvk2nwb3o9C1CX4K6zH8sez11E6uyup6fe",
+   "liquidity_usd": 12864.23
+  },
+  {
+   "symbol": "AMDX",
+   "name": "AMD",
+   "kind": "stock",
+   "mint": "XsXcJ6GZ9kVnjqGsjBnktRcuwMBmvKWh8S93RefZ1rF",
+   "liquidity_usd": 7323.98
+  },
+  {
+   "symbol": "NVOX",
+   "name": "Novo Nordisk",
+   "kind": "stock",
+   "mint": "XsfAzPzYrYjd4Dpa9BU3cusBsvWfVB9gBcyGC87S57n",
+   "liquidity_usd": 7273.72
+  },
+  {
+   "symbol": "ORCLX",
+   "name": "Oracle",
+   "kind": "stock",
+   "mint": "XsjFwUPiLofddX5cWFHW35GCbXcSu1BCUGfxoQAQjeL",
+   "liquidity_usd": 4675.74
+  },
+  {
+   "symbol": "VX",
+   "name": "Visa",
+   "kind": "stock",
+   "mint": "XsqgsbXwWogGJsNcVZ3TyVouy2MbTkfCFhCGGGcQZ2p",
+   "liquidity_usd": 1924.72
+  },
+  {
+   "symbol": "TSMX",
+   "name": "TSMC",
+   "kind": "stock",
+   "mint": "XsafvsGtzFqqHgTnA3aPC83EAMkacU5mcGtcSayhpVV",
+   "liquidity_usd": 1286.68
+  },
+  {
+   "symbol": "JPMX",
+   "name": "JPMorgan Chase",
+   "kind": "stock",
+   "mint": "XsMAqkcKsUewDrzVkait4e5u4y8REgtyS7jWgCpLV2C",
+   "liquidity_usd": 1136.53
+  },
+  {
+   "symbol": "GSX",
+   "name": "Goldman Sachs",
+   "kind": "stock",
+   "mint": "XsgaUyp4jd1fNBCxgtTKkW64xnnhQcvgaxzsbAq5ZD1",
+   "liquidity_usd": 444.31
+  },
+  {
+   "symbol": "MAX",
+   "name": "Mastercard",
+   "kind": "stock",
+   "mint": "XsApJFV9MAktqnAc6jqzsHVujxkGm9xcSUffaBoYLKC",
+   "liquidity_usd": 241.76
+  },
+  {
+   "symbol": "UBERX",
+   "name": "Uber",
+   "kind": "stock",
+   "mint": "XsAsZLF4MmsvS1sDxRMrUz7REjHfwbC9UAMXSRBqgEB",
+   "liquidity_usd": 79.95
+  },
+  {
+   "symbol": "CRWDX",
+   "name": "CrowdStrike",
+   "kind": "stock",
+   "mint": "Xs7xXqkcK7K8urEqGg52SECi79dRp2cEKKuYjUePYDw",
+   "liquidity_usd": 48.45
   }
  ]
 }

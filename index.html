@@ -366,7 +366,7 @@ footer{border-top:1px solid var(--hair);padding:28px 0 46px}
     </div>
     <div class="steps">
       <div class="step"><span class="lab">01 · Mention</span><h3>Say it</h3><p>Add the bot to your Discord server, or message it on Telegram or X — name, ticker, pair.</p></div>
-      <div class="step"><span class="lab">02 · Pair</span><h3>Pick the other side</h3><p>Your coin trades against a tokenized stock, gold or a pre-IPO name instead of SOL.</p></div>
+      <div class="step"><span class="lab">02 · Pair</span><h3>Pick the other side</h3><p>Your coin trades against a tokenized stock, an index or gold — NVIDIA, the S&amp;P 500, Visa — instead of against SOL.</p></div>
       <div class="step"><span class="lab">03 · Launch</span><h3>It ships</h3><p>The token is created on Solana. Mint address and link come back in the same thread.</p></div>
     </div>
   </section>
@@ -415,7 +415,7 @@ footer{border-top:1px solid var(--hair);padding:28px 0 46px}
       <span class="lab">You can just ask it</span>
     </div>
     <details open><summary>How does it work?</summary><p>Mention @pairoobot with a token name, ticker and pair. It creates the token on Solana, trading against the tokenized asset you chose instead of SOL, and replies with the link.</p></details>
-    <details><summary>What can I pair with?</summary><p>The curated catalog above: tokenized stocks, gold and index pairs, plus pre-IPO names. Only assets from a verified issuer with real liquidity are listed — an unlisted ticker is refused, never guessed.</p></details>
+    <details><summary>What can I pair with?</summary><p>The list above: tokenized stocks, indexes and gold, from a verified issuer, and only the ones this chain actually takes as a trading pair. Ask for one it does not take and it tells you so before anything is spent — it is never swapped for something close.</p></details>
     <details><summary>Where does it work?</summary><p>Discord, Telegram and X. Instagram and TikTok are being rolled out and are not announced here until they answer.</p></details>
     <details><summary>Do I need a wallet first?</summary><p>No. Start from the chat. Pairoobot never asks for a private key and cannot move your funds.</p></details>
   </section>
@@ -693,13 +693,23 @@ load('/pairoo/api/reach.json',paintReach,()=>{
 load('/pairoo/api/platforms.json',paintPlats,()=>{const g=$('plats');if(g)g.remove()});
 load('/pairoo/api/pairs.json',d=>{
   PAIRS=d.pairs||[]; PAIRS_META=d||{};
+  /* Filtro só aparece para categoria que tem par. A pump.fun não admite
+     nenhum mint `Pre*` como quote, então a aba Pre-IPO ficaria morta dizendo
+     "nada aqui" — pior que não existir. Se ela voltar a ter par, o botão
+     volta sozinho. */
+  document.querySelectorAll('.filter').forEach(b=>{
+    const tem=PAIRS.some(p=>p.kind===b.dataset.cat);
+    b.hidden=!tem;
+    if(!tem&&cat===b.dataset.cat){const outro=PAIRS[0];if(outro)cat=outro.kind}
+  });
+  document.querySelectorAll('.filter').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.cat===cat)));
   countTo($('m-pairs'),PAIRS.length);
   const n=(x)=>x.toLocaleString('en-US');
   $('pairs-note').textContent=
     (PAIRS_META.tracked? n(PAIRS_META.tracked)+' tokenized assets tracked · '+n(PAIRS_META.count)+
-      ' deep enough to pair against today' : 'Curated catalog')+
-    ' · minimum $'+n(Math.round((PAIRS_META.floor_usd||0)/1000))+'k of liquidity, verified issuer. '+
-    'A thinner one is named and refused with its number, never guessed.';
+      ' the chain takes as a trading pair' : 'Curated catalog')+
+    ' · verified issuer only. Ask for one it does not take and it says so before '+
+    'anything is spent — never swapped for something close.';
   paintPairs();
 },()=>{
   $('pairs-grid').innerHTML='<p class="note">Pair list unavailable — the catalog feed could not be read right now.</p>';
