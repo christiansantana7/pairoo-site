@@ -423,10 +423,21 @@ document.querySelectorAll('.filter').forEach(f=>f.addEventListener('click',()=>{
 
 /* Links por moeda: só os que vieram do feed. O gerador não emite padrão
    de URL não confirmado, então aqui nunca aparece link chutado. */
+/* Logo em vez de nome: três palavras coladas numa célula viram uma só, e a
+   marca é reconhecida mais rápido que o texto. O nome fica no title e no alt,
+   então leitor de tela e hover continuam dizendo para onde o link vai. */
+const ICONES={pumpfun:'icon-pumpfun', fomo:'icon-fomo', solscan:'icon-solscan'};
 function links(c){
   const l=(c.links||[]);
   if(!l.length) return '—';
-  return l.map(x=>'<a class="go" href="'+esc(x.url)+'" target="_blank" rel="noopener noreferrer">'+esc(x.name)+'</a>').join('');
+  return '<span class="marcas">'+l.map(x=>{
+    const ic=ICONES[x.id];
+    const dentro = ic
+      ? '<img src="/assets/'+ic+'.webp" alt="'+esc(x.name)+'" width="18" height="18" loading="lazy">'
+      : esc(x.name);
+    return '<a class="marca" href="'+esc(x.url)+'" target="_blank" rel="noopener noreferrer" '
+         + 'title="'+esc(x.name)+'" aria-label="'+esc(x.name)+'">'+dentro+'</a>';
+  }).join('')+'</span>';
 }
 
 function paintPlats(d){
