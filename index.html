@@ -75,6 +75,11 @@ h1 em{font-style:normal;background:linear-gradient(transparent 62%,var(--yellow)
 .meta div{flex:1 1 170px;padding:18px 0 18px 20px;border-left:1px solid var(--hair)}
 .meta div:first-child{padding-left:0;border-left:0}
 .meta b{display:block;font-family:var(--disp);font-size:24px;line-height:1;margin-top:8px;letter-spacing:-.04em}
+.meta .chn{display:flex;align-items:center;gap:9px;height:24px}
+.meta .chn a{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;
+  border:1px solid var(--hair-2);border-radius:5px;background:var(--paper-2);transition:border-color .15s,background .15s}
+.meta .chn a:hover{border-color:var(--yellow);background:rgba(255,201,30,.14)}
+.meta .chn img{width:16px;height:16px;display:block;border-radius:3px}
 
 .cmd{margin:44px 0 0;background:var(--paper-2);border:1px solid var(--hair-2);border-radius:3px}
 .cmd-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 18px;
@@ -281,7 +286,7 @@ footer{border-top:1px solid var(--hair);padding:28px 0 46px}
     <div><span class="lab">Coins launched</span><b id="m-coins">—</b></div>
     <div><span class="lab">Pairs listed</span><b id="m-pairs">—</b></div>
     <div><span class="lab">Creator share</span><b>80%</b></div>
-    <div><span class="lab">Channels</span><b>DC · TG · X</b></div>
+    <div><span class="lab">Channels</span><b id="m-channels">DC · TG · X</b></div>
   </div>
 
   <div class="cmd">
@@ -533,6 +538,20 @@ function paintReach(d){
     const el=document.createElement('p'); el.className='note'; el.textContent=texto;
     document.getElementById(alvo).appendChild(el); };
   rodape('ch-list', d.channels_note); rodape('cn-list', d.chains_note);
+
+  /* Topo da página: as marcas dos canais que respondem hoje, do mesmo feed.
+     Se nenhum tiver logo, o texto que já está no HTML fica de pé. */
+  const prontos=(d.channels||[]).filter(c=>c.state==='ready'&&c.logo);
+  if(prontos.length){
+    const alvo=$('m-channels'); alvo.className='chn'; alvo.textContent='';
+    prontos.forEach(c=>{
+      const a=document.createElement(c.url?'a':'span');
+      if(c.url){a.href=c.url;a.target='_blank';a.rel='noopener noreferrer'}
+      a.title=c.name; a.setAttribute('aria-label',c.name);
+      a.innerHTML='<img src="/assets/icon-'+esc(c.logo)+'.webp" alt="'+esc(c.name)+'" width="16" height="16" loading="lazy">';
+      alvo.appendChild(a);
+    });
+  }
 
   const leg=$('legend');
   Object.entries(est).forEach(([k,v])=>{
