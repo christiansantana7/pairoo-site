@@ -1,5 +1,5 @@
 {
- "generated_at": 1789182273,
+ "generated_at": 1789184529,
  "source": "data/fila.db — só pedidos com mint e assinatura on-chain",
  "count": 2,
  "note": null,
@@ -15,23 +15,30 @@
    "chain": "solana",
    "created_at": 1789179593,
    "creator_fee_bps": 100,
-   "market_cap_usd": null,
-   "bonding_progress": null,
-   "watchers": null,
+   "market_cap_quote": 17.704033327120225,
+   "bonding_progress": 0.0,
+   "replies": 0,
+   "graduated": false,
+   "image_uri": "https://gateway.irys.xyz/Chs7d6Kne1tbjZsL9eNrYNh4LMzFu1eGRmabtpqnfFrY",
+   "pool": "7uaLTyNgbZw6NWAErNZC6Jtofd2eU97i2pzvt3gi5iAm",
+   "live_source": "frontend-api-v3.pump.fun",
    "links": [
     {
      "id": "pumpfun",
      "name": "Pump.fun",
+     "logo": "pumpfun",
      "url": "https://pump.fun/coin/DPKGkiR366HyVJNmotzSYuFcGZvw2q1pnYfhweKZh6am"
     },
     {
      "id": "fomo",
      "name": "FOMO",
+     "logo": "fomo",
      "url": "https://fomo.family/tokens/solana/DPKGkiR366HyVJNmotzSYuFcGZvw2q1pnYfhweKZh6am"
     },
     {
      "id": "solscan",
      "name": "Solscan",
+     "logo": "solscan",
      "url": "https://solscan.io/token/DPKGkiR366HyVJNmotzSYuFcGZvw2q1pnYfhweKZh6am"
     }
    ]
@@ -47,23 +54,30 @@
    "chain": "solana",
    "created_at": 1789176845,
    "creator_fee_bps": 100,
-   "market_cap_usd": null,
-   "bonding_progress": null,
-   "watchers": null,
+   "market_cap_quote": 17.704033327120225,
+   "bonding_progress": 0.0,
+   "replies": 0,
+   "graduated": false,
+   "image_uri": "https://gateway.irys.xyz/FRLKcD9eYfAvCZsm5AFKqBy32xSqyMgue8SKzXAanMUG",
+   "pool": "pnY1wstrU6i5j9WkGa5n7iPofx49sWkphb1dxJqnovX",
+   "live_source": "frontend-api-v3.pump.fun",
    "links": [
     {
      "id": "pumpfun",
      "name": "Pump.fun",
+     "logo": "pumpfun",
      "url": "https://pump.fun/coin/EEV7hC6U8MF2NT5MuUaiGbk9nWgq6buNsmyq5cL4Sx4x"
     },
     {
      "id": "fomo",
      "name": "FOMO",
+     "logo": "fomo",
      "url": "https://fomo.family/tokens/solana/EEV7hC6U8MF2NT5MuUaiGbk9nWgq6buNsmyq5cL4Sx4x"
     },
     {
      "id": "solscan",
      "name": "Solscan",
+     "logo": "solscan",
      "url": "https://solscan.io/token/EEV7hC6U8MF2NT5MuUaiGbk9nWgq6buNsmyq5cL4Sx4x"
     }
    ]

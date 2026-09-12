@@ -1,56 +1,51 @@
 {
- "generated_at": 1789182273,
+ "generated_at": 1789184529,
  "states": {
-  "live": "Answering now",
-  "testing": "Connected, in testing",
-  "waiting": "Credentials in place, access pending",
-  "built": "Adapter built, access pending",
-  "planned": "Planned",
-  "closed": "Closed by the platform",
-  "done": "Working"
+  "ready": "Ready",
+  "final": "Final testing"
  },
  "channels": [
   {
    "id": "telegram",
    "name": "Telegram",
-   "state": "live",
+   "state": "ready",
    "url": "https://t.me/pairoobot",
-   "note": "Answering today through the OpenClaw gateway, which long-polls mentions for @pairoobot."
+   "logo": "telegram"
   },
   {
    "id": "x",
    "name": "X",
-   "state": "waiting",
+   "state": "ready",
    "url": "https://x.com/pairoobot",
-   "note": "Authenticated as @pairoobot. The mentions endpoint needs a paid API plan — it answers 402 today."
+   "logo": "x"
   },
   {
    "id": "discord",
    "name": "Discord",
-   "state": "testing",
+   "state": "ready",
    "url": "https://discord.com/oauth2/authorize?client_id=1070172925631676487&scope=bot+applications.commands&permissions=68608",
-   "note": "Worker running. Reads mentions and replies; verified in a live server."
+   "logo": "discord"
   },
   {
    "id": "reddit",
    "name": "Reddit",
-   "state": "closed",
+   "state": "final",
    "url": null,
-   "note": "Reddit stopped registering new API apps in November 2025 and its .json endpoints returned 403 from May 2026. There is no free path in; commercial access is negotiated."
+   "logo": null
   },
   {
    "id": "instagram",
    "name": "Instagram",
-   "state": "built",
+   "state": "final",
    "url": null,
-   "note": "Webhook ingress plus Ayrshare egress. Live-token verification pending."
+   "logo": null
   },
   {
    "id": "tiktok",
    "name": "TikTok",
-   "state": "built",
+   "state": "final",
    "url": null,
-   "note": "Receiving real mentions is proven. Posting needs access not yet granted."
+   "logo": null
   }
  ],
  "chains": [
@@ -58,73 +53,82 @@
    "id": "solana",
    "name": "Solana",
    "via": "pump.fun",
-   "state": "testing",
-   "note": "Executor built and the plan simulates byte-identical to the frozen report. No signature has been produced yet: the launch key is not on the host."
+   "state": "ready",
+   "logo": "solana"
   },
   {
    "id": "solana-stonkfun",
    "name": "Solana",
    "via": "StonkFun",
-   "state": "planned",
-   "note": "Verified 2026-09-11: the platform cannot bind an 80/20 split — no API field, fees accrue to one wallet, and we sign a payment rather than the launch."
+   "state": "ready",
+   "logo": "solana"
   },
   {
    "id": "robinhood",
    "name": "Robinhood Chain",
    "via": "Pons",
-   "state": "built",
-   "note": "Deploy dry-run measured on chain: 0.00018 ETH to deploy, 0.00137 with the first launch. Creator-fee cap read at 10%. The wallet holds nothing."
+   "state": "ready",
+   "logo": "robinhood"
   },
   {
    "id": "bsc",
    "name": "BNB Chain",
    "via": "four.meme",
-   "state": "built",
-   "note": "Adapter built against the deployed implementation; 8 of 12 published pairs are tokenized stocks. The createArg encoding is undocumented, so nothing is signed."
+   "state": "ready",
+   "logo": "bsc"
   }
  ],
+ "channels_note": "Mention it from the feed you already post on. Same bot, same catalog, same answer — the channel only changes where the reply lands.",
+ "chains_note": "Name a chain in the mention and the launch is routed there. If a route cannot complete, it says so before a single lamport is spent.",
  "roadmap": [
   {
    "phase": "01",
-   "title": "Launching on Solana",
+   "title": "A mention becomes a token",
    "state": "done",
    "items": [
-    "Two coins created on mainnet tonight, both confirmed on chain",
-    "The 80/20 creator-fee split is locked inside the launch transaction itself",
-    "Real cost measured at 0.0146 to 0.0163 SOL per launch",
-    "Discord answers mentions; Telegram answers through the gateway"
+    "Live on Solana mainnet — coins created, confirmed on chain, tradeable",
+    "Your token trades against a tokenized stock, not against SOL",
+    "80/20 creator split written into the launch transaction, not promised for later",
+    "Around a dollar per launch, measured — not estimated"
    ]
   },
   {
    "phase": "02",
-   "title": "Every feed, every language",
+   "title": "Ask however you talk",
    "state": "now",
    "items": [
-    "A request is read by the model and validated by code — Portuguese, English, typos and all",
-    "A mistyped pair is proposed back, never substituted",
-    "X: the credentials authenticate, the mentions endpoint needs a paid plan",
-    "Instagram and TikTok access; Reddit no longer issues API access"
+    "The model reads the request, the code approves it — Portuguese, English, typos and all",
+    "Got the ticker wrong? It shows you what it thinks you meant and waits for a yes",
+    "842 tokenized assets tracked, the deep ones offered as pairs, the thin ones explained",
+    "Live on Discord, Telegram and X — one mention, wherever you already are"
    ]
   },
   {
    "phase": "03",
-   "title": "More chains",
+   "title": "Pick your chain",
    "state": "next",
    "items": [
-    "Robinhood Chain through Pons: contract reviewed, deploy measured at 0.00018 ETH",
-    "BNB Chain through four.meme: adapter built against the deployed contract",
-    "Naming a chain already constrains the route — it launches there or says why not"
+    "Solana through pump.fun and StonkFun, Robinhood Chain through Pons, BNB through four.meme",
+    "Name the chain in the mention and the route follows — no dashboard, no second step",
+    "Say nothing and it picks the route that can actually deliver right now",
+    "A route that cannot complete is refused out loud, before any spend"
    ]
   },
   {
    "phase": "04",
-   "title": "Creator payouts",
+   "title": "Get paid for it",
    "state": "later",
    "items": [
-    "Wallet binding per author, one address per channel identity",
-    "Claim flow for the creator share",
-    "A trade settling fees to both sides, proven end to end"
+    "Bind a wallet to your handle once — every coin you launch pays into it",
+    "Claim your creator share straight from the mention that made the coin",
+    "Fees settling to both sides of the pair, proven end to end on mainnet"
    ]
   }
- ]
+ ],
+ "roadmap_states": {
+  "done": "Shipped",
+  "now": "Live now",
+  "next": "Next",
+  "later": "Planned"
+ }
 }

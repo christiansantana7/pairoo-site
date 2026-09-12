@@ -1,147 +1,79 @@
 {
- "generated_at": 1789182273,
- "source": "data/ativos.json (catálogo curado, piso US$100k)",
- "count": 20,
+ "generated_at": 1789184529,
+ "source": "data/ativos.json (catálogo curado, piso US$500,000)",
+ "count": 10,
+ "tracked": 842,
+ "floor_usd": 500000,
  "pairs": [
   {
    "symbol": "SPYX",
    "name": "S&P 500",
    "kind": "stock",
    "mint": "XsoCS1TfEyfFhfvj8EtZ528L3CaKBDBRqRapnBbDF2W",
-   "liquidity_usd": 3207516.0
+   "liquidity_usd": 4441217.58
   },
   {
    "symbol": "CRCLX",
    "name": "Circle",
    "kind": "stock",
    "mint": "XsueG8BtpquVJX9LVLLEGuViXUungE6WmK5YZ3p3bd1",
-   "liquidity_usd": 2366277.0
+   "liquidity_usd": 2052794.13
   },
   {
    "symbol": "NVDAX",
    "name": "NVIDIA",
    "kind": "stock",
    "mint": "Xsc9qvGR1efVDFGLrVsmkzv3qi45LTBjeUKSPmx9qEh",
-   "liquidity_usd": 1819223.0
+   "liquidity_usd": 1884793.19
   },
   {
    "symbol": "QQQX",
    "name": "Nasdaq",
    "kind": "stock",
    "mint": "Xs8S1uUs1zvS2p7iwtsG3b6fkhpvmwz4GYU3gWAmWHZ",
-   "liquidity_usd": 1785910.0
+   "liquidity_usd": 1783292.04
   },
   {
    "symbol": "TSLAX",
    "name": "Tesla",
    "kind": "stock",
    "mint": "XsDoVfqeBukxuZHWhdvWHBhgEHjGNst4MLodqsJHzoB",
-   "liquidity_usd": 1285145.0
-  },
-  {
-   "symbol": "MSTRX",
-   "name": "MicroStrategy",
-   "kind": "stock",
-   "mint": "XsP7xzNPvEHS1m6qfanPUGjNmdnmsLKEoNAnHjdxxyZ",
-   "liquidity_usd": 886604.0
+   "liquidity_usd": 1249638.46
   },
   {
    "symbol": "SPCXX",
    "name": "SpaceX",
    "kind": "stock",
    "mint": "Xs3oZwbHvqis4NYcf4YKWmEia2eC84wSiVrcYcTqpH8",
-   "liquidity_usd": 771436.0
+   "liquidity_usd": 998564.71
   },
   {
-   "symbol": "HOODX",
-   "name": "Robinhood",
-   "kind": "stock",
-   "mint": "XsvNBAYkrDRNhA7wPHQfX3ZUXZyZLdnCQDfHZ56bzpg",
-   "liquidity_usd": 622779.0
-  },
-  {
-   "symbol": "COINX",
-   "name": "Coinbase",
-   "kind": "stock",
-   "mint": "Xs7ZdzSHLU9ftNJsii5fCeJhoRWSC32SQGzGQtePxNu",
-   "liquidity_usd": 462845.0
+   "symbol": "OPENAI",
+   "name": "OpenAI",
+   "kind": "prestock",
+   "mint": "PreweJYECqtQwBtpxHL171nL2K6umo692gTm7Q3rpgF",
+   "liquidity_usd": 928721.93
   },
   {
    "symbol": "APPLX",
    "name": "Apple",
    "kind": "stock",
    "mint": "XsbEhLAtcf6HdfpFZ5xEMdqW8nfAvcsP5bdudRLJzJp",
-   "liquidity_usd": 393620.0
+   "liquidity_usd": 914045.16
   },
   {
-   "symbol": "MCDX",
-   "name": "McDonald’s",
-   "kind": "stock",
-   "mint": "XsqE9cRRpzxcGKDXj1BJ7Xmg4GRhZoyY1KpmGSxAWT2",
-   "liquidity_usd": 279437.0
+   "symbol": "ANTHROPIC",
+   "name": "Anthropic",
+   "kind": "prestock",
+   "mint": "Pren1FvFX6J3E4kXhJuCiAD5aDmGEb7qJRncwA8Lkhw",
+   "liquidity_usd": 793383.9
   },
   {
-   "symbol": "GLDX",
-   "name": "Gold",
+   "symbol": "MSTRX",
+   "name": "MicroStrategy",
    "kind": "stock",
-   "mint": "Xsv9hRk1z5ystj9MhnA7Lq4vjSsLwzL2nxrwmwtD3re",
-   "liquidity_usd": 206805.0
-  },
-  {
-   "symbol": "STRCX",
-   "name": "Strategy",
-   "kind": "stock",
-   "mint": "Xs78JED6PFZxWc2wCEPspZW9kL3Se5J7L5TChKgsidH",
-   "liquidity_usd": 202863.0
-  },
-  {
-   "symbol": "MSFTX",
-   "name": "Microsoft",
-   "kind": "stock",
-   "mint": "XspzcW1PRtgf6Wj92HCiZdjzKCyFekVD8P5Ueh3dRMX",
-   "liquidity_usd": 186457.0
-  },
-  {
-   "symbol": "METAX",
-   "name": "Meta",
-   "kind": "stock",
-   "mint": "Xsa62P5mvPszXL1krVUnU5ar38bBSVcWAB6fmPCo5Zu",
-   "liquidity_usd": 183895.0
-  },
-  {
-   "symbol": "DFDV",
-   "name": "DeFi Dev",
-   "kind": "stock",
-   "mint": "Xs2yquAgsHByNzx68WJC55WHjHBvG9JsMB7CWjTLyPy",
-   "liquidity_usd": 149792.0
-  },
-  {
-   "symbol": "VIDAX",
-   "name": "Vida Global",
-   "kind": "stock",
-   "mint": "XsfCC9VL4DamVGNgdJpfLXB3sBVa158Gbx8sh7NzmTk",
-   "liquidity_usd": 138657.0
-  },
-  {
-   "symbol": "PLTRX",
-   "name": "Palantir",
-   "kind": "stock",
-   "mint": "XsoBhf2ufR8fTyNSjqfU71DYGaE6Z3SUGAidpzriAA4",
-   "liquidity_usd": 137831.0
-  },
-  {
-   "symbol": "BRKX",
-   "name": "Berkshire Hathaway",
-   "kind": "stock",
-   "mint": "Xs6B6zawENwAbWVi7w92rjazLuAr5Az59qgWKcNb45x",
-   "liquidity_usd": 131738.0
-  },
-  {
-   "symbol": "GMEX",
-   "name": "GameStop",
-   "kind": "stock",
-   "mint": "Xsf9mBktVB9BSU5kf4nHxPq5hCBJ2j2ui3ecFGxPRGc",
-   "liquidity_usd": 130909.0
+   "mint": "XsP7xzNPvEHS1m6qfanPUGjNmdnmsLKEoNAnHjdxxyZ",
+   "liquidity_usd": 761517.35
   }
  ]
 }

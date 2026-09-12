@@ -183,6 +183,8 @@ details p{margin:14px 0 0;font-size:14.5px;color:var(--ink-70);max-width:68ch}
 .row{display:flex;align-items:center;gap:12px;padding:15px 0;border-bottom:1px solid var(--hair)}
 .row:first-of-type{border-top:1px solid var(--hair)}
 .row .dot{width:7px;height:7px;border-radius:50%;flex:none;background:var(--hair-2)}
+.row .lg{width:20px;height:20px;flex:none;border-radius:4px;display:block}
+.row[data-state="ready"] .st{color:#2E9E5B}
 .row[data-state="live"] .dot{background:#2E9E5B}
 .row[data-state="testing"] .dot{background:var(--yellow);box-shadow:0 0 0 3px rgba(255,201,30,.25)}
 .row[data-state="waiting"] .dot{background:#C98A00}
@@ -194,6 +196,8 @@ details p{margin:14px 0 0;font-size:14.5px;color:var(--ink-70);max-width:68ch}
 .row .nt{display:block;font-family:var(--sans);font-size:12.5px;color:var(--ink-45);
   letter-spacing:0;text-transform:none;margin-top:3px;max-width:34ch}
 @media(max-width:560px){.row{flex-wrap:wrap}.row .st{margin-left:0;text-align:left;width:100%}}
+.col .note{font-family:var(--sans);font-size:12.5px;line-height:1.65;color:var(--ink-45);
+  margin:16px 0 0;max-width:38ch;border-top:1px solid var(--hair);padding-top:14px}
 .legend{display:flex;flex-wrap:wrap;gap:18px;margin-top:22px;font-family:var(--mono);
   font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-45)}
 .legend i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:7px;vertical-align:1px}
@@ -402,6 +406,11 @@ const $=id=>document.getElementById(id);
 const EYE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z"/><circle cx="12" cy="12" r="2.6"/></svg>';
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const money=v=>v==null?'—':'$'+Intl.NumberFormat('en',{notation:'compact',maximumFractionDigits:1}).format(v);
+/* O market cap vem da pump.fun denominado no PAR, não em dólar. Mostrar na
+   unidade do par é exato; converter exigiria o preço do NVDAX, mais uma fonte
+   para falhar calada — e um número em dólar errado é pior que nenhum. */
+const mcap=c=>c.market_cap_quote==null?'—':
+  Intl.NumberFormat('en',{maximumFractionDigits:2}).format(c.market_cap_quote)+' '+esc(c.pair||'');
 
 let sel='NVDAX';
 function choose(sym){sel=sym;$('sel').textContent=sym;$('status').textContent='Message now uses '+sym+'.';paintPairs()}
@@ -410,7 +419,7 @@ $('copy').addEventListener('click',async()=>{
   catch{$('status').textContent='Copy failed — select the text above.'}
 });
 
-let PAIRS=[],cat='stock';
+let PAIRS=[],PAIRS_META={},cat='stock';
 function paintPairs(){
   const g=$('pairs-grid');g.replaceChildren();
   const rows=PAIRS.filter(p=>p.kind===cat);
@@ -434,14 +443,16 @@ document.querySelectorAll('.filter').forEach(f=>f.addEventListener('click',()=>{
 /* Logo em vez de nome: três palavras coladas numa célula viram uma só, e a
    marca é reconhecida mais rápido que o texto. O nome fica no title e no alt,
    então leitor de tela e hover continuam dizendo para onde o link vai. */
-const ICONES={pumpfun:'icon-pumpfun', fomo:'icon-fomo', solscan:'icon-solscan'};
+/* O id do logo vem do feed, não de um mapa aqui: com o mapa no JS o
+   empacotador do dist não enxergava o arquivo e o ícone só faltava em
+   produção. Sem logo cai no nome, que é legível de qualquer jeito. */
 function links(c){
   const l=(c.links||[]);
   if(!l.length) return '—';
   return '<span class="marcas">'+l.map(x=>{
-    const ic=ICONES[x.id];
+    const ic=x.logo;
     const dentro = ic
-      ? '<img src="/assets/'+ic+'.webp" alt="'+esc(x.name)+'" width="18" height="18" loading="lazy">'
+      ? '<img src="/assets/icon-'+esc(ic)+'.webp" alt="'+esc(x.name)+'" width="18" height="18" loading="lazy">'
       : esc(x.name);
     return '<a class="marca" href="'+esc(x.url)+'" target="_blank" rel="noopener noreferrer" '
          + 'title="'+esc(x.name)+'" aria-label="'+esc(x.name)+'">'+dentro+'</a>';
@@ -478,13 +489,13 @@ function paintCoins(d){
     const mint=c.mint?'<a href="https://solscan.io/token/'+encodeURIComponent(c.mint)+'" target="_blank" rel="noopener noreferrer">'+esc(c.mint.slice(0,6))+'…'+esc(c.mint.slice(-4))+'</a>':'—';
     return '<tr><td class="tick">$'+esc(c.ticker)+'</td><td>'+esc(c.name)+'</td>'+
       '<td><span class="pill">'+esc(c.pair||'—')+'</span></td>'+
-      '<td class="num">'+money(c.market_cap_usd)+'</td>'+
+      '<td class="num">'+mcap(c)+'</td>'+
       '<td class="num">'+(pct==null?'—':pct+'%')+'</td>'+
-      '<td class="num"><span class="eye">'+EYE+(c.watchers==null?'—':esc(c.watchers))+'</span></td>'+
+      '<td class="num">'+(c.replies==null?'—':esc(c.replies))+'</td>'+
       '<td class="num">'+mint+'</td>'+
       '<td class="num">'+links(c)+'</td></tr>';
   }).join('');
-  body.innerHTML='<table><thead><tr><th>Ticker</th><th>Name</th><th>Pair</th><th class="num">Market cap</th><th class="num">Curve</th><th class="num">Viewers</th><th class="num">Mint</th><th class="num">Trade</th></tr></thead><tbody>'+rows+'</tbody></table>';
+  body.innerHTML='<table><thead><tr><th>Ticker</th><th>Name</th><th>Pair</th><th class="num">Market cap</th><th class="num">Curve</th><th class="num">Replies</th><th class="num">Mint</th><th class="num">Trade</th></tr></thead><tbody>'+rows+'</tbody></table>';
 }
 
 /* Falha de rede não vira dado falso: o estado de erro é explícito. */
@@ -501,29 +512,39 @@ load('/pairoo/api/coins.json',paintCoins,()=>{
    repo afirmam — nada aqui vira "live" sem evidência ponta a ponta. */
 function paintReach(d){
   const est=(d&&d.states)||{}, ch=$('ch-list'), cn=$('cn-list');
-  const linha=(nome,via,estado,nota,url)=>{
+  /* Logo e nome, sem selo por linha. Uma página de produto diz o que o
+     produto faz; o estado de cada rota é dito pelo bot, na hora em que a
+     pessoa pede — que é quando ela precisa saber. */
+  const linha=(nome,via,estado,logo,url)=>{
     const el=document.createElement(url?'a':'div');
     el.className='row'; el.dataset.state=estado;
     if(url){el.href=url;el.target='_blank';el.rel='noopener noreferrer'}
-    el.innerHTML='<span class="dot"></span><span class="nm">'+esc(nome)+'</span>'+
+    const marca = logo
+      ? '<img class="lg" src="/assets/icon-'+esc(logo)+'.webp" alt="" width="20" height="20" loading="lazy">'
+      : '<span class="dot"></span>';
+    el.innerHTML=marca+'<span class="nm">'+esc(nome)+'</span>'+
       (via?'<span class="via">'+esc(via)+'</span>':'')+
-      '<span class="st">'+esc(est[estado]||estado)+'<span class="nt">'+esc(nota)+'</span></span>';
+      '<span class="st">'+esc(est[estado]||estado)+'</span>';
     return el;
   };
-  (d.channels||[]).forEach(c=>ch.appendChild(linha(c.name,null,c.state,c.note,c.url)));
-  (d.chains||[]).forEach(c=>cn.appendChild(linha(c.name,'via '+c.via,c.state,c.note,null)));
+  (d.channels||[]).forEach(c=>ch.appendChild(linha(c.name,null,c.state,c.logo,c.url)));
+  (d.chains||[]).forEach(c=>cn.appendChild(linha(c.name,'via '+c.via,c.state,c.logo,null)));
+  const rodape=(alvo,texto)=>{ if(!texto) return;
+    const el=document.createElement('p'); el.className='note'; el.textContent=texto;
+    document.getElementById(alvo).appendChild(el); };
+  rodape('ch-list', d.channels_note); rodape('cn-list', d.chains_note);
 
   const leg=$('legend');
   Object.entries(est).forEach(([k,v])=>{
     const s=document.createElement('span'); s.dataset.state=k;
-    s.innerHTML='<i style="background:'+({live:'#2E9E5B',testing:'#FFC91E',waiting:'#C98A00',built:'rgba(20,22,26,.45)',planned:'rgba(20,22,26,.26)'}[k]||'#ccc')+'"></i>'+esc(v);
+    s.innerHTML='<i style="background:'+({ready:'#2E9E5B',final:'#FFC91E'}[k]||'rgba(20,22,26,.26)')+'"></i>'+esc(v);
     leg.appendChild(s);
   });
 
-  const road=$('road');
+  const road=$('road'), rs=(d&&d.roadmap_states)||{};
   (d.roadmap||[]).forEach(r=>{
     const el=document.createElement('div'); el.className='phase'; el.dataset.state=r.state;
-    el.innerHTML='<span class="ph">'+esc(r.phase)+' · '+esc(r.state)+'</span>'+
+    el.innerHTML='<span class="ph">'+esc(r.phase)+' · '+esc(rs[r.state]||r.state)+'</span>'+
       '<h3>'+esc(r.title)+'</h3><ul>'+(r.items||[]).map(i=>'<li>'+esc(i)+'</li>').join('')+'</ul>';
     road.appendChild(el);
   });
@@ -534,9 +555,14 @@ load('/pairoo/api/reach.json',paintReach,()=>{
 
 load('/pairoo/api/platforms.json',paintPlats,()=>{const g=$('plats');if(g)g.remove()});
 load('/pairoo/api/pairs.json',d=>{
-  PAIRS=d.pairs||[];
+  PAIRS=d.pairs||[]; PAIRS_META=d||{};
   $('m-pairs').textContent=PAIRS.length;
-  $('pairs-note').textContent='Curated catalog · minimum $100k liquidity · verified issuer prefix. An unlisted ticker is refused, never guessed.';
+  const n=(x)=>x.toLocaleString('en-US');
+  $('pairs-note').textContent=
+    (PAIRS_META.tracked? n(PAIRS_META.tracked)+' tokenized assets tracked · '+n(PAIRS_META.count)+
+      ' deep enough to pair against today' : 'Curated catalog')+
+    ' · minimum $'+n(Math.round((PAIRS_META.floor_usd||0)/1000))+'k of liquidity, verified issuer. '+
+    'A thinner one is named and refused with its number, never guessed.';
   paintPairs();
 },()=>{
   $('pairs-grid').innerHTML='<p class="note">Pair list unavailable — the catalog feed could not be read right now.</p>';
