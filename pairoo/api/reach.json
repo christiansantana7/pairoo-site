@@ -1,5 +1,5 @@
 {
- "generated_at": 1789186048,
+ "generated_at": 1789186944,
  "states": {
   "ready": "Ready",
   "final": "Final testing"
@@ -83,71 +83,68 @@
  "roadmap": [
   {
    "phase": "01",
-   "title": "A mention becomes a token",
+   "title": "Launch Anywhere",
    "state": "done",
    "items": [
-    "Live on Solana mainnet — coins created, confirmed on chain, tradeable",
-    "Your token trades against a tokenized stock, not against SOL",
-    "80/20 creator split written into the launch transaction, not promised for later",
-    "Around a dollar per launch, measured on real launches, not estimated",
-    "One mention can only ever make one token, even if it arrives twice"
+    "One mention creates a token paired to a real asset — live on Solana mainnet",
+    "Your coin trades against NVIDIA, the S&P or gold instead of against SOL",
+    "80/20 creator split written into the launch transaction itself",
+    "Around a dollar a launch, measured on real launches"
    ]
   },
   {
    "phase": "02",
-   "title": "Ask however you talk",
+   "title": "The agent that gets it",
    "state": "now",
    "items": [
-    "The model reads the request, the code approves it — Portuguese, English, typos and all",
-    "Got the ticker wrong? It shows what it thinks you meant and waits for a yes",
-    "Every tokenized stock is known: the thin ones come back named, with their number",
-    "Live on Discord, Telegram and X — one mention, wherever you already are",
-    "Reddit, Instagram and TikTok in final testing"
+    "Say it however you say it — any language, any wording, typos included",
+    "Wrong ticker comes back as a question, never as a silent substitution",
+    "Discord, Telegram and X; Reddit, Instagram and TikTok in final testing",
+    "Name the chain and it launches there — Solana, Robinhood Chain, BNB"
    ]
   },
   {
    "phase": "03",
-   "title": "Pick your chain",
+   "title": "Trade from the same thread",
    "state": "next",
    "items": [
-    "Solana through pump.fun and StonkFun, Robinhood Chain through Pons, BNB through four.meme",
-    "Name the chain in the mention and the route follows — no dashboard, no second step",
-    "Say nothing and it picks the route that can actually deliver right now",
-    "A route that cannot complete is refused out loud, before any spend",
-    "Same 80/20 split on every chain, enforced by the contract, not by us"
+    "Buy and sell your coin by replying — no wallet app, no DEX tab",
+    "Price, holders and the curve come back in the reply, live",
+    "Alerts you set in words: tell me when it doubles, tell me when it graduates",
+    "Works for any coin on the launchpad, not only the ones you made"
    ]
   },
   {
    "phase": "04",
-   "title": "Holders get paid, provably",
+   "title": "Every coin gets a page",
    "state": "then",
    "items": [
-    "Creator fees buy the paired asset and settle to holders on a schedule anyone can check",
-    "A basket, not one name: up to five assets, weights fixed at launch and never editable",
-    "Every payout posted as a transaction, linked from the coin's own page",
-    "A reward the buyer can price before buying, because the rules cannot change after"
+    "A live page per coin: your chart next to the stock it is paired against",
+    "Holders, fees earned and every payout, linked to the transaction that paid it",
+    "A public board of what is launching right now, across every chain",
+    "Share the page instead of the mint address — it carries the pitch for you"
    ]
   },
   {
    "phase": "05",
-   "title": "Creators get paid",
+   "title": "Coins that did not exist before",
    "state": "then",
    "items": [
-    "Bind a wallet to your handle once — every coin you launch pays into it",
-    "Claim your share straight from the mention that made the coin",
-    "A page per creator: what you launched, what it earned, what is claimable",
-    "Launch limits per handle, so one account cannot flood a feed"
+    "Pair against a basket, not one name: NVIDIA, gold and the S&P in a single coin",
+    "Community launches — a server launches together and splits the cost",
+    "Schedule a launch and let the mention go out when you want it to",
+    "Pick a theme and the agent proposes the basket, the name and the art"
    ]
   },
   {
    "phase": "06",
-   "title": "Anyone can run it",
+   "title": "Pairoo anywhere",
    "state": "later",
    "items": [
-    "A public API: the same launch path the bot uses, opened up",
-    "Drop the launcher into your own community under your own name",
-    "Pick the launchpad by what it costs and what it can do, not by what we wired first",
-    "More pairs as more real-world assets get tokenized — the catalog finds them itself"
+    "A Telegram mini-app: the whole launcher, no bot syntax to learn",
+    "A public API and SDK — run the same launch path inside your own product",
+    "White-label: your community, your name, our rails",
+    "New pairs the day the asset is tokenized, wherever it is tokenized"
    ]
   }
  ],
