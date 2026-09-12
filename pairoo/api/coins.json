@@ -1,7 +1,72 @@
 {
- "generated_at": 1789169601,
+ "generated_at": 1789181772,
  "source": "data/fila.db — só pedidos com mint e assinatura on-chain",
- "count": 0,
+ "count": 2,
  "note": null,
- "coins": []
+ "coins": [
+  {
+   "name": "Foguete",
+   "ticker": "FGT",
+   "pair": "NVDAX",
+   "quote_mint": "Xsc9qvGR1efVDFGLrVsmkzv3qi45LTBjeUKSPmx9qEh",
+   "mint": "DPKGkiR366HyVJNmotzSYuFcGZvw2q1pnYfhweKZh6am",
+   "signature": "2gDFKYdk59kPEd2getRkqYpy1BYRpAKCrDRRSRiUoCfWKaohevbtLacrBKzWQmYiyYPGCPSeEywDqRdy8pfF7MZk",
+   "launchpad": "pump.fun",
+   "chain": "solana",
+   "created_at": 1789179593,
+   "creator_fee_bps": 100,
+   "market_cap_usd": null,
+   "bonding_progress": null,
+   "watchers": null,
+   "links": [
+    {
+     "id": "pumpfun",
+     "name": "Pump.fun",
+     "url": "https://pump.fun/coin/DPKGkiR366HyVJNmotzSYuFcGZvw2q1pnYfhweKZh6am"
+    },
+    {
+     "id": "fomo",
+     "name": "FOMO",
+     "url": "https://fomo.family/tokens/solana/DPKGkiR366HyVJNmotzSYuFcGZvw2q1pnYfhweKZh6am"
+    },
+    {
+     "id": "solscan",
+     "name": "Solscan",
+     "url": "https://solscan.io/token/DPKGkiR366HyVJNmotzSYuFcGZvw2q1pnYfhweKZh6am"
+    }
+   ]
+  },
+  {
+   "name": "Orbit with ticker ORB paired wit",
+   "ticker": "ORB",
+   "pair": "NVDAX",
+   "quote_mint": "Xsc9qvGR1efVDFGLrVsmkzv3qi45LTBjeUKSPmx9qEh",
+   "mint": "EEV7hC6U8MF2NT5MuUaiGbk9nWgq6buNsmyq5cL4Sx4x",
+   "signature": "5DbFxGgMbSvsNsaH5ELQoKGTUXjHQEoSPsPFWn7ZdHnqggge642xYM3zWV52R81dEPFKs3RLRv3iLmRswj15VpFU",
+   "launchpad": "pump.fun",
+   "chain": "solana",
+   "created_at": 1789176845,
+   "creator_fee_bps": 100,
+   "market_cap_usd": null,
+   "bonding_progress": null,
+   "watchers": null,
+   "links": [
+    {
+     "id": "pumpfun",
+     "name": "Pump.fun",
+     "url": "https://pump.fun/coin/EEV7hC6U8MF2NT5MuUaiGbk9nWgq6buNsmyq5cL4Sx4x"
+    },
+    {
+     "id": "fomo",
+     "name": "FOMO",
+     "url": "https://fomo.family/tokens/solana/EEV7hC6U8MF2NT5MuUaiGbk9nWgq6buNsmyq5cL4Sx4x"
+    },
+    {
+     "id": "solscan",
+     "name": "Solscan",
+     "url": "https://solscan.io/token/EEV7hC6U8MF2NT5MuUaiGbk9nWgq6buNsmyq5cL4Sx4x"
+    }
+   ]
+  }
+ ]
 }
