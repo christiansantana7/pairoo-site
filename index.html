@@ -89,6 +89,30 @@ h1 em{font-style:normal;background:linear-gradient(transparent 62%,var(--yellow)
 .cmd-body mark{background:var(--yellow);color:var(--ink);padding:2px 6px;border-radius:2px}
 .cur{display:inline-block;width:8px;height:1.05em;background:var(--ink-45);vertical-align:-2px;animation:b 1.2s steps(1) infinite}
 @keyframes b{50%{opacity:0}}
+/* A resposta do bot, como uma segunda linha do mesmo fio. Aparece depois
+   que a mensagem termina de ser digitada; some quando o ciclo recomeça. */
+.cmd-reply{padding:0 18px;max-height:0;overflow:hidden;opacity:0;
+  transition:max-height .55s cubic-bezier(.2,.7,.2,1),opacity .4s,padding .4s}
+.cmd-reply.on{max-height:140px;opacity:1;padding:0 18px 20px}
+.cmd-reply .who{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--ink-45);margin-bottom:8px}
+.cmd-reply .who img{width:16px;height:16px;border-radius:3px}
+.cmd-reply .txt{font-family:var(--mono);font-size:13px;line-height:1.75;color:var(--ink)}
+.cmd-reply .txt a{border-bottom:1px solid var(--hair-2)}
+.cmd-reply .txt a:hover{border-color:var(--ink)}
+.cmd-reply .face{float:left;width:44px;height:44px;border-radius:4px;margin:2px 12px 0 0;
+  border:1px solid var(--hair-2);background:var(--paper)}
+/* O pássaro respira. Seis segundos, seis pixels: presença, não animação. */
+@keyframes float{50%{transform:translateY(-6px)}}
+.hero-art img.bird{animation:float 6s ease-in-out infinite}
+/* Revelação no scroll: cada seção entra 12px de baixo, uma vez. */
+.reveal{opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .hero-art img.bird,.cur{animation:none}
+  .reveal{opacity:1;transform:none;transition:none}
+  .cmd-reply{transition:none}
+}
 .copy{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--ink-70);border-bottom:1px solid var(--hair-2);padding-bottom:2px}
 .copy:hover{color:var(--ink);border-color:var(--ink)}
@@ -112,7 +136,13 @@ table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12.5
 th{text-align:left;font-weight:500;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;
   color:rgba(251,244,228,.45);padding:0 12px 12px 0;border-bottom:1px solid rgba(251,244,228,.24)}
 td{padding:16px 12px 16px 0;border-bottom:1px solid rgba(251,244,228,.1);vertical-align:middle}
-td.tick{font-family:var(--disp);font-size:17px;letter-spacing:-.04em}
+td.tick{font-family:var(--disp);font-size:17px;letter-spacing:-.04em;white-space:nowrap}
+/* A cara da moeda, ao lado do ticker — é a imagem que foi para a chain. */
+td.tick img{width:30px;height:30px;border-radius:4px;vertical-align:middle;margin-right:10px;
+  border:1px solid rgba(251,244,228,.18);background:rgba(251,244,228,.06);
+  transition:transform .25s cubic-bezier(.2,.7,.2,1)}
+tbody tr:hover td.tick img{transform:scale(1.35)}
+tbody tr{transition:background .2s}
 td.num{text-align:right;font-variant-numeric:tabular-nums}
 tbody tr:hover{background:rgba(251,244,228,.04)}
 .eye{display:inline-flex;align-items:center;gap:6px;opacity:.7}
@@ -293,7 +323,8 @@ footer{border-top:1px solid var(--hair);padding:28px 0 46px}
 
   <div class="cmd">
     <div class="cmd-top"><span class="lab" style="color:inherit">Your launch message</span><button class="copy" id="copy" type="button">Copy</button></div>
-    <div class="cmd-body"><span id="cmd"><b>@pairoobot</b> launch a token called Orbit with ticker ORB paired with <mark id="sel">NVDAX</mark></span><span class="cur"></span></div>
+    <div class="cmd-body"><span id="cmd"><b>@pairoobot</b> <span id="typed">launch a token called Orbit with ticker ORB paired with </span><mark id="sel">NVDAX</mark></span><span class="cur"></span></div>
+    <div class="cmd-reply" id="reply" aria-live="polite"></div>
     <div class="cmd-foot" id="status">Swap the name and ticker for yours.</div>
   </div>
 </div>
@@ -431,9 +462,15 @@ const mcap=c=>{
 };
 
 let sel='NVDAX';
-function choose(sym){sel=sym;$('sel').textContent=sym;$('status').textContent='Message now uses '+sym+'.';paintPairs()}
+function choose(sym){
+  // A pessoa está compondo a mensagem dela: o replay para, a resposta some,
+  // e o que fica é o modelo inteiro com o par escolhido — copiável.
+  if(REPLAY){clearTimeout(REPLAY);REPLAY=null;$('reply').classList.remove('on');
+    $('typed').textContent='launch a token called Orbit with ticker ORB paired with ';}
+  sel=sym;$('sel').textContent=sym;$('status').textContent='Message now uses '+sym+'.';paintPairs()}
+const MENSAGEM=()=>'@pairoobot '+$('typed').textContent+sel;
 $('copy').addEventListener('click',async()=>{
-  try{await navigator.clipboard.writeText($('cmd').innerText.trim());$('status').textContent='Copied.'}
+  try{await navigator.clipboard.writeText(MENSAGEM());$('status').textContent='Copied.'}
   catch{$('status').textContent='Copy failed — select the text above.'}
 });
 
@@ -505,7 +542,8 @@ function paintCoins(d){
   const rows=coins.map(c=>{
     const pct=c.bonding_progress==null?null:Math.round(c.bonding_progress*100);
     const mint=c.mint?'<a href="https://solscan.io/token/'+encodeURIComponent(c.mint)+'" target="_blank" rel="noopener noreferrer">'+esc(c.mint.slice(0,6))+'…'+esc(c.mint.slice(-4))+'</a>':'—';
-    return '<tr><td class="tick">$'+esc(c.ticker)+'</td><td>'+esc(c.name)+'</td>'+
+    const face=c.image_uri?'<img src="'+esc(c.image_uri)+'" alt="" loading="lazy" width="30" height="30">':'';
+    return '<tr><td class="tick">'+face+'$'+esc(c.ticker)+'</td><td>'+esc(c.name)+'</td>'+
       '<td><span class="pill">'+esc(c.pair||'—')+'</span></td>'+
       '<td class="num">'+mcap(c)+'</td>'+
       '<td class="num">'+(pct==null?'—':pct+'%')+'</td>'+
@@ -521,7 +559,60 @@ async function load(url,ok,fail){
   try{const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw new Error(r.status);ok(await r.json())}
   catch(e){fail(e)}
 }
-load('/pairoo/api/coins.json',paintCoins,()=>{
+/* O herói mostra o produto acontecendo: a menção é digitada, o bot responde
+   com a última moeda que existe de verdade na chain, e recomeça. Nada aqui é
+   inventado — sem moeda no feed, não há resposta, só a mensagem. Passar o
+   mouse pausa (a pessoa pode estar copiando); reduced-motion mostra o estado
+   final parado. */
+let ULTIMA=null;
+const REPLY_HTML=c=>{
+  const link=(c.links||[])[0];
+  const mint=c.mint?esc(c.mint.slice(0,6))+'…'+esc(c.mint.slice(-4)):'';
+  return '<div class="who"><img src="/assets/mark.webp" alt="">Pairoobot · replied</div>'+
+    '<div class="txt">'+(c.image_uri?'<img class="face" src="'+esc(c.image_uri)+'" alt="">':'')+
+    '$'+esc(c.ticker)+' paired with $'+esc(c.pair)+', '+((c.creator_fee_bps||100)/100)+'% creator fee — created. '+
+    (mint?'mint <a href="https://solscan.io/token/'+encodeURIComponent(c.mint)+'" target="_blank" rel="noopener noreferrer">'+mint+'</a>':'')+
+    (link?' · <a href="'+esc(link.url)+'" target="_blank" rel="noopener noreferrer">'+esc(link.name)+' ↗</a>':'')+'</div>';
+};
+let REPLAY=null;   // o timer do replay; `choose` o cancela quando a pessoa compõe a dela
+function replay(){
+  const typed=$('typed'), reply=$('reply'), cmd=$('cmd'), still=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(!ULTIMA) return;                      // sem moeda real, sem resposta
+  // A mensagem digitada é a que criou a moeda que responde: nome, ticker e
+  // par reais. Uma resposta sobre $FGT embaixo de um pedido de $ORB seria
+  // teatro; assim é um replay.
+  const full='launch a token called '+ULTIMA.name+' with ticker '+ULTIMA.ticker+' paired with ';
+  sel=ULTIMA.pair; $('sel').textContent=sel; typed.textContent=full;
+  let paused=false;
+  cmd.closest('.cmd').addEventListener('mouseenter',()=>paused=true);
+  cmd.closest('.cmd').addEventListener('mouseleave',()=>paused=false);
+  if(still){ reply.innerHTML=REPLY_HTML(ULTIMA); reply.classList.add('on'); return; }
+  const speak=()=>{ reply.innerHTML=REPLY_HTML(ULTIMA); reply.classList.add('on'); REPLAY=setTimeout(reset,7000); };
+  const reset=()=>{ if(paused){REPLAY=setTimeout(reset,1500);return} reply.classList.remove('on'); typed.textContent=''; REPLAY=setTimeout(()=>type(0),700); };
+  const type=i=>{ if(paused){REPLAY=setTimeout(()=>type(i),400);return}
+    typed.textContent=full.slice(0,i); if(i<full.length) REPLAY=setTimeout(()=>type(i+1),28+Math.random()*40); else REPLAY=setTimeout(speak,650); };
+  REPLAY=setTimeout(speak,1800);
+}
+/* Revelação no scroll — seções entram uma vez, e só onde o observador existe. */
+(function(){
+  if(!('IntersectionObserver' in window)) return;
+  const els=document.querySelectorAll('section,.dark,.meta,.cmd,.end');
+  els.forEach(el=>el.classList.add('reveal'));
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});
+  els.forEach(el=>io.observe(el));
+})();
+/* Os números da faixa contam até o valor — 600ms, só na carga. */
+function countTo(el,n){
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches||!(n>0)){el.textContent=n;return}
+  const t0=performance.now(); const tick=now=>{const k=Math.min(1,(now-t0)/600); el.textContent=Math.round(n*(1-Math.pow(1-k,3))); if(k<1)requestAnimationFrame(tick)};
+  requestAnimationFrame(tick);
+}
+load('/pairoo/api/coins.json',d=>{
+  paintCoins(d);
+  const coins=(d&&d.coins)||[];
+  if(coins.length){ ULTIMA=coins.slice().sort((a,b)=>(b.created_at||0)-(a.created_at||0))[0]; countTo($('m-coins'),coins.length); }
+  replay();
+},()=>{
   $('coins-note').textContent='unavailable';
   $('coins-body').innerHTML='<div class="void"><b>Coin list unavailable.</b><span>The feed could not be read right now.</span></div>';
 });
@@ -589,7 +680,7 @@ load('/pairoo/api/reach.json',paintReach,()=>{
 load('/pairoo/api/platforms.json',paintPlats,()=>{const g=$('plats');if(g)g.remove()});
 load('/pairoo/api/pairs.json',d=>{
   PAIRS=d.pairs||[]; PAIRS_META=d||{};
-  $('m-pairs').textContent=PAIRS.length;
+  countTo($('m-pairs'),PAIRS.length);
   const n=(x)=>x.toLocaleString('en-US');
   $('pairs-note').textContent=
     (PAIRS_META.tracked? n(PAIRS_META.tracked)+' tokenized assets tracked · '+n(PAIRS_META.count)+
