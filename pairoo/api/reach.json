@@ -1,12 +1,13 @@
 {
- "generated_at": 1789181772,
+ "generated_at": 1789181792,
  "states": {
   "live": "Answering now",
   "testing": "Connected, in testing",
   "waiting": "Credentials in place, access pending",
   "built": "Adapter built, access pending",
   "planned": "Planned",
-  "closed": "Closed by the platform"
+  "closed": "Closed by the platform",
+  "done": "Working"
  },
  "channels": [
   {
@@ -85,34 +86,34 @@
  "roadmap": [
   {
    "phase": "01",
-   "title": "Sign the first launch",
-   "state": "now",
+   "title": "Launching on Solana",
+   "state": "done",
    "items": [
-    "Solana: executor built, plan simulates byte-identical to the frozen report — needs the launch key and about 0.05 SOL",
-    "Robinhood Chain: deploy measured at 0.00018 ETH, 0.00137 with the first launch — needs funds and two recipient addresses",
-    "Flip a route from unavailable to available, with the evidence attached",
-    "Confirm the fee split settles to both sides on a real trade — never yet proven end to end"
+    "Two coins created on mainnet tonight, both confirmed on chain",
+    "The 80/20 creator-fee split is locked inside the launch transaction itself",
+    "Real cost measured at 0.0146 to 0.0163 SOL per launch",
+    "Discord answers mentions; Telegram answers through the gateway"
    ]
   },
   {
    "phase": "02",
-   "title": "Every channel answering",
-   "state": "next",
+   "title": "Every feed, every language",
+   "state": "now",
    "items": [
-    "Telegram answers today through the gateway; Discord answers through its worker",
+    "A request is read by the model and validated by code — Portuguese, English, typos and all",
+    "A mistyped pair is proposed back, never substituted",
     "X: the credentials authenticate, the mentions endpoint needs a paid plan",
-    "Instagram: verify the webhook with the live token. TikTok: get write access",
-    "Reddit: the adapter is written and tested — it needs negotiated API access, or a credential issued before November 2025"
+    "Instagram and TikTok access; Reddit no longer issues API access"
    ]
   },
   {
    "phase": "03",
    "title": "More chains",
-   "state": "later",
+   "state": "next",
    "items": [
-    "Robinhood Chain through Pons, after the split contract is deployed and reviewed",
-    "BNB Chain through four.meme",
-    "Route engine picks the cheapest compatible chain per request"
+    "Robinhood Chain through Pons: contract reviewed, deploy measured at 0.00018 ETH",
+    "BNB Chain through four.meme: adapter built against the deployed contract",
+    "Naming a chain already constrains the route — it launches there or says why not"
    ]
   },
   {
@@ -122,7 +123,7 @@
    "items": [
     "Wallet binding per author, one address per channel identity",
     "Claim flow for the creator share",
-    "Public directory of every coin launched through the bot"
+    "A trade settling fees to both sides, proven end to end"
    ]
   }
  ]
