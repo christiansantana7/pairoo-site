@@ -2,18 +2,40 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/coin/:addr([A-Za-z0-9]{20,64})", "destination": "/coin" }
+    {
+      "source": "/coin/:addr([A-Za-z0-9]{20,64})/overlay",
+      "destination": "/coin/overlay"
+    },
+    {
+      "source": "/coin/:addr([A-Za-z0-9]{20,64})",
+      "destination": "/coin"
+    },
+    {
+      "source": "/creator/:id([a-f0-9]{12})",
+      "destination": "/creator"
+    }
   ],
   "headers": [
     {
       "source": "/assets/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800, immutable" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, immutable"
+        }
+      ]
     },
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Referrer-Policy", "value": "no-referrer" }
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "no-referrer"
+        }
       ]
     }
   ]

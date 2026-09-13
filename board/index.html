@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#FBF4E4">
+<title>Board — Pairoobot</title>
+<meta name="description" content="What is launching right now through Pairoobot, across every chain — sorted by progress, by activity, by time.">
+<meta property="og:title" content="Pairoobot board">
+<meta property="og:description" content="Every coin launched through Pairoobot, across every chain, live.">
+<meta property="og:image" content="https://www.pairoo.xyz/assets/og-soft.webp">
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Archivo+Black&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#FBF4E4;--paper-2:#F5ECD7;--yellow:#FFC91E;--yellow-soft:#FFE9A6;--ink:#14161A;--ink-70:rgba(20,22,26,.7);--ink-45:rgba(20,22,26,.6);--hair:rgba(20,22,26,.14);--hair-2:rgba(20,22,26,.26);--disp:'Archivo Black',Impact,sans-serif;--sans:Archivo,system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;--live:#E5484D}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15.5px/1.7 var(--sans);font-weight:500;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--yellow);outline-offset:2px}
+.wrap{width:min(1080px,calc(100% - 48px));margin:auto}
+h1,h2{margin:0;font-family:var(--disp);font-weight:400;letter-spacing:-.035em;line-height:1}
+header{position:sticky;top:0;z-index:60;background:rgba(251,244,228,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
+.head-in{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{position:relative;display:flex;align-items:center;gap:10px;font-family:var(--disp);font-size:19px;letter-spacing:-.045em}.brand img.mk{width:26px;height:26px}.brand .crown{position:absolute;left:17px;top:-11px;width:21px;opacity:.75;transform:rotate(-8deg)}
+nav{display:flex;gap:26px;align-items:center}nav a.nav-link{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink-70)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border:1px solid var(--ink);border-radius:2px;background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:11px;letter-spacing:.1em;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--hair-2)}.btn.ghost:hover,.btn.ghost[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn.sm{padding:7px 12px;font-size:10px}
+.top{padding:56px 0 20px}.kicker{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-45);margin-bottom:10px}
+h1{font-size:clamp(32px,4.6vw,54px)}.sub{color:var(--ink-70);margin:10px 0 0;font-size:14.5px;max-width:60ch}
+.ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:18px 0 14px}.ctl .lab{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-45);margin-right:6px}
+.ctl .sep{width:1px;height:22px;background:var(--hair-2);margin:0 6px}
+#body{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:14px}th{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-45);text-align:left;padding:10px 12px;border-bottom:1px solid var(--hair-2)}
+td{padding:12px;border-bottom:1px solid var(--hair);vertical-align:middle}td.num,th.num{text-align:right;font-family:var(--mono);font-size:12.5px}
+td.tick{font-family:var(--disp);font-size:16px;letter-spacing:-.03em;white-space:nowrap}td.tick img{width:28px;height:28px;border-radius:4px;vertical-align:middle;margin-right:10px;object-fit:cover;background:var(--paper-2)}
+.pill{font-family:var(--mono);font-size:10px;letter-spacing:.06em;padding:2px 7px;border:1px solid var(--hair-2);border-radius:2px;color:var(--ink-70);background:var(--paper-2);white-space:nowrap}
+.pill.pair{color:var(--ink);border-color:rgba(255,201,30,.7);background:var(--yellow-soft)}.pill.live{color:#fff;background:var(--live);border-color:var(--live)}
+.bar{display:inline-block;width:90px;height:8px;border:1px solid var(--hair-2);border-radius:2px;background:var(--paper-2);vertical-align:middle;margin-right:8px;overflow:hidden}.bar i{display:block;height:100%;background:var(--yellow)}
+.src{font-family:var(--mono);font-size:11px;color:var(--ink-45);margin-top:12px}
+.void{padding:64px 0;text-align:center}.void b{display:block;font-family:var(--disp);font-size:clamp(22px,3.2vw,34px);letter-spacing:-.04em;margin-bottom:12px}.void span{font-family:var(--mono);font-size:11.5px;opacity:.6}
+footer{border-top:1px solid var(--hair);padding:28px 0 46px;margin-top:80px}.foot-in{display:flex;flex-wrap:wrap;gap:14px 22px;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--ink-45)}.foot-links{display:flex;flex-wrap:wrap;gap:16px}
+@media(max-width:640px){nav .nav-link{display:none}}
+</style>
+</head>
+<body>
+<header><div class="wrap head-in"><a class="brand" href="/"><img class="crown" src="/assets/mark-crown.webp" alt=""><img class="mk" src="/assets/mark.webp" alt="" width="30" height="30">Pairoobot</a>
+<nav><a class="nav-link" href="/#pairs">Pairs</a><a class="nav-link" href="/#fees">Fees</a><a class="btn" href="https://t.me/pairoobot" target="_blank" rel="noopener noreferrer">@pairoobot</a></nav></div></header>
+<main class="wrap">
+  <div class="top"><div class="kicker">board</div><h1>What is launching now</h1><p class="sub">Every coin launched through Pairoobot, on every chain. Robinhood Chain rows are read live from the chain in your browser; Solana rows show what the feed captured at build.</p></div>
+  <div class="ctl"><span class="lab">chain</span>
+    <button class="btn ghost sm" data-chain="all" aria-pressed="true">all</button><button class="btn ghost sm" data-chain="robinhood">Robinhood</button><button class="btn ghost sm" data-chain="solana">Solana</button><button class="btn ghost sm" data-chain="bsc">BNB</button>
+    <span class="sep"></span><span class="lab">sort</span>
+    <button class="btn ghost sm" data-sort="recent" aria-pressed="true">recent</button><button class="btn ghost sm" data-sort="progress">progress</button><button class="btn ghost sm" data-sort="live">live first</button>
+  </div>
+  <div id="body"><div class="void"><b>Reading the feed…</b></div></div>
+  <p class="src" id="src"></p>
+</main>
+<footer><div class="wrap foot-in"><span>© 2026 Pairoobot</span><div class="foot-links"><a href="/pairoo/terms">Terms</a><a href="/pairoo/privacy">Privacy</a><a href="https://t.me/pairoobot" target="_blank" rel="noopener noreferrer">Telegram @pairoobot</a></div></div></footer>
+<script type="module">
+import { readRobinhood, fmtNum } from '/coin/coin.js';
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+let coins = [], chain = 'all', sort = 'recent';
+const live = new Map();   // mint -> state from the chain (Robinhood only)
+function progressOf(c) { const l = live.get(c.mint); if (l) return l.progress; return c.bonding_progress; }
+function paint() {
+  let rows = coins.filter((c) => chain === 'all' || c.chain === chain);
+  rows = rows.slice().sort((a, b) => sort === 'progress' ? ((progressOf(b) ?? -1) - (progressOf(a) ?? -1))
+    : sort === 'live' ? ((b.stream ? 1 : 0) - (a.stream ? 1 : 0)) || ((b.created_at || 0) - (a.created_at || 0))
+    : (b.created_at || 0) - (a.created_at || 0));
+  if (!rows.length) { $('body').innerHTML = '<div class="void"><b>Nothing here yet.</b><span>The first confirmed launch on this chain appears the moment it exists.</span></div>'; return; }
+  $('body').innerHTML = '<table><thead><tr><th>Coin</th><th>Pair</th><th>Chain</th><th class="num">Curve</th><th class="num">Raised</th><th class="num">Launched</th></tr></thead><tbody>' +
+    rows.map((c) => {
+      const l = live.get(c.mint); const p = progressOf(c); const pct = p == null ? null : Math.round(p * 1000) / 10;
+      const raised = l ? `${fmtNum(l.raised)} ${esc(l.pairSymbol)}` : (c.market_cap_usd != null ? '$' + fmtNum(c.market_cap_usd, 0) + ' mcap' : '—');
+      const when = c.created_at ? new Date(c.created_at * 1000).toLocaleDateString('en-US', { dateStyle: 'medium' }) : '—';
+      return `<tr><td class="tick"><a href="/coin/${encodeURIComponent(c.mint)}">${c.image_uri ? `<img src="${esc(c.image_uri)}" alt="">` : ''}$${esc(c.ticker)}</a> ${c.stream ? '<span class="pill live">live</span>' : ''}<div style="font:12px var(--sans);color:var(--ink-45);font-weight:500">${esc(c.name)}</div></td>` +
+        `<td><span class="pill pair">$${esc(c.pair || '—')}</span></td><td><span class="pill">${esc(c.chain_label || c.chain)}</span></td>` +
+        `<td class="num"><span class="bar"><i style="width:${pct ?? 0}%"></i></span>${pct == null ? '—' : pct + '%'}${l && l.status !== 'on the curve' ? ' · ' + esc(l.status) : ''}</td>` +
+        `<td class="num">${raised}</td><td class="num">${when}</td></tr>`;
+    }).join('') + '</tbody></table>';
+}
+async function refreshLive() {
+  // One coin at a time, spaced out: the public RPC throttles bursts, and a
+  // board with many rows must not be the thing that trips it.
+  const rh = coins.filter((c) => c.chain === 'robinhood').slice(0, 40);
+  let block = null;
+  for (const c of rh) {
+    try { const r = await readRobinhood(c.mint); if (r) { live.set(c.mint, r.state); block = r.block; paint(); } } catch { /* next */ }
+    await new Promise((res) => setTimeout(res, 350));
+  }
+  $('src').textContent = `${coins.length} coin${coins.length === 1 ? '' : 's'} on chain · ${rh.length ? 'Robinhood rows live' + (block ? ' · block ' + block.toLocaleString('en-US') : '') : 'no Robinhood coin yet'}`;
+  setTimeout(refreshLive, 30000);
+}
+document.querySelectorAll('[data-chain]').forEach((b) => b.addEventListener('click', () => { chain = b.dataset.chain; document.querySelectorAll('[data-chain]').forEach((x) => x.setAttribute('aria-pressed', x === b)); paint(); }));
+document.querySelectorAll('[data-sort]').forEach((b) => b.addEventListener('click', () => { sort = b.dataset.sort; document.querySelectorAll('[data-sort]').forEach((x) => x.setAttribute('aria-pressed', x === b)); paint(); }));
+fetch('/pairoo/api/coins.json', { cache: 'no-store' }).then((r) => r.json()).then((d) => { coins = d.coins || []; paint(); refreshLive(); })
+  .catch(() => { $('body').innerHTML = '<div class="void"><b>Feed unavailable.</b><span>The coin list could not be read right now.</span></div>'; });
+</script>
+</body>
+</html>

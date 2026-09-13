@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Overlay — Pairoobot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Archivo+Black&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* An OBS "browser source": transparent background, one bar, nothing else.
+   Add it at 640×140 (or scale it) on top of the stream. */
+html,body{margin:0;background:transparent}
+:root{--paper:#FBF4E4;--ink:#14161A;--yellow:#FFC91E;--mono:'JetBrains Mono',ui-monospace,monospace;--disp:'Archivo Black',Impact,sans-serif;--sans:Archivo,system-ui,sans-serif}
+.bar{width:640px;height:140px;box-sizing:border-box;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;padding:16px 20px;background:rgba(251,244,228,.96);color:var(--ink);border:2px solid var(--ink);border-radius:10px;font:14px/1.3 var(--sans);font-weight:600;box-shadow:0 6px 24px rgba(0,0,0,.25)}
+.face{width:96px;height:96px;border-radius:8px;object-fit:cover;background:#F5ECD7;border:1px solid rgba(20,22,26,.18)}
+.tick{font-family:var(--disp);font-size:34px;letter-spacing:-.04em;line-height:1}
+.pair{font-family:var(--mono);font-size:12px;letter-spacing:.06em;margin-left:10px;padding:3px 8px;border:1px solid var(--yellow);background:#FFE9A6;border-radius:3px;vertical-align:middle}
+.nums{display:flex;gap:18px;margin-top:6px;font-family:var(--mono);font-size:12px;color:#3A3C41}
+.nums b{color:var(--ink);font-weight:700}
+.prog{height:12px;margin-top:8px;border:1px solid rgba(20,22,26,.3);border-radius:3px;background:#F5ECD7;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--yellow);width:0;transition:width .8s}
+.src{font-family:var(--mono);font-size:10px;color:#6b6d72;margin-top:4px}
+</style>
+</head>
+<body>
+<div class="bar" id="bar">
+  <img id="face" class="face" alt="">
+  <div>
+    <div><span class="tick" id="tick">$—</span><span class="pair" id="pair">—</span></div>
+    <div class="nums"><span>raised <b id="raised">—</b></span><span>price <b id="price">—</b></span><span>fee <b id="fee">—</b></span></div>
+    <div class="prog"><i id="fill"></i></div>
+    <div class="src" id="src">pairoo.xyz</div>
+  </div>
+</div>
+<script type="module">
+import { coinFromLocation, sameMint, readRobinhood, fmtNum } from '/coin/coin.js';
+const $ = (id) => document.getElementById(id);
+const want = (/^\/coin\/([A-Za-z0-9]{20,64})\/overlay\/?$/.exec(location.pathname) || [])[1] || coinFromLocation(location);
+async function main() {
+  const feed = await fetch('/pairoo/api/coins.json', { cache: 'no-store' }).then((r) => r.json()).catch(() => null);
+  const c = feed && (feed.coins || []).find((x) => sameMint(x.mint, want));
+  if (!c) { $('tick').textContent = '$?'; $('src').textContent = 'not one of ours'; return; }
+  $('tick').textContent = '$' + c.ticker; $('pair').textContent = 'vs $' + (c.pair || '—');
+  if (c.image_uri) $('face').src = c.image_uri; else $('face').style.visibility = 'hidden';
+  if (c.chain !== 'robinhood') {
+    const pct = c.bonding_progress == null ? null : Math.round(c.bonding_progress * 100);
+    $('fill').style.width = (pct ?? 0) + '%';
+    $('raised').textContent = pct == null ? '—' : pct + '% of curve';
+    $('price').textContent = c.market_cap_usd == null ? '—' : '$' + fmtNum(c.market_cap_usd, 0) + ' mcap';
+    $('fee').textContent = c.creator_fee_bps == null ? '—' : (c.creator_fee_bps / 100) + '%';
+    $('src').textContent = `pairoo.xyz/coin/${c.mint.slice(0, 8)}… · ${c.chain_label || c.chain}`;
+    return;
+  }
+  const tick = async () => {
+    try {
+      const r = await readRobinhood(c.mint); if (!r) return;
+      const s = r.state, pct = s.progress == null ? 0 : Math.round(s.progress * 1000) / 10;
+      $('fill').style.width = pct + '%';
+      $('raised').textContent = `${fmtNum(s.raised)} / ${fmtNum(s.target)} ${s.pairSymbol}`;
+      $('price').textContent = `${fmtNum(s.price)} ${s.pairSymbol}`;
+      $('fee').textContent = (s.creatorTaxBps / 100) + '%';
+      $('src').textContent = `pairoo.xyz/coin/${c.mint.slice(0, 8)}… · live · block ${r.block.toLocaleString('en-US')} · ${s.status}`;
+    } catch (e) { $('src').textContent = 'chain not answering; retrying'; }
+    setTimeout(tick, 15000);
+  };
+  tick();
+}
+main();
+</script>
+</body>
+</html>

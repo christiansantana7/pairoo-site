@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#FBF4E4">
+<title>Creator — Pairoobot</title>
+<meta name="description" content="Every coin a creator launched through Pairoobot, and whether they are live.">
+<meta property="og:title" content="Pairoobot creator">
+<meta property="og:image" content="https://www.pairoo.xyz/assets/og-soft.webp">
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Archivo+Black&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#FBF4E4;--paper-2:#F5ECD7;--yellow:#FFC91E;--yellow-soft:#FFE9A6;--ink:#14161A;--ink-70:rgba(20,22,26,.7);--ink-45:rgba(20,22,26,.6);--hair:rgba(20,22,26,.14);--hair-2:rgba(20,22,26,.26);--disp:'Archivo Black',Impact,sans-serif;--sans:Archivo,system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;--live:#E5484D}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15.5px/1.7 var(--sans);font-weight:500;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}:focus-visible{outline:2px solid var(--yellow);outline-offset:2px}
+.wrap{width:min(1080px,calc(100% - 48px));margin:auto}
+h1,h2{margin:0;font-family:var(--disp);font-weight:400;letter-spacing:-.035em;line-height:1}
+header{position:sticky;top:0;z-index:60;background:rgba(251,244,228,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
+.head-in{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{position:relative;display:flex;align-items:center;gap:10px;font-family:var(--disp);font-size:19px;letter-spacing:-.045em}.brand img.mk{width:26px;height:26px}.brand .crown{position:absolute;left:17px;top:-11px;width:21px;opacity:.75;transform:rotate(-8deg)}
+nav{display:flex;gap:26px;align-items:center}nav a.nav-link{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink-70)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border:1px solid var(--ink);border-radius:2px;background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:11px;letter-spacing:.1em}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--hair-2)}.btn.ghost:hover{background:var(--ink);color:var(--paper)}
+.id{padding:56px 0 26px}.kicker{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-45);margin-bottom:10px}
+h1{font-size:clamp(32px,4.6vw,54px)}.sub{color:var(--ink-70);margin:10px 0 0;font-size:14.5px}
+.pill{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;padding:3px 8px;border:1px solid var(--hair-2);border-radius:2px;color:var(--ink-70);background:var(--paper-2);margin-left:8px;vertical-align:middle}
+.pill.live{color:#fff;background:var(--live);border-color:var(--live)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:22px}
+.card{display:grid;grid-template-columns:56px 1fr;gap:14px;align-items:center;padding:16px;border:1px solid var(--hair-2);border-radius:6px;background:var(--paper-2)}
+.card:hover{border-color:var(--ink)}.card img{width:56px;height:56px;border-radius:6px;object-fit:cover;background:var(--paper)}
+.card .t{font-family:var(--disp);font-size:20px;letter-spacing:-.04em}.card .m{font-family:var(--mono);font-size:11px;color:var(--ink-45);margin-top:4px}
+.void{padding:64px 0;text-align:center}.void b{display:block;font-family:var(--disp);font-size:clamp(22px,3.2vw,34px);letter-spacing:-.04em;margin-bottom:12px}.void span{font-family:var(--mono);font-size:11.5px;opacity:.6}
+footer{border-top:1px solid var(--hair);padding:28px 0 46px;margin-top:80px}.foot-in{display:flex;flex-wrap:wrap;gap:14px 22px;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--ink-45)}.foot-links{display:flex;flex-wrap:wrap;gap:16px}
+[hidden]{display:none!important}@media(max-width:640px){nav .nav-link{display:none}}
+</style>
+</head>
+<body>
+<header><div class="wrap head-in"><a class="brand" href="/"><img class="crown" src="/assets/mark-crown.webp" alt=""><img class="mk" src="/assets/mark.webp" alt="" width="30" height="30">Pairoobot</a>
+<nav><a class="nav-link" href="/board">Board</a><a class="nav-link" href="/#pairs">Pairs</a><a class="btn" href="https://t.me/pairoobot" target="_blank" rel="noopener noreferrer">@pairoobot</a></nav></div></header>
+<main class="wrap">
+  <section id="loading" class="void"><b>Reading the feed…</b></section>
+  <section id="missing" class="void" hidden><b>No such creator.</b><span>Nothing is shown that we cannot vouch for.</span><div style="margin-top:22px"><a class="btn ghost" href="/board">The board</a></div></section>
+  <section id="creator" hidden>
+    <div class="id"><div class="kicker" id="kicker">creator</div><h1 id="name">—</h1><p class="sub" id="sub"></p></div>
+    <h2 style="font-size:22px">Coins</h2>
+    <div class="grid" id="coins"></div>
+  </section>
+</main>
+<footer><div class="wrap foot-in"><span>© 2026 Pairoobot</span><div class="foot-links"><a href="/pairoo/terms">Terms</a><a href="/pairoo/privacy">Privacy</a><a href="https://t.me/pairoobot" target="_blank" rel="noopener noreferrer">Telegram @pairoobot</a></div></div></footer>
+<script type="module">
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const show = (id) => { for (const s of ['loading', 'missing', 'creator']) $(s).hidden = s !== id; };
+const id = (/^\/creator\/([a-f0-9]{12})\/?$/.exec(location.pathname) || [])[1] || new URLSearchParams(location.search).get('id');
+async function main() {
+  if (!id) { show('missing'); return; }
+  let cr, feed;
+  try {
+    [cr, feed] = await Promise.all([fetch('/pairoo/api/creators.json', { cache: 'no-store' }).then((r) => r.json()),
+                                   fetch('/pairoo/api/coins.json', { cache: 'no-store' }).then((r) => r.json())]);
+  } catch { show('missing'); return; }
+  const c = (cr.creators || []).find((x) => x.id === id);
+  if (!c) { show('missing'); return; }
+  const coins = (feed.coins || []).filter((k) => c.coins.includes(k.mint)).sort((a, b) => (b.created_at || 0) - (a.created_at || 0));
+  document.title = `${c.label} — Pairoobot`;
+  $('kicker').textContent = `creator · ${c.channel || ''}`;
+  $('name').innerHTML = esc(c.label) + (c.live ? '<span class="pill live">live</span>' : '');
+  const since = c.since ? new Date(c.since * 1000).toLocaleDateString('en-US', { dateStyle: 'medium' }) : null;
+  $('sub').textContent = `${coins.length} coin${coins.length === 1 ? '' : 's'}${since ? ' · first launch ' + since : ''}`;
+  $('coins').innerHTML = coins.map((k) => `<a class="card" href="/coin/${encodeURIComponent(k.mint)}">${k.image_uri ? `<img src="${esc(k.image_uri)}" alt="">` : '<div></div>'}<div><div class="t">$${esc(k.ticker)}${k.stream ? '<span class="pill live">live</span>' : ''}</div><div class="m">${esc(k.name)} · vs $${esc(k.pair || '—')} · ${esc(k.chain_label || k.chain)}</div></div></a>`).join('');
+  show('creator');
+}
+main();
+</script>
+</body>
+</html>
