@@ -1,5 +1,5 @@
 {
- "generated_at": 1789192372,
+ "generated_at": 1789306358,
  "platforms": [
   {
    "id": "pumpfun",
@@ -35,6 +35,13 @@
    "chain": "robinhood",
    "site": null,
    "per_coin": false
+  },
+  {
+   "id": "fourmeme",
+   "name": "four.meme",
+   "chain": "bsc",
+   "site": "https://four.meme",
+   "per_coin": true
   }
  ]
 }
