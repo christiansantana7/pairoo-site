@@ -1,5 +1,5 @@
 {
- "generated_at": 1789309685,
+ "generated_at": 1789310255,
  "states": {
   "ready": "Ready",
   "final": "Final testing"
@@ -117,12 +117,12 @@
   {
    "phase": "04",
    "title": "Every coin gets a page",
-   "state": "then",
+   "state": "now",
    "items": [
-    "A live page per coin: your chart next to the stock it is paired against",
-    "Holders, fees earned and every payout, linked to the transaction that paid it",
-    "A public board of what is launching right now, across every chain",
-    "Share the page instead of the mint address — it carries the pitch for you"
+    "A page per coin at pairoo.xyz/coin/<address> — pair, fees and the curve, read live from the chain",
+    "Go live on it: reply `live <link>` and your YouTube, Twitch or Kick stream plays on your coin's page (TikTok and X open in a card — they forbid embedding)",
+    "On Robinhood Chain this is the only page a coin has: no explorer, no venue on Pons",
+    "Next: holders, fees earned and every payout, linked to the transaction that paid it"
    ]
   },
   {

@@ -367,7 +367,7 @@ footer{border-top:1px solid var(--hair);padding:28px 0 46px}
     <div class="steps">
       <div class="step"><span class="lab">01 · Mention</span><h3>Say it</h3><p>Add the bot to your Discord server, or message it on Telegram or X — name, ticker, pair.</p></div>
       <div class="step"><span class="lab">02 · Pair</span><h3>Pick the other side</h3><p>Your coin trades against a tokenized stock, an index or gold — NVIDIA, the S&amp;P 500, Visa — instead of against SOL.</p></div>
-      <div class="step"><span class="lab">03 · Launch</span><h3>It ships</h3><p>The token is created on Solana. Mint address and link come back in the same thread.</p></div>
+      <div class="step"><span class="lab">03 · Launch</span><h3>It ships, with a page</h3><p>The token is created on chain and gets a page of its own — curve, pair and fees, read live. Reply <code>live &lt;your stream link&gt;</code> and your stream plays there.</p></div>
     </div>
   </section>
 
@@ -548,7 +548,7 @@ function paintCoins(d){
     const pct=c.bonding_progress==null?null:Math.round(c.bonding_progress*100);
     const mint=c.mint?'<a href="https://solscan.io/token/'+encodeURIComponent(c.mint)+'" target="_blank" rel="noopener noreferrer">'+esc(c.mint.slice(0,6))+'…'+esc(c.mint.slice(-4))+'</a>':'—';
     const face=c.image_uri?'<img src="'+esc(c.image_uri)+'" alt="" loading="lazy" width="30" height="30">':'';
-    return '<tr><td class="tick">'+face+'$'+esc(c.ticker)+'</td><td>'+esc(c.name)+'</td>'+
+    return '<tr><td class="tick">'+face+'<a href="/coin/'+encodeURIComponent(c.mint)+'" title="coin page">$'+esc(c.ticker)+'</a>'+(c.stream?' <span class="pill" style="color:#E5484D;border-color:#E5484D">live</span>':'')+'</td><td>'+esc(c.name)+'</td>'+
       '<td><span class="pill">'+esc(c.pair||'—')+'</span></td>'+
       '<td class="num">'+mcap(c)+'</td>'+
       '<td class="num">'+(pct==null?'—':pct+'%')+'</td>'+
