@@ -1,5 +1,5 @@
 {
- "generated_at": 1789306358,
+ "generated_at": 1789309685,
  "source": "data/fila.db (only requests with an on-chain mint and signature)",
  "count": 2,
  "note": null,
@@ -16,14 +16,16 @@
    "created_at": 1789179593,
    "creator_fee_bps": 100,
    "market_cap_quote": 17.704033327120225,
-   "market_cap_usd": 3791.206854165181,
-   "quote_price_usd": 214.14368037579078,
+   "market_cap_usd": 3812.280650363436,
+   "quote_price_usd": 215.3340190861214,
    "bonding_progress": 0.0,
    "replies": 0,
    "graduated": false,
    "image_uri": "https://gateway.irys.xyz/Chs7d6Kne1tbjZsL9eNrYNh4LMzFu1eGRmabtpqnfFrY",
    "pool": "7uaLTyNgbZw6NWAErNZC6Jtofd2eU97i2pzvt3gi5iAm",
    "live_source": "frontend-api-v3.pump.fun",
+   "chain_label": "Solana",
+   "fee_model": "split",
    "links": [
     {
      "id": "pumpfun",
@@ -43,7 +45,9 @@
      "logo": "solscan",
      "url": "https://solscan.io/token/DPKGkiR366HyVJNmotzSYuFcGZvw2q1pnYfhweKZh6am"
     }
-   ]
+   ],
+   "page": "/coin/DPKGkiR366HyVJNmotzSYuFcGZvw2q1pnYfhweKZh6am",
+   "stream": null
   },
   {
    "name": "Orbit with ticker ORB paired wit",
@@ -57,14 +61,16 @@
    "created_at": 1789176845,
    "creator_fee_bps": 100,
    "market_cap_quote": 17.704033327120225,
-   "market_cap_usd": 3791.206854165181,
-   "quote_price_usd": 214.14368037579078,
+   "market_cap_usd": 3812.280650363436,
+   "quote_price_usd": 215.3340190861214,
    "bonding_progress": 0.0,
    "replies": 0,
    "graduated": false,
    "image_uri": "https://gateway.irys.xyz/FRLKcD9eYfAvCZsm5AFKqBy32xSqyMgue8SKzXAanMUG",
    "pool": "pnY1wstrU6i5j9WkGa5n7iPofx49sWkphb1dxJqnovX",
    "live_source": "frontend-api-v3.pump.fun",
+   "chain_label": "Solana",
+   "fee_model": "split",
    "links": [
     {
      "id": "pumpfun",
@@ -84,7 +90,9 @@
      "logo": "solscan",
      "url": "https://solscan.io/token/EEV7hC6U8MF2NT5MuUaiGbk9nWgq6buNsmyq5cL4Sx4x"
     }
-   ]
+   ],
+   "page": "/coin/EEV7hC6U8MF2NT5MuUaiGbk9nWgq6buNsmyq5cL4Sx4x",
+   "stream": null
   }
  ]
 }

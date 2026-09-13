@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#FBF4E4">
+<title>Coin — Pairoobot</title>
+<meta name="description" content="A coin launched by Pairoobot: its pair, its curve read live from the chain, and its creator's live stream.">
+<meta property="og:title" content="Pairoobot coin">
+<meta property="og:description" content="Pair, curve and live stream — read from the chain.">
+<meta property="og:image" content="https://www.pairoo.xyz/assets/og-soft.webp">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Archivo+Black&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBF4E4; --paper-2:#F5ECD7; --yellow:#FFC91E; --yellow-soft:#FFE9A6;
+  --ink:#14161A; --ink-2:#1A1C20; --ink-70:rgba(20,22,26,.7); --ink-45:rgba(20,22,26,.6); --hairtext:rgba(20,22,26,.45);
+  --hair:rgba(20,22,26,.14); --hair-2:rgba(20,22,26,.26);
+  --disp:'Archivo Black',Impact,sans-serif; --sans:Archivo,system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+  --live:#E5484D;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:15.5px/1.7 var(--sans);font-weight:500;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--yellow);outline-offset:2px}
+.wrap{width:min(1080px,calc(100% - 48px));margin:auto;position:relative;z-index:1}
+h1,h2,h3{margin:0;font-family:var(--disp);font-weight:400;letter-spacing:-.035em;line-height:1}
+header{position:sticky;top:0;z-index:60;background:rgba(251,244,228,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
+.head-in{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{position:relative;display:flex;align-items:center;gap:10px;font-family:var(--disp);font-size:19px;letter-spacing:-.045em}
+.brand img.mk{width:26px;height:26px;display:block}
+.brand .crown{position:absolute;left:17px;top:-11px;width:21px;opacity:.75;transform:rotate(-8deg)}
+nav{display:flex;align-items:center;gap:26px}
+nav a.nav-link{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink-70)}
+nav a.nav-link:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border:1px solid var(--ink);border-radius:2px;background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:11px;letter-spacing:.1em;cursor:pointer}
+.btn:hover{opacity:.84}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--hair-2)}
+.btn.ghost:hover{background:var(--ink);color:var(--paper);border-color:var(--ink);opacity:1}
+.btn.sm{padding:7px 12px;font-size:10px}
+
+/* identity */
+.id{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center;padding:56px 0 30px}
+.face{width:112px;height:112px;border-radius:8px;border:1px solid var(--hair-2);background:var(--paper-2);object-fit:cover;display:block}
+.face.empty{display:grid;place-items:center;font-family:var(--disp);font-size:34px;color:var(--ink-45)}
+.kicker{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-45);margin-bottom:10px}
+h1{font-size:clamp(34px,5vw,60px);line-height:1.02}
+h1 span{color:var(--ink-45)}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.pill{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;padding:4px 9px;border:1px solid var(--hair-2);border-radius:2px;color:var(--ink-70);background:var(--paper-2)}
+.pill.pair{color:var(--ink);border-color:rgba(255,201,30,.7);background:var(--yellow-soft)}
+.pill.live{color:#fff;background:var(--live);border-color:var(--live)}
+.pill.live:before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:#fff;margin-right:6px;animation:blink 1.2s infinite}
+@keyframes blink{50%{opacity:.25}}
+.sub{margin:10px 0 0;color:var(--ink-70);font-size:14.5px;max-width:60ch}
+
+/* stream */
+.stream{margin:8px 0 0;border:1px solid var(--hair-2);border-radius:4px;background:var(--ink);color:var(--paper);overflow:hidden}
+.stream-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 18px;border-bottom:1px solid rgba(251,244,228,.16);font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(251,244,228,.6)}
+.stream-top a{color:var(--paper);border-bottom:1px solid rgba(251,244,228,.3)}
+.player{position:relative;aspect-ratio:16/9;background:#000}
+.player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.card{padding:44px 24px;text-align:center}
+.card b{display:block;font-family:var(--disp);font-size:clamp(22px,3vw,32px);letter-spacing:-.04em;line-height:1.1;margin-bottom:12px}
+.card p{margin:0 0 20px;color:rgba(251,244,228,.65);font-size:14px}
+.card .btn{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+.card code{font-family:var(--mono);background:rgba(251,244,228,.12);padding:2px 7px;border-radius:2px;font-size:12.5px}
+
+/* stats */
+.sec{margin-top:44px}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding-bottom:12px;border-bottom:1px solid var(--hair-2);margin-bottom:22px}
+.sec-head h2{font-size:clamp(22px,3vw,34px)}
+.sec-head .src{font-family:var(--mono);font-size:10.5px;color:var(--ink-45);letter-spacing:.08em;text-align:right}
+.meta{display:flex;flex-wrap:wrap;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.meta div{flex:1 1 170px;padding:18px 0 18px 20px;border-left:1px solid var(--hair)}
+.meta div:first-child{padding-left:0;border-left:0}
+.meta .lab{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-45)}
+.meta b{display:block;font-family:var(--disp);font-size:24px;line-height:1;margin-top:8px;letter-spacing:-.04em;font-weight:400}
+.meta small{display:block;font-family:var(--mono);font-size:10.5px;color:var(--ink-45);margin-top:6px}
+.bar{height:10px;border:1px solid var(--hair-2);border-radius:2px;background:var(--paper-2);margin:22px 0 8px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--yellow);width:0;transition:width .8s cubic-bezier(.2,.7,.2,1)}
+.bar-lab{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--ink-45)}
+.fee{margin-top:26px;padding:16px 18px;background:var(--paper-2);border:1px solid var(--hair-2);border-radius:3px;font-size:14.5px;color:var(--ink-70)}
+.fee b{color:var(--ink);font-weight:600}
+
+/* addresses & links */
+.rows{border-top:1px solid var(--hair)}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--hair)}
+.row .k{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-45);flex:0 0 130px}
+.row code{font-family:var(--mono);font-size:12.5px;word-break:break-all;flex:1 1 320px}
+.row .btn{margin-left:auto}
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.note{font-family:var(--mono);font-size:11.5px;color:var(--ink-45);margin-top:14px}
+.void{padding:64px 0 16px;text-align:center}
+.void b{display:block;font-family:var(--disp);letter-spacing:-.04em;font-size:clamp(22px,3.2vw,34px);line-height:1.1;margin-bottom:14px}
+.void span{font-family:var(--mono);font-size:11.5px;opacity:.6}
+footer{border-top:1px solid var(--hair);padding:28px 0 46px;margin-top:80px}
+.foot-in{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--ink-45)}
+.foot-links{display:flex;flex-wrap:wrap;gap:16px}
+.foot-links a:hover{color:var(--ink)}
+[hidden]{display:none!important}
+@media (max-width:640px){
+  .id{grid-template-columns:1fr;gap:18px;padding-top:36px}
+  .face{width:84px;height:84px}
+  nav .nav-link{display:none}
+  .row .k{flex-basis:100%}
+}
+@media (prefers-reduced-motion:reduce){.pill.live:before{animation:none}.bar i{transition:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap head-in">
+    <a class="brand" href="/">
+      <img class="crown" src="/assets/mark-crown.webp" alt="">
+      <img class="mk" src="/assets/mark.webp" alt="" width="30" height="30">Pairoobot
+    </a>
+    <nav>
+      <a class="nav-link" href="/#coins">Coins</a>
+      <a class="nav-link" href="/#pairs">Pairs</a>
+      <a class="nav-link" href="/#fees">Fees</a>
+      <a class="btn" href="https://t.me/pairoobot" target="_blank" rel="noopener noreferrer">@pairoobot</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="state-loading" class="void"><b>Reading the chain…</b><span>identity from the feed, curve from the network</span></section>
+
+  <section id="state-missing" class="void" hidden>
+    <b>Not one of ours.</b>
+    <span id="missing-why">This address is not a coin Pairoobot launched. Nothing is shown that we cannot vouch for.</span>
+    <div style="margin-top:22px"><a class="btn ghost" href="/#coins">All coins</a></div>
+  </section>
+
+  <section id="coin" hidden>
+    <div class="id">
+      <img id="face" class="face" alt="" hidden>
+      <div id="face-empty" class="face empty" aria-hidden="true">$</div>
+      <div>
+        <div class="kicker" id="kicker">coin</div>
+        <h1><span id="ticker">$—</span> <span style="color:var(--ink)" id="name">—</span></h1>
+        <div class="pills" id="pills"></div>
+        <p class="sub" id="sub"></p>
+      </div>
+    </div>
+
+    <section class="sec" id="live-sec">
+      <div class="sec-head"><h2>Live</h2><div class="src" id="live-src"></div></div>
+      <div class="stream" id="stream"></div>
+    </section>
+
+    <section class="sec" id="curve-sec">
+      <div class="sec-head"><h2>Curve</h2><div class="src" id="curve-src">—</div></div>
+      <div id="curve-body"></div>
+      <div class="fee" id="fee"></div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-head"><h2>On chain</h2><div class="src" id="chain-src"></div></div>
+      <div class="rows" id="rows"></div>
+      <div class="links" id="links"></div>
+      <p class="note" id="links-note"></p>
+    </section>
+  </section>
+</main>
+
+<footer><div class="wrap foot-in">
+  <span>© 2026 Pairoobot</span>
+  <div class="foot-links">
+    <a href="/pairoo/terms">Terms</a>
+    <a href="/pairoo/privacy">Privacy</a>
+    <a href="/pairoo/data-deletion">Data deletion</a>
+    <a href="https://t.me/pairoobot" target="_blank" rel="noopener noreferrer">Telegram @pairoobot</a>
+    <a href="https://x.com/pairoobot" target="_blank" rel="noopener noreferrer">X</a>
+  </div>
+</div></footer>
+
+<script type="module">
+import { coinFromLocation, sameMint, streamView, feeCopy, readRobinhood, fmtNum, short } from '/coin/coin.js';
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const show = (id) => { for (const s of ['state-loading', 'state-missing', 'coin']) $(s).hidden = s !== id; };
+
+function copyBtn(text) {
+  const b = document.createElement('button'); b.className = 'btn ghost sm'; b.type = 'button'; b.textContent = 'copy';
+  b.addEventListener('click', () => navigator.clipboard.writeText(text).then(() => { b.textContent = 'copied'; setTimeout(() => (b.textContent = 'copy'), 1400); }));
+  return b;
+}
+function row(label, value, copy) {
+  const d = document.createElement('div'); d.className = 'row';
+  d.innerHTML = `<span class="k">${esc(label)}</span><code>${esc(value)}</code>`;
+  if (copy) d.appendChild(copyBtn(value));
+  return d;
+}
+
+function paintIdentity(c) {
+  document.title = `$${c.ticker} — ${c.name} — Pairoobot`;
+  if (c.image_uri) { $('face').src = c.image_uri; $('face').hidden = false; $('face-empty').hidden = true; }
+  $('ticker').textContent = '$' + c.ticker;
+  $('name').textContent = c.name;
+  $('kicker').textContent = `${c.chain_label || c.chain} · ${c.launchpad}`;
+  const pills = $('pills'); pills.innerHTML = '';
+  if (c.stream) { const p = document.createElement('span'); p.className = 'pill live'; p.textContent = 'live attached'; pills.appendChild(p); }
+  for (const [txt, cls] of [[`paired with $${c.pair || '—'}`, 'pill pair'], [c.chain_label || c.chain, 'pill'], [c.launchpad, 'pill']]) {
+    const p = document.createElement('span'); p.className = cls; p.textContent = txt; pills.appendChild(p);
+  }
+  const when = c.created_at ? new Date(c.created_at * 1000).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' }) : null;
+  $('sub').textContent = [when ? `Launched ${when}` : null, c.channel ? `from ${c.channel}` : null].filter(Boolean).join(' · ');
+}
+
+function paintStream(c) {
+  const v = streamView(c.stream);
+  const box = $('stream'); box.innerHTML = '';
+  if (v.kind === 'embed') {
+    $('live-src').textContent = v.label;
+    box.innerHTML = `<div class="stream-top"><span>${esc(v.label)} · creator's stream</span><a href="${esc(v.url)}" target="_blank" rel="noopener noreferrer">open on ${esc(v.label)} ↗</a></div>` +
+      `<div class="player"><iframe src="${esc(v.src)}" title="${esc(v.label)} live stream" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe></div>`;
+  } else if (v.kind === 'link') {
+    $('live-src').textContent = v.label;
+    box.innerHTML = `<div class="card"><b>${esc(v.label)}</b><p>${esc(v.label)} does not allow its player on other sites, so it opens there.</p><a class="btn" href="${esc(v.url)}" target="_blank" rel="noopener noreferrer">Watch on ${esc(v.label)} ↗</a></div>`;
+  } else {
+    $('live-src').textContent = 'none attached';
+    box.innerHTML = `<div class="card"><b>No live attached yet.</b><p>The creator attaches one by messaging <code>@pairoobot</code>: <code>live https://…</code> — YouTube, Twitch and Kick play here; TikTok and X open in a card.</p></div>`;
+  }
+}
+
+function paintFee(c) { $('fee').innerHTML = `<b>Creator fee.</b> ${esc(feeCopy(c))}`; }
+
+function paintChainRows(c, extra = {}) {
+  const rows = $('rows'); rows.innerHTML = '';
+  rows.appendChild(row('token', c.mint, true));
+  if (extra.curve) rows.appendChild(row('curve', extra.curve, true));
+  if (c.quote_mint) rows.appendChild(row('pair token', c.quote_mint, true));
+  if (extra.feeRecipient) rows.appendChild(row('fee recipient', extra.feeRecipient, false));
+  if (c.signature) rows.appendChild(row('launch tx', c.signature, true));
+  const links = $('links'); links.innerHTML = '';
+  for (const l of c.links || []) { const a = document.createElement('a'); a.className = 'btn ghost'; a.href = l.url; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.textContent = `${l.name} ↗`; links.appendChild(a); }
+  const share = document.createElement('button'); share.className = 'btn ghost'; share.type = 'button'; share.textContent = 'copy page link';
+  share.addEventListener('click', () => navigator.clipboard.writeText(location.origin + '/coin/' + c.mint).then(() => { share.textContent = 'copied'; setTimeout(() => (share.textContent = 'copy page link'), 1400); }));
+  links.appendChild(share);
+  $('links-note').textContent = (c.links || []).length ? '' : (c.chain === 'robinhood' ? 'Robinhood Chain has no public explorer yet; this page is where this coin lives.' : '');
+  $('chain-src').textContent = c.chain_label || c.chain;
+}
+
+function paintCurveStatic(c) {
+  // Solana coins: numbers come from the feed at build time, and say so.
+  const pct = c.bonding_progress == null ? null : Math.round(c.bonding_progress * 100);
+  $('curve-src').textContent = c.live_source ? `from ${c.live_source} at build` : 'no live source';
+  $('curve-body').innerHTML = `<div class="meta">
+    <div><span class="lab">market cap</span><b>${c.market_cap_usd == null ? '—' : '$' + fmtNum(c.market_cap_usd, 0)}</b></div>
+    <div><span class="lab">curve</span><b>${pct == null ? '—' : pct + '%'}</b><small>${c.graduated ? 'graduated' : 'to graduation'}</small></div>
+    <div><span class="lab">replies</span><b>${c.replies == null ? '—' : esc(c.replies)}</b></div>
+  </div>`;
+}
+
+let timer = null;
+async function paintCurveLive(c) {
+  $('curve-src').textContent = 'reading Robinhood Chain…';
+  let r;
+  try { r = await readRobinhood(c.mint); } catch (e) { $('curve-src').textContent = 'the chain did not answer'; $('curve-body').innerHTML = `<div class="void"><b>Could not read the curve.</b><span>${esc(e.message)}</span></div>`; return; }
+  if (!r) { $('curve-src').textContent = 'not found on the factory'; $('curve-body').innerHTML = `<div class="void"><b>The factory does not know this token.</b><span>nothing is shown that the chain does not confirm</span></div>`; return; }
+  const s = r.state, pct = s.progress == null ? null : Math.round(s.progress * 1000) / 10;
+  $('curve-src').textContent = `live · block ${r.block.toLocaleString('en-US')}`;
+  $('curve-body').innerHTML = `<div class="meta">
+    <div><span class="lab">status</span><b>${esc(s.status)}</b><small>${s.launchedAt ? 'since ' + s.launchedAt.toLocaleDateString('en-US', { dateStyle: 'medium' }) : ''}</small></div>
+    <div><span class="lab">raised</span><b>${fmtNum(s.raised)} ${esc(s.pairSymbol)}</b><small>of ${fmtNum(s.target)} ${esc(s.pairSymbol)} to graduate</small></div>
+    <div><span class="lab">price</span><b>${fmtNum(s.price)}</b><small>${esc(s.pairSymbol)} per token, on the curve</small></div>
+    <div><span class="lab">creator fee</span><b>${(s.creatorTaxBps / 100).toString()}%</b><small>${fmtNum(s.creatorFeeAccrued)} ${esc(s.pairSymbol)} accrued · curve fee ${(s.curveFeeBps / 100)}%</small></div>
+  </div>
+  <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct ?? 0}"><i style="width:${pct ?? 0}%"></i></div>
+  <div class="bar-lab"><span>graduation</span><span>${pct == null ? '—' : pct + '%'}</span></div>`;
+  paintChainRows(c, { curve: r.launched.curve, feeRecipient: r.launched.creatorFeeRecipient });
+  clearTimeout(timer); timer = setTimeout(() => paintCurveLive(c), 15000);
+}
+
+async function main() {
+  const want = coinFromLocation(location);
+  if (!want) { $('missing-why').textContent = 'No coin address in the link.'; show('state-missing'); return; }
+  let feed;
+  try { const r = await fetch('/pairoo/api/coins.json', { cache: 'no-store' }); if (!r.ok) throw new Error(r.status); feed = await r.json(); }
+  catch (e) { $('missing-why').textContent = 'The coin feed could not be read right now.'; show('state-missing'); return; }
+  const c = (feed.coins || []).find((x) => sameMint(x.mint, want));
+  if (!c) { show('state-missing'); return; }
+  paintIdentity(c); paintStream(c); paintFee(c); paintChainRows(c);
+  show('coin');
+  if (c.chain === 'robinhood') paintCurveLive(c); else paintCurveStatic(c);
+}
+main();
+</script>
+</body>
+</html>
