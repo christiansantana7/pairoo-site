@@ -1,5 +1,5 @@
 {
- "generated_at": 1789340426,
+ "generated_at": 1789340893,
  "source": "data/fila.db (only requests with an on-chain mint and signature)",
  "count": 2,
  "note": null,
@@ -16,8 +16,8 @@
    "created_at": 1789179593,
    "creator_fee_bps": 100,
    "market_cap_quote": 17.704033327120225,
-   "market_cap_usd": 3808.1016229745337,
-   "quote_price_usd": 215.0979696327745,
+   "market_cap_usd": 3809.564933159106,
+   "quote_price_usd": 215.1806236900469,
    "bonding_progress": 0.0,
    "replies": 0,
    "graduated": false,
@@ -51,7 +51,30 @@
     }
    ],
    "page": "/coin/DPKGkiR366HyVJNmotzSYuFcGZvw2q1pnYfhweKZh6am",
-   "stream": null
+   "stream": null,
+   "origin": {
+    "channel": "discord",
+    "surface": "mention",
+    "text": "cria uma moeda chamada Foguete, ticker FGT, pareada com a nvidia",
+    "truncated": false,
+    "author_label": "@0xanion",
+    "url": "https://discord.com/channels/1460785646720254074/1460785647668301866/1548156122223874099",
+    "at": 1789190382
+   },
+   "thread": {
+    "channel": "discord",
+    "messages": [
+     {
+      "id": "1548156183964033136",
+      "bot": true,
+      "author_label": "Pairoobot",
+      "text": "$FGT is live, paired with $NVDAX. mint DPKGkiR366HyVJNmotzSYuFcGZvw2q1pnYfhweKZh6am. tx 2gDFKYdk59kPEd2getRkqYpy1BYRpAKCrDRRSRiUoCfWKaohevbtLacrBKzWQmYiyYPGCPSeEywDqRdy8pfF7MZk.",
+      "truncated": false,
+      "at": 1789179597
+     }
+    ],
+    "collected_at": 1789340890
+   }
   },
   {
    "name": "Orbit with ticker ORB paired wit",
@@ -65,8 +88,8 @@
    "created_at": 1789176845,
    "creator_fee_bps": 100,
    "market_cap_quote": 17.704033327120225,
-   "market_cap_usd": 3808.1016229745337,
-   "quote_price_usd": 215.0979696327745,
+   "market_cap_usd": 3809.564933159106,
+   "quote_price_usd": 215.1806236900469,
    "bonding_progress": 0.0,
    "replies": 0,
    "graduated": false,
@@ -100,7 +123,30 @@
     }
    ],
    "page": "/coin/EEV7hC6U8MF2NT5MuUaiGbk9nWgq6buNsmyq5cL4Sx4x",
-   "stream": null
+   "stream": null,
+   "origin": {
+    "channel": "discord",
+    "surface": "mention",
+    "text": "launch a token called Orbit with ticker ORB paired with NVDAX",
+    "truncated": false,
+    "author_label": "@0xanion",
+    "url": "https://discord.com/channels/1460785646720254074/1460785647668301866/1548144592241557647",
+    "at": 1789187633
+   },
+   "thread": {
+    "channel": "discord",
+    "messages": [
+     {
+      "id": "1548144660680278138",
+      "bot": true,
+      "author_label": "Pairoobot",
+      "text": "$ORB is live, paired with $NVDAX. mint EEV7hC6U8MF2NT5MuUaiGbk9nWgq6buNsmyq5cL4Sx4x. tx 5DbFxGgMbSvsNsaH5ELQoKGTUXjHQEoSPsPFWn7ZdHnqggge642xYM3zWV52R81dEPFKs3RLRv3iLmRswj15VpFU.",
+      "truncated": false,
+      "at": 1789176850
+     }
+    ],
+    "collected_at": 1789340890
+   }
   }
  ]
 }

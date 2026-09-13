@@ -93,6 +93,18 @@ h1 em{font-style:normal;background:linear-gradient(transparent 62%,var(--yellow)
 .note{border:1px solid rgba(251,244,228,.24);border-radius:6px;padding:18px}
 .note p{margin:8px 0 0;font-size:14px;color:rgba(251,244,228,.8)}
 .note code{font-family:var(--mono);font-size:12px;background:rgba(251,244,228,.12);padding:2px 6px;border-radius:2px}
+/* A conversa: a mensagem que pediu a moeda, e o que veio depois dela. */
+.msg{display:flex;gap:10px;align-items:flex-start;padding:12px 0;border-top:1px solid rgba(251,244,228,.14)}
+.msg:first-of-type{border-top:0;padding-top:0}
+.msg .who{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(251,244,228,.5);flex:0 0 auto}
+.msg .bubble{flex:1;min-width:0}
+.msg .t{font-size:14px;line-height:1.6;color:var(--paper);word-wrap:break-word}
+.msg .when{font-family:var(--mono);font-size:10px;color:rgba(251,244,228,.4);margin-top:4px}
+.msg.bot .t{color:var(--yellow)}
+.ask{border:2px solid var(--yellow);border-radius:6px;padding:16px;background:rgba(255,201,30,.07)}
+.ask .t{font-size:16px;line-height:1.55;color:var(--paper)}
+.ask .mark{font-family:var(--disp);font-size:34px;line-height:0;color:var(--yellow);vertical-align:-8px;margin-right:6px}
+.thread-more{font-family:var(--mono);font-size:11px;color:rgba(251,244,228,.5);margin-top:12px}
 
 /* curve */
 .sec{padding:68px 0 0}
@@ -277,6 +289,40 @@ function paintFactsStatic(c) {
     + fact('replies', c.replies == null ? '—' : String(c.replies), '');
 }
 
+const when = (ts) => ts ? new Date(ts * 1000).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' }) : '';
+
+/* THE ASK — the exact message that became this coin, not a description of one.
+   It is public where it was written, and it is the best provenance this
+   product has: this token exists because somebody typed that sentence. */
+function askBlock(c) {
+  const o = c.origin;
+  if (!o || !o.text) {
+    return `<div class="note"><div class="lab">WHERE IT CAME FROM</div><p>${c.channel ? `A mention on ${esc(c.channel)} became this coin. The message itself was not kept for this one.` : 'A mention became this coin.'}</p></div>`;
+  }
+  return `<div class="note"><div class="lab">THE ASK · ${esc((o.channel || '').toUpperCase())}</div>
+    <div class="ask" style="margin-top:12px"><div class="t"><span class="mark">&ldquo;</span>${esc(o.text)}${o.truncated ? '…' : ''}</div></div>
+    <p style="font-family:var(--mono);font-size:11px;color:rgba(251,244,228,.5);margin-top:10px">${esc(o.author_label || 'the creator')}${o.at ? ' · ' + esc(when(o.at)) : ''}</p>
+    ${o.url ? `<a class="btn paper sm" style="margin-top:12px" href="${esc(o.url)}" target="_blank" rel="noopener noreferrer">Open the original ↗</a>` : ''}</div>`;
+}
+
+/* THE THREAD — the reply chain that came after the ask, mirrored at build.
+   The site is static and the bot's credential does not live in it, so this is
+   a mirror with a date on it and a door to the real conversation. */
+function threadBlock(c) {
+  const t = c.thread, msgs = (t && t.messages) || [];
+  if (!msgs.length) {
+    return c.origin && c.origin.url
+      ? `<div class="note"><div class="lab">THE THREAD</div><p>Nothing has been said since the coin was created.</p><a class="btn paper sm" style="margin-top:12px" href="${esc(c.origin.url)}" target="_blank" rel="noopener noreferrer">Say something ↗</a></div>`
+      : '';
+  }
+  return `<div class="note"><div class="lab">THE THREAD · ${msgs.length} MESSAGE${msgs.length === 1 ? '' : 'S'}</div>
+    <div style="margin-top:10px">${msgs.map((m) => `<div class="msg${m.bot ? ' bot' : ''}">
+      <span class="who">${m.bot ? 'BOT' : esc((m.author_label || '?').slice(0, 10))}</span>
+      <span class="bubble"><span class="t">${esc(m.text)}${m.truncated ? '…' : ''}</span>${m.at ? `<span class="when">${esc(when(m.at))}</span>` : ''}</span></div>`).join('')}</div>
+    <p class="thread-more">Mirrored when this page was built${t.collected_at ? ' · ' + esc(when(t.collected_at)) : ''}. The conversation itself lives on ${esc(c.channel || 'the channel')}.</p>
+    ${c.origin && c.origin.url ? `<a class="btn paper sm" style="margin-top:12px" href="${esc(c.origin.url)}" target="_blank" rel="noopener noreferrer">Join the thread ↗</a>` : ''}</div>`;
+}
+
 function paintStream(c) {
   const v = streamView(c.stream), screen = $('screen'), side = $('side');
   if (v.kind === 'embed') {
@@ -289,10 +335,8 @@ function paintStream(c) {
     $('live-src').textContent = 'none attached';
     screen.innerHTML = `<div class="empty"><div><div class="lab" style="color:rgba(251,244,228,.5)">NO LIVE ATTACHED</div><h3 style="font-size:28px;margin:12px 0 10px;color:var(--paper)">The stage is empty.</h3><p style="margin:0;color:rgba(251,244,228,.65);font-size:14px;max-width:38ch">The creator attaches one by messaging <code style="font-family:var(--mono)">@pairoobot</code> — <code style="font-family:var(--mono)">live &lt;link&gt;</code>.</p></div></div><img class="bird" src="/assets/bird-clean.webp" alt="">`;
   }
-  side.innerHTML =
-    `<div class="note"><div class="lab">WHERE IT CAME FROM</div><p>${c.channel ? `Someone mentioned the bot on ${esc(c.channel)} with a name, a ticker and a pair. The coin existed on chain moments later.` : 'A mention became this coin.'}</p></div>` +
-    `<div class="note"><div class="lab">STREAMING? PUT THE COIN ON YOUR STREAM</div><p>Add <code>pairoo.xyz/coin/${esc(short(c.mint))}/overlay</code> as a browser source in OBS.</p><button class="btn paper sm" id="ov" style="margin-top:14px">Copy overlay link</button></div>` +
-    `<div class="note"><div class="lab">PLAYS HERE</div><p>YouTube, Twitch and Kick play on this page. TikTok and X forbid it, so they open in a card.</p></div>`;
+  side.innerHTML = askBlock(c) + threadBlock(c) +
+    `<div class="note"><div class="lab">STREAMING? PUT THE COIN ON YOUR STREAM</div><p>Add <code>pairoo.xyz/coin/${esc(short(c.mint))}/overlay</code> as a browser source in OBS.</p><button class="btn paper sm" id="ov" style="margin-top:14px">Copy overlay link</button></div>`;
   const ov = $('ov'); if (ov) ov.addEventListener('click', () => copyTo(ov, location.origin + '/coin/' + c.mint + '/overlay', 'Copy overlay link'));
 }
 
