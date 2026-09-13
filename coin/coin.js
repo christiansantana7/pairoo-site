@@ -81,6 +81,50 @@ export function deriveState(raw) {
   };
 }
 
+/**
+ * THE CURVE, DERIVED — not a drawn line and not price history (we keep none).
+ *
+ * A constant-product curve holds `k = quote * token`. The quote side starts at
+ * `phantomQuote` (virtual) and grows by what is actually raised, so at a raise
+ * of `r`:  quote = phantom + r,  token = k / quote,  price = quote² / k.
+ *
+ * Every point below comes from that identity applied to reserves read from the
+ * chain this minute. The dot is where the coin actually is. Nothing is
+ * invented, and if the numbers do not support a curve this returns null and
+ * the page draws no chart rather than a decorative one.
+ *
+ * @returns {{points:[number,number][], dot:[number,number], target:number, priceNow:number, priceAtTarget:number}|null}
+ */
+export function curvePoints(raw, steps = 64) {
+  const { quoteReserve, tokenReserve, phantomQuote, graduationThreshold, realQuoteReserve, pairDecimals, tokenDecimals } = raw;
+  if (!(quoteReserve > 0n) || !(tokenReserve > 0n) || !(graduationThreshold > 0n)) return null;
+  const pd = 10 ** pairDecimals, td = 10 ** tokenDecimals;
+  const k = Number(quoteReserve) * Number(tokenReserve);
+  if (!Number.isFinite(k) || k <= 0) return null;
+  const phantom = Number(phantomQuote ?? 0n);
+  const target = Number(graduationThreshold);
+  const raised = Number(realQuoteReserve ?? 0n);
+  // price in pair units per token at a given raise (raw units in, display out)
+  const priceAt = (r) => ((phantom + r) * (phantom + r)) / k * (td / pd);
+  const points = [];
+  for (let i = 0; i <= steps; i++) { const r = (target * i) / steps; points.push([r / pd, priceAt(r)]); }
+  const dot = [raised / pd, priceAt(raised)];
+  if (points.some(([, y]) => !Number.isFinite(y)) || !Number.isFinite(dot[1])) return null;
+  return { points, dot, target: target / pd, priceNow: dot[1], priceAtTarget: priceAt(target) };
+}
+
+/** The same curve as an SVG path inside a `w`×`h` box, y flipped. */
+export function curvePath(curve, w, h, pad = 2) {
+  if (!curve) return null;
+  const xs = curve.points.map((p) => p[0]), ys = curve.points.map((p) => p[1]);
+  const x0 = 0, x1 = Math.max(...xs) || 1, y0 = 0, y1 = Math.max(...ys) || 1;
+  const X = (x) => pad + ((x - x0) / (x1 - x0)) * (w - pad * 2);
+  const Y = (y) => h - pad - ((y - y0) / (y1 - y0)) * (h - pad * 2);
+  const d = curve.points.map(([x, y], i) => `${i ? 'L' : 'M'}${X(x).toFixed(1)},${Y(y).toFixed(1)}`).join('');
+  return { d, area: `${d}L${X(x1).toFixed(1)},${h}L${X(x0).toFixed(1)},${h}Z`,
+           dot: [X(curve.dot[0]), Y(curve.dot[1])] };
+}
+
 /** What the page says about the creator fee — the truth per route, never "80/20" by default. */
 export function feeCopy(coin) {
   const bps = coin.creator_fee_bps;
@@ -150,8 +194,8 @@ export async function readRobinhood(token) {
   const L = decodeLaunched(first.results[0]);
   if (!L) return null;
   const c = L.curve;
-  // Only what the page shows. phantomQuote/launchSupply/sellableTokens are not painted, so they are not read.
-  const names = ['quoteReserve', 'realQuoteReserve', 'tokenReserve', 'graduationThreshold', 'graduated',
+  // Only what the page shows. launchSupply/sellableTokens are not painted, so they are not read.
+  const names = ['quoteReserve', 'realQuoteReserve', 'tokenReserve', 'phantomQuote', 'graduationThreshold', 'graduated',
     'readyToGraduate', 'creatorTaxBps', 'creatorTaxBalance', 'feeBps', 'isNativeQuote', 'launchedAt'];
   const bools = new Set(['graduated', 'readyToGraduate', 'isNativeQuote']);
   const reads = names.map((n) => [c, SEL[n]]);
