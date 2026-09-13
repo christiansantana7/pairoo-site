@@ -1,10 +1,11 @@
 {
- "generated_at": 1789311304,
+ "generated_at": 1789331984,
  "count": 1,
  "creators": [
   {
    "id": "4b23028200dd",
-   "label": "discord creator",
+   "label": "@0xanion",
+   "display": "Nexus",
    "channel": "discord",
    "coins": [
     "DPKGkiR366HyVJNmotzSYuFcGZvw2q1pnYfhweKZh6am",
