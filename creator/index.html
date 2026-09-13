@@ -184,7 +184,7 @@ async function main() {
       ${k.image_uri ? `<img class="face" src="${esc(k.image_uri)}" alt="">` : '<img class="face" alt="">'}
       <div class="tear"></div>
       <div class="t">$${esc(k.ticker)}</div>
-      <div class="m">${esc(k.name)} · vs $${esc(k.pair || '—')}${pct == null ? '' : ` · ${pct}% to graduation`}</div>
+      <div class="m">${esc(k.name)} · $${esc(k.pair || '—')}${pct == null ? '' : ` · ${pct}% to graduation`}</div>
     </a>`;
   }).join('') + `<div class="next"><div><b>Next one?</b><div style="font-size:13.5px;margin-top:8px">Mention <span class="mono">@pairoobot</span> with a name, a ticker and a pair.</div></div></div>`;
   show('creator');

@@ -140,7 +140,7 @@ function tape() {
   // no progress yet shows a dash rather than a number.
   const one = coins.map((c) => {
     const p = progressOf(c);
-    return `<span>$${esc(c.ticker)} <b>${p == null ? '—' : Math.round(p * 100) + '%'}</b> vs $${esc(c.pair || '—')}${c.stream ? ' · <span class="on">● ON AIR</span>' : ''}</span>`;
+    return `<span>$${esc(c.ticker)} <b>${p == null ? '—' : Math.round(p * 100) + '%'}</b> $${esc(c.pair || '—')}${c.stream ? ' · <span class="on">● ON AIR</span>' : ''}</span>`;
   }).join('');
   // Two identical halves make the -50% loop seamless; repeat short lists so the
   // strip is at least as wide as the screen.
@@ -168,7 +168,7 @@ function paint() {
         : (c.market_cap_usd != null ? '$' + fmtNum(c.market_cap_usd, 0) + ' mcap' : 'from the feed');
       return `<a class="row" href="/coin/${encodeURIComponent(c.mint)}">
         <span class="coin">${c.image_uri ? `<img src="${esc(c.image_uri)}" alt="">` : '<img alt="">'}<span style="min-width:0"><span class="t">$${esc(c.ticker)}${c.stream ? '<span class="chip">on air</span>' : ''}</span><span class="n" style="display:block">${esc(c.name)}</span></span></span>
-        <span><span class="pill pair">vs $${esc(c.pair || '—')}</span></span>
+        <span><span class="pill pair">$${esc(c.pair || '—')}</span></span>
         <span class="venue"><img src="/assets/icon-${esc(c.chain === 'robinhood' ? 'robinhood' : c.chain === 'bsc' ? 'bsc' : 'solana')}.webp" alt=""><span class="mono" style="font-size:11px">${esc(c.chain_label || c.chain)}</span></span>
         <span><span class="bar"><i style="width:${pct ?? 0}%"></i></span><span class="num" style="display:block;margin-top:5px">${pct == null ? '—' : pct + '%'}${l && l.status !== 'on the curve' ? ' · ' + esc(l.status) : ''} · ${raised}</span></span>
         <span class="num right">${esc(when)}</span></a>`;

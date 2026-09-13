@@ -42,7 +42,7 @@ async function main() {
   const feed = await fetch('/pairoo/api/coins.json', { cache: 'no-store' }).then((r) => r.json()).catch(() => null);
   const c = feed && (feed.coins || []).find((x) => sameMint(x.mint, want));
   if (!c) { $('tick').textContent = '$?'; $('src').textContent = 'not one of ours'; return; }
-  $('tick').textContent = '$' + c.ticker; $('pair').textContent = 'vs $' + (c.pair || '—');
+  $('tick').textContent = '$' + c.ticker; $('pair').textContent = '$' + (c.pair || '—');
   if (c.image_uri) $('face').src = c.image_uri; else $('face').style.visibility = 'hidden';
   if (c.chain !== 'robinhood') {
     const pct = c.bonding_progress == null ? null : Math.round(c.bonding_progress * 100);
