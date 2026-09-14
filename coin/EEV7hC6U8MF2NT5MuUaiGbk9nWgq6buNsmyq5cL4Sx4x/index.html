@@ -108,6 +108,23 @@ h1 em{font-style:normal;background:linear-gradient(transparent 62%,var(--yellow)
 .ask .t{font-size:16px;line-height:1.55;color:var(--paper)}
 .ask .mark{font-family:var(--disp);font-size:34px;line-height:0;color:var(--yellow);vertical-align:-8px;margin-right:6px}
 .thread-more{font-family:var(--mono);font-size:11px;color:rgba(251,244,228,.5);margin-top:12px}
+/* A sala: a conversa que acontece AQUI. */
+.room{border:1px solid var(--hair-2);border-radius:8px;background:var(--paper-2);overflow:hidden}
+.room-list{max-height:420px;overflow-y:auto;padding:6px 18px}
+.room-msg{display:flex;gap:12px;padding:13px 0;border-top:1px solid var(--hair)}
+.room-msg:first-child{border-top:0}
+.room-msg .av{width:34px;height:34px;border-radius:50%;flex:none;background:var(--paper);border:1px solid var(--hair-2);object-fit:cover}
+.room-msg .who{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--ink-45)}
+.room-msg .t{font-size:14.5px;line-height:1.6;white-space:pre-wrap;word-wrap:break-word;margin-top:2px}
+.room-foot{border-top:1px solid var(--hair-2);padding:14px 18px;background:var(--paper)}
+.room-foot form{display:flex;gap:10px;align-items:flex-end}
+.room-foot textarea{flex:1;resize:none;font:14.5px/1.5 var(--sans);color:var(--ink);background:var(--paper-2);
+  border:1px solid var(--hair-2);border-radius:4px;padding:10px 12px;min-height:44px;max-height:120px}
+.room-foot textarea:focus{outline:2px solid var(--yellow);outline-offset:0}
+.room-empty{padding:44px 18px;text-align:center;color:var(--ink-45)}
+.room-empty b{display:block;font-family:var(--disp);font-size:22px;letter-spacing:-.04em;color:var(--ink);margin-bottom:8px}
+.room-note{font-family:var(--mono);font-size:11px;color:var(--ink-45);margin-top:12px}
+.room-err{font-family:var(--mono);font-size:11.5px;color:#B4262A;margin-top:10px}
 
 /* curve */
 .sec{padding:68px 0 0}
@@ -220,6 +237,12 @@ footer{border-top:1px solid var(--hair);padding:28px 0 46px}
       <div id="rows"></div>
       <div class="links" id="links"></div>
       <p class="foot-note" id="links-note"></p>
+    </section>
+
+    <section class="wrap sec">
+      <div class="sec-head"><div><span class="lab">04</span><h2>The room</h2></div><span class="lab" id="room-src">—</span></div>
+      <div class="room" id="room"></div>
+      <p class="room-note" id="room-note"></p>
     </section>
 
     <section class="wrap end" id="end" hidden>
@@ -424,6 +447,97 @@ async function paintCurveLive(c) {
   clearTimeout(timer); timer = setTimeout(() => paintCurveLive(c), 15000);
 }
 
+/* THE ROOM — the conversation that happens HERE, not a mirror of somewhere else.
+   Reading needs nothing; posting needs a Discord sign-in, because a coin chat
+   with no identity becomes a scam feed in a day. The API runs on our own box
+   (src/chat_api.py); when it cannot be reached the section says so instead of
+   showing an empty box that looks broken. */
+const CHAT_API = 'https://api.pairoo.xyz';
+let me = null, lastId = 0, roomTimer = null;
+
+const stamp = (ts) => ts ? new Date(ts * 1000).toLocaleString('en-US', { dateStyle: 'short', timeStyle: 'short' }) : '';
+
+async function chat(path, opts = {}) {
+  const r = await fetch(CHAT_API + path, { credentials: 'include', ...opts });
+  const body = await r.json().catch(() => ({}));
+  if (!r.ok) throw Object.assign(new Error(body.error || r.status), { status: r.status, body });
+  return body;
+}
+
+function roomShell(c, msgs) {
+  const list = msgs.length
+    ? msgs.map((m) => `<div class="room-msg">${m.avatar ? `<img class="av" src="${esc(m.avatar)}" alt="" loading="lazy">` : '<span class="av"></span>'}<span><span class="who">${esc(m.label)} · ${esc(stamp(m.at))}</span><span class="t">${esc(m.text)}</span></span></div>`).join('')
+    : `<div class="room-empty"><b>Nobody has said anything yet.</b><span>Be the first to say something about $${esc(c.ticker)}.</span></div>`;
+  const foot = me && me.signed_in
+    ? `<form id="say"><textarea id="say-text" maxlength="500" rows="1" placeholder="say something about $${esc(c.ticker)}…"></textarea><button class="btn" type="submit">Send</button></form>
+       <div class="room-note">Posting as ${esc(me.label || 'you')} · <a href="#" id="signout" style="border-bottom:1px solid var(--hair-2)">sign out</a></div>`
+    : `<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><a class="btn" id="signin" href="#">Sign in with Discord</a><span class="room-note" style="margin:0">Reading is open to everyone. Posting asks who you are — it is what keeps this from becoming a scam feed.</span></div>`;
+  return `<div class="room-list" id="room-list">${list}</div><div class="room-foot">${foot}</div>`;
+}
+
+function wireRoom(c) {
+  const si = $('signin');
+  if (si) si.addEventListener('click', (e) => { e.preventDefault();
+    location.href = `${CHAT_API}/v1/auth/discord/start?return=${encodeURIComponent(location.href)}`; });
+  const so = $('signout');
+  if (so) so.addEventListener('click', async (e) => { e.preventDefault();
+    try { await chat('/v1/auth/signout'); } catch { /* já saiu */ }
+    me = null; await paintRoom(c); });
+  const form = $('say');
+  if (form) {
+    const box = $('say-text');
+    box.addEventListener('input', () => { box.style.height = 'auto'; box.style.height = Math.min(box.scrollHeight, 120) + 'px'; });
+    box.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); form.requestSubmit(); } });
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const text = box.value.trim(); if (!text) return;
+      box.disabled = true;
+      try {
+        await chat(`/v1/chat/${c.mint}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text }) });
+        box.value = ''; box.style.height = 'auto';
+        $('room-note').textContent = '';
+        await pullRoom(c);
+      } catch (err) {
+        $('room-note').innerHTML = `<span class="room-err">${esc(err.message)}</span>`;
+      } finally { box.disabled = false; box.focus(); }
+    });
+  }
+}
+
+let roomMsgs = [];
+async function pullRoom(c) {
+  const d = await chat(`/v1/chat/${c.mint}?after=${lastId}`);
+  if (d.messages.length) {
+    roomMsgs = roomMsgs.concat(d.messages);
+    lastId = d.messages[d.messages.length - 1].id;
+    const list = $('room-list');
+    const atBottom = list && (list.scrollTop + list.clientHeight >= list.scrollHeight - 30);
+    $('room').innerHTML = roomShell(c, roomMsgs);
+    wireRoom(c);
+    const l2 = $('room-list'); if (l2 && atBottom) l2.scrollTop = l2.scrollHeight;
+  }
+  $('room-src').textContent = `${roomMsgs.length} MESSAGE${roomMsgs.length === 1 ? '' : 'S'} · LIVE`;
+}
+
+async function paintRoom(c) {
+  try {
+    me = await chat('/v1/me');
+    const d = await chat(`/v1/chat/${c.mint}`);
+    roomMsgs = d.messages; lastId = roomMsgs.length ? roomMsgs[roomMsgs.length - 1].id : 0;
+    $('room').innerHTML = roomShell(c, roomMsgs);
+    wireRoom(c);
+    $('room-src').textContent = `${roomMsgs.length} MESSAGE${roomMsgs.length === 1 ? '' : 'S'} · LIVE`;
+    $('room-note').textContent = '';
+    clearInterval(roomTimer);
+    roomTimer = setInterval(() => pullRoom(c).catch(() => {}), 8000);
+  } catch (err) {
+    // Sem servidor não há sala. Dizer isso é melhor que uma caixa vazia que
+    // parece quebrada — e o thread do Discord continua sendo um lugar real.
+    $('room-src').textContent = 'NOT OPEN YET';
+    $('room').innerHTML = `<div class="room-empty"><b>The room is not open yet.</b><span>The conversation lives on ${esc(c.channel || 'the channel')} until it is.</span>${c.origin && c.origin.url ? `<div style="margin-top:20px"><a class="btn ghost" href="${esc(c.origin.url)}" target="_blank" rel="noopener noreferrer">Talk on ${esc(c.channel || 'the channel')} ↗</a></div>` : ''}</div>`;
+  }
+}
+
 async function main() {
   const want = coinFromLocation(location);
   if (!want) { $('missing-why').textContent = 'No coin address in the link.'; show('state-missing'); return; }
@@ -437,6 +551,7 @@ async function main() {
   paintIdentity(c); paintFactsStatic(c); paintStream(c); paintFee(c); paintChainRows(c);
   show('coin');
   if (c.chain === 'robinhood') paintCurveLive(c); else paintCurveStatic(c);
+  paintRoom(c);
 }
 main();
 </script>
