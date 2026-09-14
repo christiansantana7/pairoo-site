@@ -1,9 +1,85 @@
 {
- "generated_at": 1789346811,
+ "generated_at": 1789416160,
  "source": "data/fila.db (only requests with an on-chain mint and signature)",
- "count": 2,
+ "count": 4,
  "note": null,
  "coins": [
+  {
+   "name": "STOPAI",
+   "ticker": "STOP",
+   "pair": "MU",
+   "quote_mint": "0xfF080c8ce2E5feadaCa0Da81314Ae59D232d4afD",
+   "mint": "0x892Fd1a98fA5539b42Bf1e5073D710B569f051e7",
+   "signature": "0xe9838e841771280de07a855cad772ff6fe9738da382b59f0c71eb51accda87cf",
+   "launchpad": "pons",
+   "chain": "robinhood",
+   "chain_label": "Robinhood Chain",
+   "channel": "discord",
+   "creator_id": "4b23028200dd",
+   "creator_label": "@0xanion",
+   "created_at": 1789415401,
+   "creator_fee_bps": 100,
+   "fee_model": "single",
+   "fee_recipient": "0xC5cC8F03F4FAa41bEE7F4B0854218606315B435c",
+   "metadata_uri": "https://gateway.irys.xyz/opW49qQcYFHfuyQY67apVbUbUoZ3ef9AGfDiEjeauhc",
+   "image_uri": "https://gateway.irys.xyz/5DyqAxebJpryAjJ6vhgJ8MiTGwmnrDfsWroLCCcYnnGJ",
+   "market_cap_usd": null,
+   "bonding_progress": null,
+   "watchers": null,
+   "live_source": "chain",
+   "creator_display": "Nexus",
+   "links": [],
+   "page": "/coin/0x892Fd1a98fA5539b42Bf1e5073D710B569f051e7",
+   "stream": null,
+   "origin": {
+    "channel": "discord",
+    "surface": "mention",
+    "text": "create a coin called STOPAI with ticker STOP paired to MU on robinhood",
+    "truncated": false,
+    "author_label": "@0xanion",
+    "url": null,
+    "at": 1789415393
+   },
+   "thread": null
+  },
+  {
+   "name": "STOPAI",
+   "ticker": "STOP",
+   "pair": "NVDA",
+   "quote_mint": "0xd0601CE157Db5bdC3162BbaC2a2C8aF5320D9EEC",
+   "mint": "0x7cb41e76150a4cede88f9832c8b5712c05bcdf26",
+   "signature": "0xe1da3d329932913029c2fcdb89ebd54aa1f91154fa9cf45fbb87f8e20b732cfc",
+   "launchpad": "pons",
+   "chain": "robinhood",
+   "chain_label": "Robinhood Chain",
+   "channel": "discord",
+   "creator_id": "4b23028200dd",
+   "creator_label": "@0xanion",
+   "created_at": 1789414621,
+   "creator_fee_bps": 100,
+   "fee_model": "single",
+   "fee_recipient": "0xC5cC8F03F4FAa41bEE7F4B0854218606315B435c",
+   "metadata_uri": "https://gateway.irys.xyz/DZ3WQspMhbN2iewMXnQbgp336KageM4rFdxmC5dJGAsU",
+   "image_uri": "https://gateway.irys.xyz/9RNosnk6evjwz1nSeHY2vcRtJGPMgr3RE57nsxzB9ZMp",
+   "market_cap_usd": null,
+   "bonding_progress": null,
+   "watchers": null,
+   "live_source": "chain",
+   "creator_display": "Nexus",
+   "links": [],
+   "page": "/coin/0x7cb41e76150a4cede88f9832c8b5712c05bcdf26",
+   "stream": null,
+   "origin": {
+    "channel": "discord",
+    "surface": "mention",
+    "text": "create a coin called STOPAI with ticker STOP paired to NVDA on robinhood",
+    "truncated": false,
+    "author_label": "@0xanion",
+    "url": null,
+    "at": 1789414615
+   },
+   "thread": null
+  },
   {
    "name": "Foguete",
    "ticker": "FGT",
@@ -16,8 +92,8 @@
    "created_at": 1789179593,
    "creator_fee_bps": 100,
    "market_cap_quote": 17.704033327120225,
-   "market_cap_usd": 3797.400584260394,
-   "quote_price_usd": 214.49352890921648,
+   "market_cap_usd": 3731.4842270770155,
+   "quote_price_usd": 210.7702893532672,
    "bonding_progress": 0.0,
    "replies": 0,
    "graduated": false,
@@ -73,7 +149,7 @@
       "at": 1789179597
      }
     ],
-    "collected_at": 1789346808
+    "collected_at": 1789416154
    }
   },
   {
@@ -88,8 +164,8 @@
    "created_at": 1789176845,
    "creator_fee_bps": 100,
    "market_cap_quote": 17.704033327120225,
-   "market_cap_usd": 3797.400584260394,
-   "quote_price_usd": 214.49352890921648,
+   "market_cap_usd": 3731.4842270770155,
+   "quote_price_usd": 210.7702893532672,
    "bonding_progress": 0.0,
    "replies": 0,
    "graduated": false,
@@ -145,7 +221,7 @@
       "at": 1789176850
      }
     ],
-    "collected_at": 1789346808
+    "collected_at": 1789416154
    }
   }
  ]

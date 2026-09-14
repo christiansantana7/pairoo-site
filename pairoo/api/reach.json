@@ -1,8 +1,10 @@
 {
- "generated_at": 1789346811,
+ "generated_at": 1789416160,
  "states": {
   "ready": "Ready",
-  "final": "Final testing"
+  "final": "Final testing",
+  "funding": "Waiting on funding",
+  "unavailable": "Not open yet"
  },
  "channels": [
   {
@@ -53,14 +55,14 @@
    "id": "solana",
    "name": "Solana",
    "via": "pump.fun",
-   "state": "ready",
+   "state": "funding",
    "logo": "solana"
   },
   {
    "id": "solana-stonkfun",
    "name": "Solana",
    "via": "StonkFun",
-   "state": "ready",
+   "state": "funding",
    "logo": "solana"
   },
   {
@@ -74,7 +76,7 @@
    "id": "bsc",
    "name": "BNB Chain",
    "via": "four.meme",
-   "state": "ready",
+   "state": "unavailable",
    "logo": "bsc"
   }
  ],

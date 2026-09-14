@@ -1,5 +1,5 @@
 {
- "generated_at": 1789346811,
+ "generated_at": 1789416160,
  "count": 1,
  "creators": [
   {
@@ -8,6 +8,8 @@
    "display": "Nexus",
    "channel": "discord",
    "coins": [
+    "0x892Fd1a98fA5539b42Bf1e5073D710B569f051e7",
+    "0x7cb41e76150a4cede88f9832c8b5712c05bcdf26",
     "DPKGkiR366HyVJNmotzSYuFcGZvw2q1pnYfhweKZh6am",
     "EEV7hC6U8MF2NT5MuUaiGbk9nWgq6buNsmyq5cL4Sx4x"
    ],
