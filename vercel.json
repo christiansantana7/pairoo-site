@@ -3,6 +3,26 @@
   "trailingSlash": false,
   "rewrites": [
     {
+      "source": "/workspace",
+      "destination": "https://api.pairoo.xyz/workspace"
+    },
+    {
+      "source": "/workspace/:path*",
+      "destination": "https://api.pairoo.xyz/workspace/:path*"
+    },
+    {
+      "source": "/project/:id([a-f0-9]{24})",
+      "destination": "https://api.pairoo.xyz/project/:id"
+    },
+    {
+      "source": "/join/:id([a-f0-9]{24})",
+      "destination": "https://api.pairoo.xyz/join/:id"
+    },
+    {
+      "source": "/v1/:path*",
+      "destination": "https://api.pairoo.xyz/v1/:path*"
+    },
+    {
       "source": "/coin/:addr([A-Za-z0-9]{20,64})/overlay",
       "destination": "/coin/overlay"
     },
@@ -16,6 +36,15 @@
     }
   ],
   "headers": [
+    {
+      "source": "/v1/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
     {
       "source": "/assets/(.*)",
       "headers": [
