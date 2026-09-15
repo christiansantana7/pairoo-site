@@ -3,26 +3,6 @@
   "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/workspace",
-      "destination": "https://srv1319809-2.tail3320f7.ts.net:10000/workspace"
-    },
-    {
-      "source": "/workspace/:path*",
-      "destination": "https://srv1319809-2.tail3320f7.ts.net:10000/workspace/:path*"
-    },
-    {
-      "source": "/project/:id([a-f0-9]{24})",
-      "destination": "https://srv1319809-2.tail3320f7.ts.net:10000/project/:id"
-    },
-    {
-      "source": "/join/:id([a-f0-9]{24})",
-      "destination": "https://srv1319809-2.tail3320f7.ts.net:10000/join/:id"
-    },
-    {
-      "source": "/v1/:path*",
-      "destination": "https://srv1319809-2.tail3320f7.ts.net:10000/v1/:path*"
-    },
-    {
       "source": "/coin/:addr([A-Za-z0-9]{20,64})/overlay",
       "destination": "/coin/overlay"
     },
@@ -36,15 +16,6 @@
     }
   ],
   "headers": [
-    {
-      "source": "/v1/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "no-store"
-        }
-      ]
-    },
     {
       "source": "/assets/(.*)",
       "headers": [
