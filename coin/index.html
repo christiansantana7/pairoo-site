@@ -478,7 +478,7 @@ function wireRoom(c) {
     location.href = `${CHAT_API}/v1/auth/discord/start?return=${encodeURIComponent(location.href)}`; });
   const so = $('signout');
   if (so) so.addEventListener('click', async (e) => { e.preventDefault();
-    try { await chat('/v1/auth/signout'); } catch { /* já saiu */ }
+    try { await chat('/v1/auth/signout', {method:'POST',headers:{'Content-Type':'application/json'},body:'{}'}); } catch { /* já saiu */ }
     me = null; await paintRoom(c); });
   const form = $('say');
   if (form) {
